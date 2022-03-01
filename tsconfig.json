@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "importHelpers": true,
     "target": "esnext",
     "useDefineForClassFields": true,
     "module": "esnext",
