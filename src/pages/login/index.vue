@@ -1,6 +1,6 @@
 <template>
-  <div class="login-background">
-    <div class="logo">
+  <div>
+    <div>
       <img
         alt="Vue logo"
         src="../../assets/logo.png"
@@ -16,7 +16,6 @@
           plain
           hairline
           color="#db2c1f"
-          class="login-button"
           style="font-"
         >
           手机号登录
@@ -27,7 +26,6 @@
           round
           type="primary"
           color="#db2c1f"
-          class="login-button"
         >
           立即体验
         </Button>
@@ -40,16 +38,16 @@
           checked-color="#db2c1f"
           shape="square"
         >
-          <span class="agree-font">
+          <span>
             同意
           </span>
-          <span class="white-font">
+          <span>
             《用户协议》
           </span>
-          <span class="white-font">
+          <span>
             《隐私政策》
           </span>
-          <span class="white-font">
+          <span>
             《儿童隐私协议》
           </span>
         </van-checkbox>
@@ -68,47 +66,5 @@ import { ref } from 'vue'
 const checked = ref(false)
 </script>
 
-<style scoped>
-.login-background {
-  height: 100%;
-  background-color: #db2c1f;
-}
-
-.box1 {
-  display: flex;
-  display: -webkit-flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.login-button {
-  width: 80%;
-  font-size: 20px;
-  height: 45px;
-  margin-bottom: 10px;
-}
-
-.agree {
-  font-size: 12px;
-  margin-bottom: 5%;
-}
-.van-checkbox {
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.logo {
-  height: 80%;
-}
-.logo img {
-  margin-top: 40%;
-}
-
-.agree-font {
-  font-weight: 100;
-  color: white;
-}
-.white-font {
-  color: white;
-}
+<style scoped lang="scss">
 </style>
