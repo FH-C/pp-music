@@ -3,7 +3,6 @@ import App from './App.vue'
 import { createPinia } from 'pinia'
 import router from './router/index'
 import 'vant/lib/index.css'
-import 'amfe-flexible/index.js'
 import { Button, Checkbox, NavBar, Picker, Field, Dialog, Popup } from 'vant'
 
 const app = createApp(App)
