@@ -62,14 +62,17 @@
 
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
-import { Button } from 'vant'
-import { Checkbox } from 'vant'
+import { Checkbox, Toast, Button } from 'vant'
 import { ref } from 'vue'
 
 const router = useRouter()
 const checked = ref(false)
 const mobileLogin = function () {
-  router.push('mobile')
+  if (!checked.value) {
+    return Toast('请先同意协议')
+  } else {
+    router.push('mobile')
+  }
 }
 </script>
 

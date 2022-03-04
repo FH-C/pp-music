@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Login from '../pages/login/index.vue'
-import mobileLogin from '../pages/login/mobile.vue'
+import MobileLogin from '../pages/login/mobile.vue'
+import Verify from '../pages/login/verify.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -15,8 +16,13 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/mobile',
-    name: 'mobileLogin',
-    component: mobileLogin,
+    name: 'MobileLogin',
+    component: MobileLogin,
+  },
+  {
+    path: '/verify',
+    name: 'verify',
+    component: Verify,
   },
 ]
 

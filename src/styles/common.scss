@@ -10,5 +10,25 @@
 }
 
 .login-button {
-  width: 80%;
+  width: 90%;
+}
+
+.flex-row {
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column {
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.justify-content-center {
+  justify-content: center;
 }
