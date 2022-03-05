@@ -11,10 +11,12 @@
     "@typescript-eslint/parser": "^5.13.0",
     "@vueuse/core": "^7.7.0",
     "autoprefixer": "^10.4.2",
+    "axios": "^0.26.0",
     "eslint-plugin-vue": "^8.5.0",
     "pinia": "^2.0.11",
     "vant": "^3.4.5",
     "vue": "^3.2.25",
+    "vue-request": "^1.2.4",
     "vue-router": "^4.0.13"
   },
   "devDependencies": {

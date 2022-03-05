@@ -80,7 +80,7 @@ const nextStep = function () {
     forbidClick: true,
   })
   router.push({
-    name: 'verify',
+    name: 'VerifyLogin',
     query: {
       countryCode: countryCode.value,
       phone: phone.value,
