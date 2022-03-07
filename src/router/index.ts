@@ -3,6 +3,8 @@ import Login from '../pages/login/index.vue'
 import MobileLogin from '../pages/login/mobile.vue'
 import VerifyLogin from '../pages/login/verifyLogin.vue'
 import PasswordLogin from '../pages/login/passwordLogin.vue'
+import UserInfo from '../pages/user/index.vue'
+import Home from '../pages/home.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -29,6 +31,16 @@ const routes: Array<RouteRecordRaw> = [
     path: '/password_ogin',
     name: 'PasswordLogin',
     component: PasswordLogin,
+  },
+  {
+    path: '/user',
+    name: 'UserInfo',
+    component: UserInfo,
+  },
+  {
+    path: '/home',
+    name: 'Home',
+    component: Home,
   },
 ]
 

@@ -32,3 +32,40 @@
 .justify-content-center {
   justify-content: center;
 }
+
+.scroll-x {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scroll-x::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
+}
+
+.scroll-y {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.text-line-two {
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.bold {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.margin-4 {
+  margin-left: 4%;
+  margin-right: 4%;
+}

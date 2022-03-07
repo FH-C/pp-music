@@ -3,7 +3,8 @@ import App from './App.vue'
 import { createPinia } from 'pinia'
 import router from './router/index'
 import 'vant/lib/index.css'
-import { Button, Checkbox, NavBar, Picker, Field, Dialog, Popup, Toast, CountDown } from 'vant'
+import { Button, Checkbox, NavBar, Picker, Field, Dialog, Popup, Toast, CountDown, Swipe, SwipeItem, Image,
+  Icon, Search } from 'vant'
 
 const app = createApp(App)
 app.use(Button)
@@ -16,6 +17,11 @@ app.use(Button)
 .use(Popup)
 .use(Toast)
 .use(CountDown)
+.use(Swipe)
+.use(SwipeItem)
+.use(Image)
+.use(Icon)
+.use(Search)
 .use(router)
 .use(createPinia())
 .mount('#app')

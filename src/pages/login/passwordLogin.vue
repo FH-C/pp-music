@@ -40,16 +40,22 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { NavBar, Picker, Popup, Field, Button, Toast } from 'vant'
 import { computed, ref } from 'vue'
 import { onClickLeft } from '../../utils/router'
+import { passwordLogin, loginStatus } from '../../api/login'
 const router = useRouter()
+const route = useRoute()
 const password = ref('')
-const login = function () {
-  if (1 !== 1) {
-    return Toast('账号或密码错误')
-  }
+const login = async function () {
+  const res = await passwordLogin({
+    phone: route.query.phone,
+    password: password.value,
+    countrycode: route.query.countryCode?.slice(1),
+  })
+  Toast('登录成功')
+  const res2 = await loginStatus()
   router.push('')
 }
 const buttonColor = computed(() => {

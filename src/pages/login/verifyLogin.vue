@@ -87,7 +87,10 @@ const next = async function () {
     ctcode: route.query.countryCode?.slice(1),
     captcha: verifyCode.join(''),
   })
-  console.log(res)
+  if ((res as any).data.data) {
+    Toast('登录成功')
+    router.push('')
+  }
 }
 const reset = function () {
   for (const index in verifyCode) {
