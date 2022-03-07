@@ -1,7 +1,7 @@
 <template>
   <div style="background-color: white;">
     <div>
-      <div class="flex-row space-between margin-4">
+      <div class="flex-row space-between margin-4 padding-4">
         <span class="bold">
           推荐歌单
         </span>
@@ -41,7 +41,7 @@
 import { computed, onMounted, PropType } from 'vue'
 import { Icon, Image, Button } from 'vant'
 import { numberConvert } from '../utils/number'
-interface recommendPlaylistsType {
+interface recommendedPlaylistsType {
   id: number,
   name: string,
   picUrl: string,
@@ -51,7 +51,7 @@ interface recommendPlaylistsType {
 }
 const props = defineProps({
   recommendPlaylists: {
-    type: Array as PropType<recommendPlaylistsType[]>,
+    type: Array as PropType<recommendedPlaylistsType[]>,
     default: () => {
       return []
     },

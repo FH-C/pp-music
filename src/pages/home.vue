@@ -20,7 +20,8 @@ import { computed, onMounted, ref, reactive } from 'vue'
 import { onClickLeft } from '../utils/router'
 import { loginStatus } from '../api/login'
 import { blockPage } from '../api/home'
-import { recommendResource, personalized } from '../api/recommend'
+import { recommendResource, personalized, recommendSongs, personalizedNewsong, recommendVideo, personalizedMV,
+} from '../api/recommend'
 import RecommendedPlaylistVue from '../components/RecommendedPlaylist.vue'
 import homepageHeaderVue from '../components/homepageHeader.vue'
 const bannerList = ref([])
@@ -36,6 +37,14 @@ onMounted (async () => {
   })
   console.log(res4)
   recommendPlaylists.value = res4.data.result
+  const res5 = await recommendSongs()
+  console.log('res5:', res5)
+  const res6 = await personalizedNewsong({})
+  console.log('res6:', res6)
+  const res7 = await recommendVideo({})
+  console.log('res7:', res7)
+  const res8 = await personalizedMV()
+  console.log('res8:', res8)
   return
 })
 </script>

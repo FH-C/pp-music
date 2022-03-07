@@ -1,23 +1,27 @@
 <template>
   <div>
-    <van-nav-bar
-      title="标题"
-      left-text="返回"
-      left-arrow
-    >
+    <van-nav-bar>
       <template #left>
         <van-icon
           name="wap-nav"
           size="18"
           color="#000000"
+          badge="99+"
         />
       </template>
       <template #title>
         <van-search
           v-model="value"
           shape="round"
-          placeholder="请输入搜索关键词"
-        />
+          placeholder="邓紫棋 最近很火哦~"
+        >
+          <template #left-icon>
+            <van-icon
+              name="search"
+              color="#000000"
+            />
+          </template>
+        </van-search>
       </template>
     </van-nav-bar>
   </div>
