@@ -1,9 +1,12 @@
 <template>
-  <div style="background-color: white;">
+  <div
+    v-if="homepagePlaylists.uiElement"
+    style="background-color: white;"
+  >
     <div>
       <div class="flex-row space-between margin-row-4 padding-4">
         <span class="bold">
-          推荐歌单
+          {{ homepagePlaylists.uiElement.subTitle.title }}
         </span>
         <span>
           <Button
@@ -16,20 +19,26 @@
       </div>
       <div
         class="scroll-x"
-        style="height: 160px;"
       >
         <div
-          v-for="playlist in props.recommendPlaylists"
-          :key="playlist.id"
+          v-for="(playlist, index) in props.homepagePlaylists.creatives"
+          :key="playlist.creativeId"
           class="image"
-          @click="toPlaylist(playlist.id)"
+          @click="toPlaylist(playlist.creativeId)"
         >
           <van-image
-            :src="playlist.picUrl"
+            :src="playlist.uiElement.image.imageUrl"
             radius="10"
           />
-          <span class="text1 text-line-two">{{ playlist.name }}</span>
-          <span class="text2">{{ playCount(playlist.playCount) }}</span>
+          <span class="text1 text-line-two">{{ playlist.uiElement.mainTitle.title }}</span>
+          <span
+            :ref="el => { refs[index] = el }"
+            class="text2"
+            @click="test(index)"
+          >
+            <van-icon name="play" />
+            {{ playCount(playlist.resources[0].resourceExtInfo.playCount) }}
+          </span>
         </div>
       </div>
     </div>
@@ -37,16 +46,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, PropType } from 'vue'
+import { computed, onMounted, PropType, ref } from 'vue'
 import { Icon, Image, Button } from 'vant'
 import { numberConvert } from '../utils/number'
-import { recommendedPlaylistsType } from '../types/types'
-
+const refs: any = ref([])
 const props = defineProps({
-  recommendPlaylists: {
-    type: Array as PropType<recommendedPlaylistsType[]>,
+  homepagePlaylists: {
+    type: Object,
     default: () => {
-      return []
+      return {}
     },
   },
 })
@@ -58,25 +66,29 @@ const playCount = computed(() => {
 const toPlaylist = function (playlistId: number) {
   console.log(playlistId)
 }
+const test = function (index: number) {
+  console.log('refs.value[index]', refs.value[index])
+  console.log('refs.value[index].offsetWidth', refs.value[index].offsetWidth)
+}
 </script>
 
 <style scoped lang="scss">
 @import url('../styles/common.scss');
 .image {
-  width: 27%;
+  width: 200px;
   margin-left: 4%;
   display:inline-block;
 }
 .text1 {
   white-space: normal;
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .text2 {
   position: relative;
   top: -270px;
-  left: 54px;
+  left: 40px;
   font-size: 10px;
   background-color: rgba(128, 128, 128, 0.2);
   color: rgba($color: #ffffff, $alpha: 0.7);
@@ -85,6 +97,14 @@ const toPlaylist = function (playlistId: number) {
 
 .more {
   border: 0px solid rgba(244, 244, 244, 0.1);
+}
+
+.image:nth-last-child(1) {
+  margin-right: 4%;
+}
+
+.scroll-x {
+  height: 300px;
 }
 
 </style>

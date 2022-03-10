@@ -1,6 +1,9 @@
 <template>
   <div>
-    <van-nav-bar>
+    <van-nav-bar
+      fixed
+      safe-area-inset-top
+    >
       <template #left>
         <van-icon
           name="wap-nav"

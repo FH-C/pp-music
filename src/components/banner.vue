@@ -5,26 +5,21 @@
       :lazy-render="true"
     >
       <van-swipe-item
-        v-for="banner in props.bannerList"
+        v-for="(banner, index) in props.bannerList"
         :key="banner.bannerId"
       >
         <van-image
           :src="banner.pic"
-          style="width: 92%;"
-          radius="10"
+          class="image"
+          :radius="10"
         />
-      </van-swipe-item>
-      <template
-        v-if="props.bannerList[active]"
-        #indicator="{active}"
-      >
-        <div
+        <span
           class="custom-indicator"
-          :style="getColor(props.bannerList[active]['titleColor'])"
+          :style="getColor(props.bannerList[index]['titleColor'])"
         >
-          {{ props.bannerList[active]['typeTitle'] }}
-        </div>
-      </template>
+          {{ props.bannerList[index]['typeTitle'] }}
+        </span>
+      </van-swipe-item>
     </van-swipe>
   </div>
 </template>
@@ -32,15 +27,10 @@
 <script setup lang="ts">
 import { computed, onMounted, PropType } from 'vue'
 import { Swipe, SwipeItem, Image } from 'vant'
-interface BannerListType{
-    bannerId: string,
-    pic: string,
-    typeTitle: string,
-    titleColor: string
-}
+import { BannerListType } from '../types/types'
 const props = defineProps({
   bannerList: {
-    type: Array as PropType<BannerListType[]>,
+    type: Array as PropType<bannerListType[]>,
     default: () => {
       return []
     },
@@ -53,17 +43,28 @@ const aaa = function () {
   console.log(11111, props.bannerList)
 }
 const getColor = function (color: string) {
-  return `background-color: ${ color };`
+  let bgColor = color
+  if (color === 'red') {
+    bgColor = '#fa4c49' 
+  } else if (color === 'blue') {
+    bgColor = '#3489cc'
+  }
+  return `background-color: ${ bgColor };`
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .custom-indicator {
   position: absolute;
-  right: 20px;
-  bottom: 5px;
-  padding: 2px 5px;
+  right: 4%;
+  bottom: 8px;
+  /* padding: 2px 5px; */
   font-size: 12px;
   background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.image {
+  width: 92%;
 }
 </style>

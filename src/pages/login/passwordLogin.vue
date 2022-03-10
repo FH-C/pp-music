@@ -55,8 +55,8 @@ const login = async function () {
     countrycode: route.query.countryCode?.slice(1),
   })
   Toast('登录成功')
-  const res2 = await loginStatus()
-  router.push('')
+  // const res2 = await loginStatus()
+  router.push('home')
 }
 const buttonColor = computed(() => {
   return password.value ? '#ff3a3a' : '#ff7f7f'

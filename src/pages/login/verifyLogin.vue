@@ -89,7 +89,7 @@ const next = async function () {
   })
   if ((res as any).data.data) {
     Toast('登录成功')
-    router.push('')
+    router.push('home')
   }
 }
 const reset = function () {
