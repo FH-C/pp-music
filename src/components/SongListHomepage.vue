@@ -34,6 +34,7 @@
         <span
           v-for="(song, index2) in item.resources"
           :key="index2"
+          @click="playSong(song)"
         >
           <div class="flex-row flex-start padding-column-2">
             <div>
@@ -85,7 +86,9 @@
                 </span>
               </div>
             </div>
-            <div class="margin-auto">
+            <div
+              class="margin-auto"
+            >
               <van-icon
                 name="play-circle-o"
                 style="align-self: flex-end;"
@@ -103,6 +106,7 @@
 import { songListHomepageType } from '../types/types'
 import { NavBar, Picker, Popup, Field, Button, Toast, Icon, Image, Swipe, SwipeItem, Tag } from 'vant'
 import { onMounted, PropType, watch } from 'vue'
+import { useSongStore } from '../store/song'
 const props = defineProps({
   songObject: {
     type: Object as PropType<songListHomepageType>,
@@ -111,12 +115,17 @@ const props = defineProps({
     },
   },
 })
+const songStore = useSongStore()
+const playSong = function (song: object) {
+  if (songStore.playStatus) {
+
+  } else {
+    songStore.playingId = song.resourceId
+    songStore.showPlayer = true
+  }
+}
 onMounted(() => {
   console.log('props.songObject', props.songObject)
-})
-watch(props.songObject, (oldValue, newValue) => {
-  console.log('oldValue', oldValue)
-  console.log('newValue', newValue)
 })
 </script>
 

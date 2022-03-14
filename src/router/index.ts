@@ -4,6 +4,7 @@ import MobileLogin from '../pages/login/mobile.vue'
 import VerifyLogin from '../pages/login/verifyLogin.vue'
 import PasswordLogin from '../pages/login/passwordLogin.vue'
 import UserInfo from '../pages/user/index.vue'
+import Search from '../pages/search/index.vue'
 import Home from '../pages/home.vue'
 
 const routes: Array<RouteRecordRaw> = [
@@ -36,6 +37,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/user',
     name: 'UserInfo',
     component: UserInfo,
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: Search,
   },
   {
     path: '/home',

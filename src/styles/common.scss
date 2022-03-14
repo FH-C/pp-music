@@ -25,6 +25,10 @@
   flex-direction: column;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .space-between {
   justify-content: space-between;
 }
@@ -35,6 +39,10 @@
 
 .justify-content-center {
   justify-content: center;
+}
+
+.align-items-center {
+  align-items: center;
 }
 
 .flex-grow-1 {
@@ -130,10 +138,16 @@
 }
 
 .play-icon {
-  font-size: 40px;
+  font-size: 50px;
 }
 
 .play-button {
   height: 30px;
   font-size: 20px;
+}
+
+.fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
 }

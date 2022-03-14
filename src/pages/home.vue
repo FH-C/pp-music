@@ -20,37 +20,41 @@
         style="margin-top: 10px;"
       ></RecommendedSongListVue>
     </div>
-    <van-tabbar
-      v-model="active"
-      active-color="#ff7979"
-    >
-      <van-tabbar-item>
-        <span>发现</span>
-        <template #icon>
-          <svg-icon
-            v-if="active===0"
-            name="discover-active"
-          ></svg-icon>
-          <svg-icon
-            v-else
-            name="discover"
-          ></svg-icon>
-        </template>
-      </van-tabbar-item>
-      <van-tabbar-item>
-        <span>我的</span>
-        <template #icon>
-          <svg-icon
-            v-if="active===1"
-            name="note-active"
-          ></svg-icon>
-          <svg-icon
-            v-else
-            name="note"
-          ></svg-icon>
-        </template>
-      </van-tabbar-item>
-    </van-tabbar>
+    <div class="fixed">
+      <MiniPlayerVue></MiniPlayerVue>
+      <van-tabbar
+        v-model="active"
+        active-color="#ff7979"
+        :placeholder="true"
+      >
+        <van-tabbar-item>
+          <span>发现</span>
+          <template #icon>
+            <svg-icon
+              v-if="active===0"
+              name="discover-active"
+            ></svg-icon>
+            <svg-icon
+              v-else
+              name="discover"
+            ></svg-icon>
+          </template>
+        </van-tabbar-item>
+        <van-tabbar-item>
+          <span>我的</span>
+          <template #icon>
+            <svg-icon
+              v-if="active===1"
+              name="note-active"
+            ></svg-icon>
+            <svg-icon
+              v-else
+              name="note"
+            ></svg-icon>
+          </template>
+        </van-tabbar-item>
+      </van-tabbar>
+    </div>
   </div>
 </template>
 
@@ -72,6 +76,7 @@ import RecommendedSongListVue from '../components/RecommendedSongList.vue'
 import SongListHomepageVue from '../components/SongListHomepage.vue'
 import HomepageIconVue from '../components/HomepageIcon.vue'
 import HomepagePlaylistVue from '../components/HomepagePlaylist.vue'
+import MiniPlayerVue from '../components/MiniPlayer.vue'
 import { songListHomepageType, homepageiConType } from '../types/types'
 const bannerList = ref([])
 const recommendPlaylists = ref([])
@@ -111,5 +116,7 @@ onMounted (async () => {
 })
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import url('../styles/common.scss');
+
 </style>
