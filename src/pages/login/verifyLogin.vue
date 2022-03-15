@@ -71,7 +71,7 @@ const resend = async function () {
   const result = await sendCaptcha({
     phone: route.query.phone,
     ctcode: route.query.countryCode?.slice(1),
-  })
+  }, true)
   console.log(result)
   time.value = 60
   countdown = setInterval(() => {
@@ -86,7 +86,7 @@ const next = async function () {
     phone: route.query.phone,
     ctcode: route.query.countryCode?.slice(1),
     captcha: verifyCode.join(''),
-  })
+  }, true)
   if ((res as any).data.data) {
     Toast('登录成功')
     router.push('home')

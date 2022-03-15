@@ -14,9 +14,9 @@
       </template>
       <template #title>
         <van-search
-          v-model="value"
           shape="round"
-          placeholder="邓紫棋 最近很火哦~"
+          :placeholder="showKeyword"
+          @click="toSearch"
         >
           <template #left-icon>
             <van-icon
@@ -32,8 +32,21 @@
 
 <script setup lang="ts">
 import { NavBar, Picker, Popup, Field, Button, Toast, Icon, Search } from 'vant'
-import { ref, watch } from 'vue'
-const value = ref('')
+import { onMounted, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
+import { searchDefault } from '../api/search'
+const router = useRouter()
+const showKeyword = ref('')
+const toSearch = function () {
+  router.push('search')
+}
+const getDefaultKey = async function() {
+  const res = await searchDefault()
+  showKeyword.value = res.value.data.showKeyword
+}
+onMounted(() => {
+  getDefaultKey()
+})
 </script>
 
 <style scoped>

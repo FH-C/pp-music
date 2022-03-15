@@ -53,7 +53,7 @@ const login = async function () {
     phone: route.query.phone,
     password: password.value,
     countrycode: route.query.countryCode?.slice(1),
-  })
+  }, true)
   Toast('登录成功')
   // const res2 = await loginStatus()
   router.push('home')

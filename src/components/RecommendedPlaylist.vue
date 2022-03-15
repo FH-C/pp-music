@@ -15,7 +15,7 @@
         </span>
       </div>
       <div
-        class="scroll-x"
+        class="scroll-x flex-row"
         style="height: 160px;"
       >
         <div
@@ -24,12 +24,14 @@
           class="image"
           @click="toPlaylist(playlist.id)"
         >
-          <van-image
-            :src="playlist.picUrl"
-            radius="10"
-          />
-          <span class="text1 text-line-two">{{ playlist.name }}</span>
-          <span class="text2">{{ playCount(playlist.playCount) }}</span>
+          <div class="flex-column flex-start">
+            <van-image
+              :src="playlist.picUrl"
+              radius="10"
+            />
+            <span class="text1 text-line-two">{{ playlist.name }}</span>
+            <span class="text2">{{ playCount(playlist.playCount) }}</span>
+          </div>
         </div>
       </div>
     </div>

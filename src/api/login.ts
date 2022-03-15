@@ -1,9 +1,12 @@
 import { post } from './api'
 
-const sendCaptcha = (data: object) => post('/captcha/sent' + '?timestamp=' + new Date().getTime(), data)
-const verifyCaptcha = (data: object) => post('/captcha/verify' + '?timestamp=' + new Date().getTime(), data)
-const passwordLogin = (data: object) => post('/login/cellphone' + '?timestamp=' + new Date().getTime(), data)
-const loginStatus = () => post('/login/status' + '?timestamp=' + new Date().getTime(), {})
+const sendCaptcha = (data: object, force = false) => post(
+  '/captcha/sent' + '?timestamp=' + new Date().getTime(), data, force)
+const verifyCaptcha = (data: object, force = false) => post(
+  '/captcha/verify' + '?timestamp=' + new Date().getTime(), data, force)
+const passwordLogin = (data: object, force = false) => post(
+  '/login/cellphone' + '?timestamp=' + new Date().getTime(), data, force)
+const loginStatus = (force = false) => post('/login/status' + '?timestamp=' + new Date().getTime(), {}, force)
 
 export {
   sendCaptcha,

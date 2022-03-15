@@ -4,7 +4,7 @@
       v-for="(keyword, index) in keywordList.slice(0, showLength)"
       :key="keyword.searchWord"
       class="contain"
-      @click="search"
+      @click="search(keyword.searchWord)"
     >
       <div style="text-align: left;">
         <span :class="getRankClass(index)">{{ index + 1 }}</span>
@@ -30,7 +30,9 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { Image as VanImage } from 'vant'
+import { cloudsearch } from '../../api/search'
 
+const emit = defineEmits(['search'])
 const props = defineProps({
   keywordList: {
     type: Array,
@@ -57,10 +59,13 @@ const getFontClass = computed(() => {
     return ''
   }
 })
+const search = async function (keyword: string) {
+  emit('search', keyword)
+}
 </script>
 
 <style scoped lang="scss">
-@import url('../styles/common.scss');
+@import url('../../styles/common.scss');
 .contain {
     width: 40vw;
     padding-left: 4vw;

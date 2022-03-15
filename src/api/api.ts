@@ -1,7 +1,10 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
 import { Toast } from 'vant'
-const baseURL = import.meta.env.VITE_APP_BASE_API
+import { useLocalStorage } from '@vueuse/core'
+import { ref } from 'vue'
+import cacheUrl from './cache'
 
+const baseURL = import.meta.env.VITE_APP_BASE_API
 axios.defaults.withCredentials = true
 axios.interceptors.request.use(config => {
   if (localStorage.token) {
@@ -12,14 +15,20 @@ axios.interceptors.request.use(config => {
 
 axios.interceptors.response.use((res: AxiosResponse) => {
   if (res.data.code === 200 || res.data.data.code === 200) {
-    return Promise.resolve(res)
+    const path = res.config.url?.split('?timestamp')[0] || ''
+    if (cacheUrl.indexOf(path) === -1) {
+      return Promise.resolve(ref(res.data))
+    }
+    const storage = useLocalStorage(path, res.data)
+    return Promise.resolve(storage)
   }
   if (res.data && res.data.message){
     return Toast(res.data.message)
   } else if (res.data && res.data.msg) {
     return Toast(res.data.msg)
+  } else {
+    return Toast('出错了')
   }
-  return Promise.reject(res)
 }, (error: AxiosError) => {
   if (error.response) {
     // 请求已发出，但服务器响应的状态码不在 2xx 范围内
@@ -29,7 +38,13 @@ axios.interceptors.response.use((res: AxiosResponse) => {
     return Toast(error.message)
   }
 })
-function axiosHttp (method: string, url: string, data: any) {
+function axiosHttp (method: string, url: string, data: any, force: boolean) {
+  const path = url.split('?timestamp')[0]
+  const item = localStorage.getItem(path)
+  if (cacheUrl.indexOf(path) !== -1 && !force && item) {
+    const storage = ref(JSON.parse(item))
+    return Promise.resolve(storage)
+  }
   const config = {
     url,
     method,
@@ -45,7 +60,7 @@ function axiosHttp (method: string, url: string, data: any) {
     axios(config as any).then(res => resolve(res)).catch(err => reject(err))
   })
 }
-const post = (url: string, data: any) => axiosHttp('POST', url, data)
+const post = (url: string, data: any, force: boolean) => axiosHttp('POST', url, data, force)
 export {
   post,
 }

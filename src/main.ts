@@ -4,7 +4,7 @@ import App from './App.vue'
 import router from './router/index'
 import 'vant/lib/index.css'
 import { Button, Checkbox, NavBar, Picker, Field, Dialog, Popup, Toast, CountDown, Swipe, SwipeItem, Image,
-  Icon, Search, Tabbar, TabbarItem, Tag, Cell } from 'vant'
+  Icon, Search, Tabbar, TabbarItem, Tag, Cell, PullRefresh, Tab, Tabs, List } from 'vant'
 import SvgIcon from './components/SvgIcon.vue'
 import store from './store'
 
@@ -28,6 +28,10 @@ app.use(Button)
 .use(Search)
 .use(Tag)
 .use(Cell)
+.use(PullRefresh)
+.use(Tab)
+.use(Tabs)
+.use(List)
 .component('svg-icon', SvgIcon)
 .use(router)
 // .use(createPinia())

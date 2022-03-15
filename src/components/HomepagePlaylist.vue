@@ -26,19 +26,21 @@
           class="image"
           @click="toPlaylist(playlist.creativeId)"
         >
-          <van-image
-            :src="playlist.uiElement.image.imageUrl"
-            radius="10"
-          />
-          <span class="text1 text-line-two">{{ playlist.uiElement.mainTitle.title }}</span>
-          <span
-            :ref="el => { refs[index] = el }"
-            class="text2"
-            @click="test(index)"
-          >
-            <van-icon name="play" />
-            {{ playCount(playlist.resources[0].resourceExtInfo.playCount) }}
-          </span>
+          <div class="flex-column flex-start">
+            <van-image
+              :src="playlist.uiElement.image.imageUrl"
+              radius="10"
+            />
+            <span class="text1 text-line-two">{{ playlist.uiElement.mainTitle.title }}</span>
+            <span
+              :ref="el => { refs[index] = el }"
+              class="text2"
+              @click="test(index)"
+            >
+              <van-icon name="play" />
+              {{ playCount(playlist.resources[0].resourceExtInfo.playCount) }}
+            </span>
+          </div>
         </div>
       </div>
     </div>
