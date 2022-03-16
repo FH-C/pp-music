@@ -1,7 +1,7 @@
 <template>
   <div class="flex-row flex-wrap margin-row-4 shadow">
     <div
-      v-for="(keyword, index) in keywordList.slice(0, showLength)"
+      v-for="(keyword, index) in (keywordList as any).slice(0, showLength)"
       :key="keyword.searchWord"
       class="contain"
       @click="search(keyword.searchWord)"

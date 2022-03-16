@@ -7,13 +7,45 @@
       @load="onLoad"
     >
       <van-cell
+        style="text-align: left;"
+        center
+        @click="playAll"
+      >
+        <template #icon>
+          <van-icon
+            name="play-circle"
+            color="#ff3024"
+            class="small-play-icon"
+            style="padding-right: 2vw;"
+          />
+        </template>
+        <template #title>
+          <span class="bold">播放全部</span>
+        </template>
+      </van-cell>
+      <van-cell
         v-for="item in searchStore.searchResult.songs"
         :key="item.id"
         style="text-align: left;"
         center
       >
         <template #title>
-          {{ item.name }}
+          <span
+            class="medium-font"
+            style="font-weight: 500;"
+          >
+            <span v-if="getIndex(item.name) !== -1">{{ item.name.slice(0, getIndex(item.name)) }}</span>
+            <span v-else>{{ item.name.slice(0) }}</span>
+            <span
+              v-if="getIndex(item.name) !== -1"
+              class="font-blue"
+            >
+              {{ item.name.slice(getIndex(item.name), getIndex(item.name) + searchStore.searchKeyword.length) }}
+            </span>
+            <span v-if="getIndex(item.name) !== -1">
+              {{ item.name.slice(getIndex(item.name) + searchStore.searchKeyword.length) }}
+            </span>
+          </span>
         </template>
         <template #label>
           <div class="small-font">
@@ -29,11 +61,23 @@
               <span
                 v-for="(ar, index) in item.ar"
                 :key="ar.id"
-              >{{ ar.name }}<span v-if="index + 1 !== item.ar.length">/</span>
+              >
+                <span :class="{ 'font-blue': ar.name === searchStore.searchKeyword }">{{ ar.name }}</span>
+                <span v-if="index + 1 !== item.ar.length">/</span>
               </span>
             </span>
             <span>
-              -{{ item.al.name }}
+              -<span v-if="getIndex(item.al.name) !== -1">{{ item.al.name.slice(0, getIndex(item.al.name)) }}</span>
+              <span v-else>{{ item.al.name.slice(0) }}</span>
+              <span
+                v-if="getIndex(item.al.name) !== -1"
+                class="font-blue"
+              >
+                {{ item.al.name.slice(getIndex(item.al.name), getIndex(item.al.name) + searchStore.searchKeyword.length) }}
+              </span>
+              <span v-if="getIndex(item.al.name) !== -1">
+                {{ item.al.name.slice(getIndex(item.al.name) + searchStore.searchKeyword.length) }}
+              </span>
             </span>
           </div>
         </template>
@@ -49,18 +93,33 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useSearchStore } from '../../store/search'
+import { useSongStore } from '../../store/song'
 const emit = defineEmits(['load'])
 const searchStore = useSearchStore()
+const songStore = useSongStore()
 
 const onLoad = function () {
   searchStore.currentOffset ++
   emit('load')
 }
+const getIndex = computed(() => {
+  return function(name: string) {
+    return name.indexOf(searchStore.searchKeyword)
+  }
+})
+const playAll = function () {
+  songStore.playingSongList = searchStore.searchResult.songs
+  songStore.playingId = songStore.playingSongList[0].id
+  songStore.showPlayer = true
+}
 </script>
 
 <style scoped lang="scss">
 @import url('../../styles/common.scss');
-
+.font-blue {
+  color: #6389b7;
+  font-weight: 500;
+}
 </style>

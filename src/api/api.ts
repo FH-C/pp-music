@@ -6,12 +6,6 @@ import cacheUrl from './cache'
 
 const baseURL = import.meta.env.VITE_APP_BASE_API
 axios.defaults.withCredentials = true
-axios.interceptors.request.use(config => {
-  if (localStorage.token) {
-    config.headers.Authorization = 'Bearer ' + localStorage.token
-  }
-  return config
-}, err => Promise.reject(err))
 
 axios.interceptors.response.use((res: AxiosResponse) => {
   if (res.data.code === 200 || res.data.data.code === 200) {

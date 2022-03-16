@@ -7,9 +7,12 @@ export const useSongStore = defineStore('song', {
       playStatus: false,
       currentPlayTime: 0,
       playingId: 0,
+      playingIndex: 0,
+      musicUrl: '',
       playingSongDetail: {},
-      songList: [],
+      playingSongList: [],
       lyrics: {},
+      playerRef: null,
     }
   },
   actions: {

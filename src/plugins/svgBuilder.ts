@@ -1,3 +1,4 @@
+import { Plugin } from 'vite'
 import { readFileSync, readdirSync } from 'fs'
 
 let idPerfix = ''
@@ -8,7 +9,7 @@ const hasViewBox = /(viewBox="[^>+].*?")/g
 
 const clearReturn = /(\r)|(\n)/g
 
-function findSvgFile(dir) {
+function findSvgFile(dir: string): string[] {
   const svgRes = []
   const dirents = readdirSync(dir, {
     withFileTypes: true,
@@ -27,7 +28,7 @@ function findSvgFile(dir) {
         let height = 0
         let content = $2.replace(
           clearHeightWidth,
-          (s1, s2, s3) => {
+          (s1: number, s2: string, s3: number) => {
             if (s2 === 'width') {
               width = s3
             } else if (s2 === 'height') {
@@ -51,7 +52,10 @@ function findSvgFile(dir) {
   return svgRes
 }
 
-export const svgBuilder = (path, perfix = 'icon') => {
+export const svgBuilder = (
+  path: string,
+  perfix = 'icon',
+): Plugin | undefined => {
   if (path === '') return
   idPerfix = perfix
   const res = findSvgFile(path)

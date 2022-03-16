@@ -2,15 +2,6 @@
   <div
     v-show="songStore.showPlayer"
   >
-    <div style="display: none;">
-      <audio
-        ref="refAudio"
-        :src="musicUrl"
-        autoplay
-        muted
-      >
-      </audio>
-    </div>
     <div
       v-if="songStore.playingSongDetail.al"
       class="flex-row bar align-items-center"
@@ -76,36 +67,52 @@
 <script setup lang="ts">
 import { NavBar, Picker, Popup, Field, Button, Toast, Icon, Image } from 'vant'
 import { onMounted, ref, watch } from 'vue'
-import { getSongDetail } from '../api/play'
+import { getSongDetail, getSongURL } from '../api/play'
 import { useSongStore } from '../store/song'
 
-const musicUrl = ref('')
-const refAudio = ref(undefined)
 const songStore = useSongStore()
 
+onMounted(() => {
+  listenEnd()
+})
+
 watch(() => songStore.playingId, async (songId) => {
+  await getSongUrl()
   const res = await getSongDetail({
-    ids: songId,
+    ids: songId.toString(),
   })
-  songStore.playingSongDetail = res.data.songs[0]
-  console.log('songDetail:', res.data.songs[0])
-  musicUrl.value = `https://music.163.com/song/media/outer/url?id=${ songId }.mp3`
+  songStore.playingSongDetail = res.value.songs[0]
   play(true)
 })
 
+const getSongUrl = async function () {
+  const res = await getSongURL({
+    id: songStore.playingId,
+  })
+  songStore.musicUrl = res.value.data[0].url
+}
+
+const listenEnd = function () {
+  console.log(songStore.playerRef)
+  songStore.playerRef.addEventListener('ended', function () {  
+    songStore.playingIndex ++
+    songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
+  }, false)
+}
+
 const play = function (force: boolean) {
   if (force) {
-    refAudio.value.play()
+    songStore.playerRef.play()
     songStore.playStatus = true
   } else {
     if (songStore.playStatus) {
-      refAudio.value.pause()
+      songStore.playerRef.pause()
     } else {
-      refAudio.value.play()
+      songStore.playerRef.play()
     }
     songStore.playStatus = !songStore.playStatus
   }
-  refAudio.value.muted = false
+  songStore.playerRef.muted = false
 }
 
 </script>

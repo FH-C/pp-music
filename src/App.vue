@@ -1,10 +1,24 @@
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
+import { onMounted, ref } from 'vue'
+import { useSongStore } from './store/song'
+const songStore = useSongStore()
+const playerRef = ref(null)
+onMounted(() => {
+  songStore.playerRef = playerRef.value
+})
 </script>
 
 <template>
   <router-view></router-view>
+  <div style="display: none;">
+    <audio
+      ref="playerRef"
+      :src="songStore.musicUrl"
+      autoplay
+      muted
+    >
+    </audio>
+  </div>
 </template>
 
 <style>
