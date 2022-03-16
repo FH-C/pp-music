@@ -53,7 +53,7 @@
             class="play-icon"
           />
         </div>
-        <div>
+        <div @click="songStore.showPopup = true">
           <van-icon
             name="bars"
             class="play-icon"
@@ -61,6 +61,7 @@
         </div>
       </div>
     </div>
+    <PlayingSongListVue></PlayingSongListVue>
   </div>
 </template>
 
@@ -69,8 +70,10 @@ import { NavBar, Picker, Popup, Field, Button, Toast, Icon, Image } from 'vant'
 import { onMounted, ref, watch } from 'vue'
 import { getSongDetail, getSongURL } from '../api/play'
 import { useSongStore } from '../store/song'
+import PlayingSongListVue from './PlayingSongList.vue'
 
 const songStore = useSongStore()
+const showPopup = ref(false)
 
 onMounted(() => {
   listenEnd()
@@ -82,6 +85,9 @@ watch(() => songStore.playingId, async (songId) => {
     ids: songId.toString(),
   })
   songStore.playingSongDetail = res.value.songs[0]
+  if (songStore.playingSongList.length === 0) {
+    songStore.playingSongList = res.value.songs
+  }
   play(true)
 })
 
