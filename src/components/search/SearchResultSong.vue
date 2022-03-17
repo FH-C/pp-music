@@ -9,7 +9,7 @@
       <van-cell
         style="text-align: left;"
         center
-        @click="playAll"
+        @click="play(-1)"
       >
         <template #icon>
           <van-icon
@@ -24,10 +24,11 @@
         </template>
       </van-cell>
       <van-cell
-        v-for="item in searchStore.searchResult.songs"
+        v-for="(item, index) in searchStore.searchResult.songs"
         :key="item.id"
         style="text-align: left;"
         center
+        @click="play(index)"
       >
         <template #title>
           <span
@@ -59,11 +60,11 @@
             </van-tag>
             <span v-if="item.ar.length > 0">
               <span
-                v-for="(ar, index) in item.ar"
+                v-for="(ar, index2) in item.ar"
                 :key="ar.id"
               >
                 <span :class="{ 'font-blue': ar.name === searchStore.searchKeyword }">{{ ar.name }}</span>
-                <span v-if="index + 1 !== item.ar.length">/</span>
+                <span v-if="index2 + 1 !== item.ar.length">/</span>
               </span>
             </span>
             <span>
@@ -110,11 +111,20 @@ const getIndex = computed(() => {
     return name.indexOf(searchStore.searchKeyword)
   }
 })
-const playAll = function () {
+const play = function (index: number) {
   songStore.playingSongList = searchStore.searchResult.songs
-  songStore.playingId = songStore.playingSongList[0].id
+  songStore.playingIndex = 0
+  if (index !== -1) {
+    songStore.playingIndex = index
+  }
+  songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
   songStore.showPlayer = true
-  songStore.playStatus = true
+  setTimeout(() => {
+    songStore.playStatus = false
+  }, 200)
+  setTimeout(() => {
+    songStore.playStatus = true
+  }, 200)
 }
 </script>
 

@@ -114,6 +114,7 @@
           <span>
             <van-icon
               name="delete"
+              @click="removeAllSong"
             />
           </span>
         </template>
@@ -123,6 +124,7 @@
         :key="song.id"
         style="text-align: left;"
         center
+        @click="play(index)"
       >
         <template #title>
           <span :class="{'red': song.id == songStore.playingId}">
@@ -199,11 +201,30 @@ const removeSong = function (index: number) {
   songStore.playingSongList.splice(index, 1)
   if (index === songStore.playingIndex) {
     songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
-    songStore.playStatus = false
-    songStore.playStatus = true
+    setTimeout(() => {
+      songStore.playStatus = false
+    }, 200)
+    setTimeout(() => {
+      songStore.playStatus = true
+    }, 200)
   } else if (index <= songStore.playingIndex) {
     songStore.playingIndex --
   }
+}
+const removeAllSong = function () {
+  songStore.playingIndex = 0
+  songStore.playingSongList = []
+  songStore.playStatus = false
+}
+const play = function (index: number) {
+  songStore.playingIndex = index
+  songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
+  setTimeout(() => {
+    songStore.playStatus = false
+  }, 200)
+  setTimeout(() => {
+    songStore.playStatus = true
+  }, 200)
 }
 </script>
 

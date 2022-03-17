@@ -121,8 +121,15 @@ const props = defineProps({
 const songStore = useSongStore()
 const playSong = function (song: any) {
   songStore.playingId = song.resourceId
+  songStore.playingSongList = [song.resourceExtInfo.song]
   songStore.showPlayer = true
-  songStore.playStatus = true
+  setTimeout(() => {
+    songStore.playStatus = false
+  }, 200)
+  setTimeout(() => {
+    songStore.playStatus = true
+  }, 200)
+  // songStore.playerRef.play()
 }
 const playAll = function() {
   const playingList = []
@@ -131,7 +138,6 @@ const playAll = function() {
       playingList.push(item2.resourceExtInfo.songData)
     }
   }
-  console.log('playingList', playingList)
   songStore.playingId = playingList[0].id
   songStore.showPlayer = true
   songStore.playingSongList = playingList

@@ -10,7 +10,7 @@
         <van-image
           :src="songStore.playingSongDetail.al.picUrl"
           round
-          class="mini-icon"
+          :class="['mini-icon', {'rotate': songStore.playStatus}]"
           style="margin-left: 4vw;"
         />
       </div>
@@ -93,8 +93,17 @@ watch(() => songStore.playingId, async (songId) => {
   // play(true)
 })
 
-watch(() => songStore.playStatus, (newValue) =>{
+watch(() => songStore.playStatus, async (newValue) =>{
+  console.log(songStore.playStatus)
   if (newValue) {
+    await getSongUrl()
+    const res = await getSongDetail({
+      ids: songStore.playingId.toString(),
+    })
+    songStore.playingSongDetail = res.value.songs[0]
+    if (songStore.playingSongList.length === 0) {
+      songStore.playingSongList = res.value.songs
+    }
     songStore.playerRef.play()
   } else {
     songStore.playerRef.pause()
@@ -128,7 +137,12 @@ const getNextSong = function () {
         songStore.playingIndex ++
       }
       songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
-      songStore.playerRef.play()
+      setTimeout(() => {
+        songStore.playStatus = false
+      }, 200)
+      setTimeout(() => {
+        songStore.playStatus = true
+      }, 200)
       break
     case 1:
       // 顺序播放
@@ -138,7 +152,13 @@ const getNextSong = function () {
       } else {
         songStore.playingIndex ++
         songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
-        songStore.playerRef.play()
+        // songStore.playerRef.play()
+        setTimeout(() => {
+          songStore.playStatus = false
+        }, 200)
+        setTimeout(() => {
+          songStore.playStatus = true
+        }, 200)
       }
       break
     case 2:
@@ -146,11 +166,23 @@ const getNextSong = function () {
       const randomInt = Math.floor(Math.random() * (songStore.playingSongList.length + 1))
       songStore.playingIndex = randomInt
       songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
-      songStore.playerRef.play()
+      // songStore.playerRef.play()
+      setTimeout(() => {
+        songStore.playStatus = false
+      }, 200)
+      setTimeout(() => {
+        songStore.playStatus = true
+      }, 200)
       break
     case 3:
       // 单曲循环
-      songStore.playerRef.play()
+      // songStore.playerRef.play()
+      setTimeout(() => {
+        songStore.playStatus = false
+      }, 200)
+      setTimeout(() => {
+        songStore.playStatus = true
+      }, 200)
       break
   }
 }

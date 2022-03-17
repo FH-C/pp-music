@@ -12,7 +12,7 @@ axios.interceptors.response.use((res: AxiosResponse) => {
     if (cacheUrl.indexOf(path) === -1) {
       return Promise.resolve(ref(res.data))
     }
-    localStorage.setItem(path, res.data)
+    localStorage.setItem(path, JSON.stringify(res.data))
     return Promise.resolve(ref(res.data))
   }
   if (res.data && res.data.message){

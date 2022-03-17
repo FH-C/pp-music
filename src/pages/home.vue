@@ -99,7 +99,12 @@ const loading = ref(false)
 
 const getBlockPage = async function (force = false) {
   const res = await blockPage({}, force)
-  songObject.value = res.value.data.blocks[2]
+  console.log(res.value.data.blocks[1])
+  if (res.value.data.blocks[2].creatives) {
+    songObject.value = res.value.data.blocks[2]
+  } else {
+    songObject.value = res.value.data.blocks[3]
+  }
   homepagePlaylists.value = res.value.data.blocks[1]
   bannerList.value = res.value.data.blocks[0].extInfo.banners
 }
