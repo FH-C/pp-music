@@ -4,8 +4,8 @@ export const useSearchStore = defineStore('search', {
   state: () => {
     return { 
       searchKeyword: '',
-      searchResult: {},
-      searchSuggestList: [],
+      searchResult: {} as any,
+      searchSuggestList: [] as any,
       searchType: 1,
       currentOffset: 0,
       currentLimit: 30,

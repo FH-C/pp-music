@@ -23,7 +23,7 @@
         animated
       >
         <van-tab
-          v-for="(item, index) in tabs"
+          v-for="item in tabs"
           :key="item"
           :title="item"
         >

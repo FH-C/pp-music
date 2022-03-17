@@ -84,6 +84,9 @@ import HomepageIconVue from '../components/HomepageIcon.vue'
 import HomepagePlaylistVue from '../components/HomepagePlaylist.vue'
 import MiniPlayerVue from '../components/MiniPlayer.vue'
 import { songListHomepageType, homepageiConType } from '../types/types'
+import { getPlayingLocalStorage } from '../utils/localStorage'
+import { useSongStore } from '../store/song'
+const songStore = useSongStore()
 const router = useRouter()
 const bannerList = ref([])
 const recommendPlaylists = ref([])
@@ -129,6 +132,15 @@ const onRefresh = async function () {
 
 onMounted (async () => {
   getData()
+  const playing = getPlayingLocalStorage()
+  if (playing && !songStore.playingId) {
+    const playingObject = JSON.parse(playing)
+    songStore.playingId = playingObject.playingId
+    songStore.playingIndex = playingObject.playingIndex
+    songStore.playingSongList = playingObject.playingSongList
+    songStore.playingType = playingObject.playingType
+    songStore.showPlayer = true
+  }
   // console.log('songList.value:', songObject.value)
   // const res3 = await recommendResource()
   // console.log(res3)

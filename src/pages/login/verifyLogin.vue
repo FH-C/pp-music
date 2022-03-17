@@ -32,7 +32,7 @@
       <van-field
         v-for="(item, index) in 4"
         :key="index"
-        :ref="el => { refs[index] = el }"
+        :ref="(el: any) => { refs[index] = el }"
         v-model="verifyCode[index]"
         type="number"
         maxlength="1"

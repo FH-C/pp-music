@@ -66,6 +66,7 @@
 </template>
 
 <script setup lang="ts">
+import { getPlayingLocalStorage } from '../utils/localStorage'
 import { NavBar, Picker, Popup, Field, Button, Toast, Icon, Image } from 'vant'
 import { onMounted, ref, watch } from 'vue'
 import { getSongDetail, getSongURL } from '../api/play'
@@ -73,13 +74,13 @@ import { useSongStore } from '../store/song'
 import PlayingSongListVue from './PlayingSongList.vue'
 
 const songStore = useSongStore()
-const showPopup = ref(false)
 
 onMounted(() => {
   listenEnd()
 })
 
 watch(() => songStore.playingId, async (songId) => {
+  console.log(songId)
   await getSongUrl()
   const res = await getSongDetail({
     ids: songId.toString(),
@@ -88,8 +89,27 @@ watch(() => songStore.playingId, async (songId) => {
   if (songStore.playingSongList.length === 0) {
     songStore.playingSongList = res.value.songs
   }
-  play(true)
+  setPlayingLocalStorage()
+  // play(true)
 })
+
+watch(() => songStore.playStatus, (newValue) =>{
+  if (newValue) {
+    songStore.playerRef.play()
+  } else {
+    songStore.playerRef.pause()
+  }
+})
+
+const setPlayingLocalStorage = function () {
+  const playing = {
+    playingId: songStore.playingId,
+    playingIndex: songStore.playingIndex,
+    playingSongList: songStore.playingSongList,
+    playingType: songStore.playingType,
+  }
+  localStorage.setItem('playing', JSON.stringify(playing))
+}
 
 const getSongUrl = async function () {
   const res = await getSongURL({
@@ -98,12 +118,45 @@ const getSongUrl = async function () {
   songStore.musicUrl = res.value.data[0].url
 }
 
+const getNextSong = function () {
+  switch (songStore.playingType) {
+    case 0:
+      // 列表循环
+      if (songStore.playingSongList.length <= songStore.playingIndex + 1) {
+        songStore.playingIndex = 0
+      } else {
+        songStore.playingIndex ++
+      }
+      songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
+      songStore.playerRef.play()
+      break
+    case 1:
+      // 顺序播放
+      if (songStore.playingSongList.length <= songStore.playingIndex + 1) {
+        songStore.playingIndex = 0
+        songStore.playStatus = false
+      } else {
+        songStore.playingIndex ++
+        songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
+        songStore.playerRef.play()
+      }
+      break
+    case 2:
+      // 随机播放
+      const randomInt = Math.floor(Math.random() * (songStore.playingSongList.length + 1))
+      songStore.playingIndex = randomInt
+      songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
+      songStore.playerRef.play()
+      break
+    case 3:
+      // 单曲循环
+      songStore.playerRef.play()
+      break
+  }
+}
+
 const listenEnd = function () {
-  console.log(songStore.playerRef)
-  songStore.playerRef.addEventListener('ended', function () {  
-    songStore.playingIndex ++
-    songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
-  }, false)
+  songStore.playerRef.addEventListener('ended', getNextSong)
 }
 
 const play = function (force: boolean) {

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useSongStore } from './store/song'
+import { getPlayingLocalStorage } from './utils/localStorage'
 const songStore = useSongStore()
 const playerRef = ref(null)
 onMounted(() => {
@@ -14,8 +15,6 @@ onMounted(() => {
     <audio
       ref="playerRef"
       :src="songStore.musicUrl"
-      autoplay
-      muted
     >
     </audio>
   </div>

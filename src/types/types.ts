@@ -39,6 +39,10 @@ interface homepageiConType {
   homepageMode: string
 }
 
+interface songDetailType {
+  id: number
+}
+
 export {
   recommendedPlaylistsType,
   recommendedSongsType,

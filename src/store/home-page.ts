@@ -7,9 +7,9 @@ export const useSongStore = defineStore('home-page', {
       playStatus: false,
       currentPlayTime: 0,
       playingId: 0,
-      playingSongDetail: {},
-      songList: [],
-      lyrics: {},
+      playingSongDetail: {} as any,
+      songList: [] as any,
+      lyrics: {} as any,
     }
   },
   actions: {

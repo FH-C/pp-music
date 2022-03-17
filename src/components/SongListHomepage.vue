@@ -16,7 +16,10 @@
           round
           style="border: 0px;"
           class="play-button"
-        ><van-icon name="play" />
+          @click="playAll"
+        ><van-icon
+          name="play"
+        />
           播放
         </Button>
       </span>
@@ -109,20 +112,32 @@ import { onMounted, PropType, watch } from 'vue'
 import { useSongStore } from '../store/song'
 const props = defineProps({
   songObject: {
-    type: Object as PropType<songListHomepageType>,
+    type: Object as PropType<songListHomepageType> | any,
     default: () => {
       return {}
     },
   },
 })
 const songStore = useSongStore()
-const playSong = function (song: object) {
-  if (songStore.playStatus) {
-
-  } else {
-    songStore.playingId = song.resourceId
-    songStore.showPlayer = true
+const playSong = function (song: any) {
+  songStore.playingId = song.resourceId
+  songStore.showPlayer = true
+  songStore.playStatus = true
+}
+const playAll = function() {
+  const playingList = []
+  for (const item1 of props.songObject.creatives) {
+    for (const item2 of item1.resources) {
+      playingList.push(item2.resourceExtInfo.songData)
+    }
   }
+  console.log('playingList', playingList)
+  songStore.playingId = playingList[0].id
+  songStore.showPlayer = true
+  songStore.playingSongList = playingList
+  songStore.playStatus = true
+  console.log(songStore.playingId)
+  console.log(songStore.playingSongList)
 }
 onMounted(() => {
   console.log('props.songObject', props.songObject)

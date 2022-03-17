@@ -27,7 +27,7 @@
 <script setup lang="ts">
 import { computed, onMounted, PropType } from 'vue'
 import { Swipe, SwipeItem, Image } from 'vant'
-import { BannerListType } from '../types/types'
+import { bannerListType } from '../types/types'
 const props = defineProps({
   bannerList: {
     type: Array as PropType<bannerListType[]>,

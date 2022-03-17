@@ -73,7 +73,8 @@
                 v-if="getIndex(item.al.name) !== -1"
                 class="font-blue"
               >
-                {{ item.al.name.slice(getIndex(item.al.name), getIndex(item.al.name) + searchStore.searchKeyword.length) }}
+                {{ item.al.name.slice(
+                  getIndex(item.al.name), getIndex(item.al.name) + searchStore.searchKeyword.length) }}
               </span>
               <span v-if="getIndex(item.al.name) !== -1">
                 {{ item.al.name.slice(getIndex(item.al.name) + searchStore.searchKeyword.length) }}
@@ -113,6 +114,7 @@ const playAll = function () {
   songStore.playingSongList = searchStore.searchResult.songs
   songStore.playingId = songStore.playingSongList[0].id
   songStore.showPlayer = true
+  songStore.playStatus = true
 }
 </script>
 

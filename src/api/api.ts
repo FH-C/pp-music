@@ -1,6 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
 import { Toast } from 'vant'
-import { useLocalStorage } from '@vueuse/core'
 import { ref } from 'vue'
 import cacheUrl from './cache'
 
@@ -13,8 +12,8 @@ axios.interceptors.response.use((res: AxiosResponse) => {
     if (cacheUrl.indexOf(path) === -1) {
       return Promise.resolve(ref(res.data))
     }
-    const storage = useLocalStorage(path, res.data)
-    return Promise.resolve(storage)
+    localStorage.setItem(path, res.data)
+    return Promise.resolve(ref(res.data))
   }
   if (res.data && res.data.message){
     return Toast(res.data.message)
