@@ -7,6 +7,9 @@ const playerRef = ref(null)
 onMounted(() => {
   songStore.playerRef = playerRef.value
 })
+const timeUpdate = function (e: Event | any) {
+  songStore.currentPlayTime = e.target.currentTime
+}
 </script>
 
 <template>
@@ -15,6 +18,7 @@ onMounted(() => {
     <audio
       ref="playerRef"
       :src="songStore.musicUrl"
+      @timeupdate="timeUpdate"
     >
     </audio>
   </div>

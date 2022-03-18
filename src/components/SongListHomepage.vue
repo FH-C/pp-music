@@ -28,6 +28,7 @@
       class="margin-row-4"
       indicator-color="white"
       :loop="false"
+      :show-indicators="false"
     >
       <van-swipe-item
         v-for="(item, index) in props.songObject.creatives"

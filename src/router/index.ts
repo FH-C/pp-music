@@ -7,12 +7,13 @@ import UserInfo from '../pages/user/index.vue'
 import Search from '../pages/search/index.vue'
 import SearchResult from '../pages/search/result.vue'
 import Home from '../pages/home.vue'
+import Playlist from '../pages/playlist/index.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'index',
-    component: Login,
+    component: Home,
   },
   {
     path: '/login',
@@ -53,6 +54,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/home',
     name: 'Home',
     component: Home,
+  },
+  {
+    path: '/playlist',
+    name: 'Playlist',
+    component: Playlist,
   },
 ]
 

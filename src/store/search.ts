@@ -4,13 +4,14 @@ export const useSearchStore = defineStore('search', {
   state: () => {
     return { 
       searchKeyword: '',
-      searchResult: {} as any,
+      searchResultSong: {} as any,
+      searchResultPlaylist: {} as any,
       searchSuggestList: [] as any,
-      searchType: 1,
-      currentOffset: 0,
+      currentOffsetList: Array(9).fill(0),
       currentLimit: 30,
       loading: false,
       finished: false,
+      active: 1,
     }
   },
   actions: {

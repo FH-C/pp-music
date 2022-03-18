@@ -31,6 +31,9 @@
         @click="search(suggest.keyword)"
       />
     </div>
+    <div class="fixed-left-bottom">
+      <MiniPlayerVue></MiniPlayerVue>
+    </div>
   </div>
 </template>
 
@@ -50,6 +53,7 @@ import {
   searchMultimatch,
 } from '../../api/search'
 import { useRouter } from 'vue-router'
+import { types, tabs } from '../../utils/search'
 
 const router = useRouter()
 const showKeyword = ref('')
@@ -57,9 +61,6 @@ const searchHotList = ref([])
 const searchHotDetailList = ref([])
 const keywordList = ref([])
 const showSearchResult = ref(false)
-const active = ref(0)
-const tabs = ['综合', '单曲', '歌单', '视频', '歌手', '播客', '歌词', '专辑', '声音', '话题', '用户']
-const types = []
 const searchStore = useSearchStore()
 onMounted(async () => {
   getDefaultKey()
@@ -97,24 +98,24 @@ const search = async function (keyword?: string) {
   let res = undefined
   if (keyword) {
     searchStore.searchKeyword = keyword
-    searchStore.currentOffset = 0
+    searchStore.currentOffsetList[searchStore.active] = 0
   } else {
     if (!searchStore.searchKeyword) {
       searchStore.searchKeyword = showKeyword.value
-      searchStore.currentOffset = 0
+      searchStore.currentOffsetList[searchStore.active] = 0
     }
   }
   searchStore.loading = true
   res = await cloudsearch({
     keywords: searchStore.searchKeyword,
-    type: searchStore.searchType,
+    type: types[searchStore.active],
     limit: searchStore.currentLimit,
-    offset: searchStore.currentOffset,
+    offset: searchStore.currentOffsetList[searchStore.active],
   }, true)
-  if (searchStore.currentOffset === 0) {
-    searchStore.searchResult = res.value.result
+  if (searchStore.currentOffsetList[searchStore.active] === 0) {
+    searchStore.searchResultSong = res.value.result
   } else {
-    searchStore.searchResult.songs = searchStore.searchResult.songs.concat(res.value.result.songs)
+    searchStore.searchResultSong.songs = searchStore.searchResultSong.songs.concat(res.value.result.songs)
   }
   searchStore.loading = false
   // showSearchResult.value = true
@@ -124,7 +125,8 @@ const search = async function (keyword?: string) {
       key: searchStore.searchKeyword,
     },
   })
-  if (searchStore.currentLimit * (searchStore.currentOffset + 1) >= res.value.result.songCount) {
+  if (searchStore.currentLimit * (
+    searchStore.currentOffsetList[searchStore.active] + 1) >= res.value.result.songCount) {
     searchStore.finished = true
   }
 }

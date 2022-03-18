@@ -6,6 +6,9 @@ import 'vant/lib/index.css'
 import { Button, Checkbox, NavBar, Picker, Field, Dialog, Popup, Toast, CountDown, Swipe, SwipeItem, Image,
   Icon, Search, Tabbar, TabbarItem, Tag, Cell, PullRefresh, Tab, Tabs, List } from 'vant'
 import SvgIcon from './components/SvgIcon.vue'
+import MiniPlayerVue from './components/MiniPlayer.vue'
+import SearchResultSongVue from './components/search/SearchResultSong.vue'
+import SearchResultPlaylistVue from './components/search/SearchResultPlaylist.vue'
 import store from './store'
 
 const app = createApp(App)
@@ -33,6 +36,16 @@ app.use(Button)
 .use(Tabs)
 .use(List)
 .component('svg-icon', SvgIcon)
+.component('MiniPlayerVue', MiniPlayerVue)
+// .component('SearchResultComprehensiveVue', SearchResultComprehensiveVue)
+.component('SearchResultSongVue', SearchResultSongVue)
+.component('SearchResultPlaylistVue', SearchResultPlaylistVue)
+// .component('SearchResultVideoVue', SearchResultVideoVue)
+// .component('SearchResultSingerVue', SearchResultSingerVue)
+// .component('SearchResultLyricsVue', SearchResultLyricsVue)
+// .component('SearchResultAlbumVue', SearchResultAlbumVue)
+// .component('SearchResultSoundVue', SearchResultSoundVue)
+// .component('SearchResultUserVue', SearchResultUserVue)
 .use(router)
 // .use(createPinia())
 .use(store)

@@ -18,30 +18,52 @@
     </van-field>
     <div>
       <van-tabs
-        v-model:active="active"
+        v-model:active="searchStore.active"
         swipeable
         animated
       >
         <van-tab
-          v-for="item in tabs"
+          v-for="(item, index) in tabs"
           :key="item"
           :title="item"
         >
+          <keep-alive>
+            <component
+              :is="components[index]"
+              @load="search"
+            ></component>
+          </keep-alive>
+        </van-tab>
+        <!-- <van-tab
+          key="综合"
+          title="综合"
+        >
+        </van-tab>
+        <van-tab
+          key="单曲"
+          title="单曲"
+        >
           <SearchResultSongVue @load="search"></SearchResultSongVue>
         </van-tab>
+        <van-tab
+          key="歌单"
+          title="歌单"
+        >
+          <SearchResultPlaylistVue @load="search"></SearchResultPlaylistVue>
+        </van-tab> -->
       </van-tabs>
     </div>
-    <MiniPlayerVue style="z-index: 1000;"></MiniPlayerVue>
+    <div class="fixed-left-bottom">
+      <MiniPlayerVue></MiniPlayerVue>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { NavBar, Field, Cell, Tab, Tabs } from 'vant'
-import { onMounted, onUnmounted, ref } from 'vue'
+import { NavBar, Field, Cell, Tab, Tabs, Toast } from 'vant'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { onClickLeft } from '../../utils/router'
 import SearchCardVue from '../../components/search/SearchCard.vue'
-import SearchResultSongVue from '../../components/search/SearchResultSong.vue'
-import MiniPlayerVue from '../../components/MiniPlayer.vue'
 import { useSearchStore } from '../../store/search'
 import {
   cloudsearch,
@@ -52,6 +74,7 @@ import {
   searchMultimatch,
 } from '../../api/search'
 import { useRoute } from 'vue-router'
+import { types, tabs, components } from '../../utils/search'
 
 const route = useRoute()
 const showKeyword = ref('')
@@ -60,15 +83,16 @@ const searchHotDetailList = ref([])
 const keywordList = ref([])
 const searchSuggestList = ref([])
 const showSearchResult = ref(false)
-const active = ref(0)
-const tabs = ['综合', '单曲', '歌单', '视频', '歌手', '播客', '歌词', '专辑', '声音', '话题', '用户']
-const types = []
 const searchStore = useSearchStore()
 onMounted(async () => {
   getDefaultKey()
   // getSearchHot()
   getsearchHotDetail()
   searchStore.searchKeyword = route.query.key as string
+})
+watch(() => searchStore.active, async () =>{
+  console.log(searchStore.active)
+  await search()
 })
 const onClickField = async function () {
   await onUpdate(searchStore.searchKeyword)
@@ -99,37 +123,87 @@ const onUpdate = async function (value: string) {
 }
 onUnmounted (() => {
 })
-const search = async function (keyword?: string) {
+const searchSong = async function () {
   let res = undefined
-  if (keyword) {
-    searchStore.searchKeyword = keyword
-    searchStore.currentOffset = 0
-  } else {
-    if (!searchStore.searchKeyword) {
-      searchStore.searchKeyword = showKeyword.value
-      searchStore.currentOffset = 0
-    }
-  }
-  if (!searchStore.searchResult.songs) {
-    searchStore.currentOffset = 0
-  }
   searchStore.loading = true
   res = await cloudsearch({
     keywords: searchStore.searchKeyword,
-    type: searchStore.searchType,
+    type: types[searchStore.active],
     limit: searchStore.currentLimit,
-    offset: searchStore.currentOffset,
+    offset: searchStore.currentOffsetList[searchStore.active],
   }, true)
-  if (searchStore.currentOffset === 0) {
-    searchStore.searchResult = res.value.result
+  if (searchStore.currentOffsetList[searchStore.active] === 0) {
+    searchStore.searchResultSong = res.value.result
   } else {
-    searchStore.searchResult.songs = searchStore.searchResult.songs.concat(res.value.result.songs)
+    searchStore.searchResultSong.songs = searchStore.searchResultSong.songs.concat(res.value.result.songs)
   }
   searchStore.loading = false
   showSearchResult.value = true
-  if (searchStore.currentLimit * (searchStore.currentOffset + 1) >= res.value.result.songCount) {
+  if (searchStore.currentLimit * (
+    searchStore.currentOffsetList[searchStore.active] + 1) >= res.value.result.songCount) {
     searchStore.finished = true
   }
+}
+
+const searchPlaylist = async function () {
+  let res = undefined
+  searchStore.loading = true
+  res = await cloudsearch({
+    keywords: searchStore.searchKeyword,
+    type: types[searchStore.active],
+    limit: searchStore.currentLimit,
+    offset: searchStore.currentOffsetList[searchStore.active],
+  }, true)
+  if (searchStore.currentOffsetList[searchStore.active] === 0) {
+    console.log('res.value.result', res.value.result)
+    searchStore.searchResultPlaylist = res.value.result
+  } else {
+    searchStore.searchResultPlaylist.playlists = searchStore.searchResultPlaylist.playlists.concat(res.value.result.playlists)
+  }
+  searchStore.loading = false
+  showSearchResult.value = true
+  if (searchStore.currentLimit * (
+    searchStore.currentOffsetList[searchStore.active] + 1) >= res.value.result.playlistCount) {
+    searchStore.finished = true
+  }
+}
+const search = async function (keyword?: string) {
+  const res = undefined
+  if (keyword) {
+    searchStore.searchKeyword = keyword
+    searchStore.currentOffsetList[searchStore.active] = 0
+  } else {
+    if (!searchStore.searchKeyword) {
+      searchStore.searchKeyword = showKeyword.value
+      searchStore.currentOffsetList[searchStore.active] = 0
+    }
+  }
+  if (!searchStore.searchResultSong.songs) {
+    searchStore.currentOffsetList[searchStore.active] = 0
+  }
+  if (searchStore.active === 1) {
+    await searchSong()
+  } else if (searchStore.active === 2) {
+    await searchPlaylist()
+  }
+  // searchStore.loading = true
+  // res = await cloudsearch({
+  //   keywords: searchStore.searchKeyword,
+  //   type: types[searchStore.active],
+  //   limit: searchStore.currentLimit,
+  //   offset: searchStore.currentOffsetList[searchStore.active],
+  // }, true)
+  // if (searchStore.currentOffsetList[searchStore.active] === 0) {
+  //   searchStore.searchResultSong = res.value.result
+  // } else {
+  //   searchStore.searchResultSong.songs = searchStore.searchResultSong.songs.concat(res.value.result.songs)
+  // }
+  // searchStore.loading = false
+  // showSearchResult.value = true
+  // if (searchStore.currentLimit * (
+  //   searchStore.currentOffsetList[searchStore.active] + 1) >= res.value.result.songCount) {
+  //   searchStore.finished = true
+  // }
 }
 
 </script>

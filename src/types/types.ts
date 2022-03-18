@@ -8,6 +8,7 @@ interface recommendedPlaylistsType {
 }
 
 interface recommendedSongsType {
+  id: number,
   al: object,
   name: string,
   alia: Array<string>,

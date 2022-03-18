@@ -24,7 +24,7 @@
         </template>
       </van-cell>
       <van-cell
-        v-for="(item, index) in searchStore.searchResult.songs"
+        v-for="(item, index) in searchStore.searchResultSong.songs"
         :key="item.id"
         style="text-align: left;"
         center
@@ -32,7 +32,7 @@
       >
         <template #title>
           <span
-            class="medium-font"
+            class="medium-font text-line-one"
             style="font-weight: 500;"
           >
             <span v-if="getIndex(item.name) !== -1">{{ item.name.slice(0, getIndex(item.name)) }}</span>
@@ -103,7 +103,7 @@ const searchStore = useSearchStore()
 const songStore = useSongStore()
 
 const onLoad = function () {
-  searchStore.currentOffset ++
+  searchStore.currentOffsetList[searchStore.active] ++
   emit('load')
 }
 const getIndex = computed(() => {
@@ -112,7 +112,7 @@ const getIndex = computed(() => {
   }
 })
 const play = function (index: number) {
-  songStore.playingSongList = searchStore.searchResult.songs
+  songStore.playingSongList = searchStore.searchResultSong.songs
   songStore.playingIndex = 0
   if (index !== -1) {
     songStore.playingIndex = index
@@ -130,8 +130,4 @@ const play = function (index: number) {
 
 <style scoped lang="scss">
 @import url('../../styles/common.scss');
-.font-blue {
-  color: #6389b7;
-  font-weight: 500;
-}
 </style>

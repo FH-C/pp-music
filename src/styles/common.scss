@@ -97,19 +97,33 @@
   font-weight: 700;
 }
 
+.font-blue {
+  color: #6389b7;
+  font-weight: 500;
+}
+
 .small-font {
   font-size: 16px;
   font-weight: 100;
 }
 
 .medium-font {
-  font-size: 30px;
-  font-weight: 100;
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.medium-lighter-font {
+  font-size: 28px;
+  font-weight: 200;
 }
 
 .margin-row-4 {
   margin-left: 4%;
   margin-right: 4%;
+}
+
+.margin-left-2 {
+  margin-left: 4%;
 }
 
 .padding-column-2 {
@@ -131,6 +145,16 @@
   height: 100px;
 }
 
+.mini-image {
+  width: 40px;
+  height: 40px;
+}
+
+.midium-image {
+  width: 200px;
+  height: 200px;
+}
+
 .mini-icon {
   width: 80px;
   height: 80px;
@@ -138,10 +162,10 @@
 }
 
 .micro-icon {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   position: relative;
-  top: 9px;
+  top: 8px;
 }
 
 .play-icon {

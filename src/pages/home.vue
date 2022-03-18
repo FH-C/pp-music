@@ -5,7 +5,7 @@
       v-model="loading"
       @refresh="onRefresh"
     >
-      <div style="margin-top: 60px;">
+      <div class="placeholder1">
         <Banner
           :banner-list="bannerList"
         ></Banner>
@@ -19,12 +19,13 @@
         style="margin-top: 10px;"
       ></RecommendedPlaylistVue> -->
         <SongListHomepageVue :song-object="songObject"></SongListHomepageVue>
-        <RecommendedSongListVue
+        <!-- <RecommendedSongListVue
           :recommended-song-list="recommendSonglist"
           style="margin-top: 10px;"
-        ></RecommendedSongListVue>
+        ></RecommendedSongListVue> -->
       </div>
     </van-pull-refresh>
+    <div class="placeholder2"></div>
     <div class="fixed-left-bottom">
       <MiniPlayerVue></MiniPlayerVue>
       <van-tabbar
@@ -166,5 +167,13 @@ onMounted (async () => {
 
 <style scoped lang="scss">
 @import url('../styles/common.scss');
+
+.placeholder1 {
+  margin-top: 90px;
+}
+
+.placeholder2 {
+  height: 190px;
+}
 
 </style>

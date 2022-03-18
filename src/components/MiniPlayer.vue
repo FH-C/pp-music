@@ -42,16 +42,18 @@
         <div
           @click="play(false)"
         >
-          <van-icon
-            v-if="songStore.playStatus"
-            name="pause-circle-o"
-            class="play-icon"
-          />
-          <van-icon
-            v-else
-            name="play-circle-o"
-            class="play-icon"
-          />
+          <CircleVue>
+            <van-icon
+              v-if="songStore.playStatus"
+              name="pause"
+              class="play-icon icon2"
+            />
+            <van-icon
+              v-else
+              name="play"
+              class="play-icon icon2"
+            />
+          </CircleVue>
         </div>
         <div @click="songStore.showPopup = true">
           <van-icon
@@ -72,6 +74,7 @@ import { onMounted, ref, watch } from 'vue'
 import { getSongDetail, getSongURL } from '../api/play'
 import { useSongStore } from '../store/song'
 import PlayingSongListVue from './PlayingSongList.vue'
+import CircleVue from './Circle.vue'
 
 const songStore = useSongStore()
 
@@ -206,6 +209,9 @@ const play = function (force: boolean) {
   songStore.playerRef.muted = false
 }
 
+watch(() => songStore.currentPlayTime, (newValue, oldValue) => {
+})
+
 </script>
 
 <style scoped lang="scss">
@@ -229,6 +235,12 @@ const play = function (force: boolean) {
 .image {
   position: relative;
   bottom: 6px;
+}
+
+.icon2 {
+  font-size: 40px;
+  // position: absolute;
+  top: -58px;
 }
 
 </style>

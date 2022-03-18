@@ -24,8 +24,8 @@
         lazy-render
       >
         <span
-          v-for="(recommendedSong, index) in recommendedSongList.slice((i-1)*3, i*3)"
-          :key="index"
+          v-for="recommendedSong in recommendedSongList.slice((i-1)*3, i*3)"
+          :key="recommendedSong.id"
         >
           <RecommendedSongVue
             :recommended-song="recommendedSong"
@@ -40,7 +40,7 @@
 <script setup lang="ts">
 import { recommendedSongsType } from '../types/types'
 import { NavBar, Picker, Popup, Field, Button, Toast, Icon, Image, Swipe, SwipeItem } from 'vant'
-import { PropType } from 'vue'
+import { onMounted, PropType } from 'vue'
 import RecommendedSongVue from './RecommendedSong.vue'
 const props = defineProps({
   recommendedSongList: {
