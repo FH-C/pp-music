@@ -17,8 +17,8 @@
     </van-nav-bar>
     <PlaylistMeansVue
       :playlist="playlist"
-      :song-list="songList"
     ></PlaylistMeansVue>
+    <SongListVue :song-list="songList"></SongListVue>
     <div class="fixed-left-bottom">
       <MiniPlayerVue></MiniPlayerVue>
     </div>
@@ -31,6 +31,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { getPlaylistDetail } from '../../api/playlist'
 import { getSongDetail } from '../../api/play'
 import PlaylistMeansVue from '../../components/playlist/PlaylistMeans.vue'
+import SongListVue from '../../components/playlist/SongList.vue'
 
 const router = useRouter()
 const route = useRoute()

@@ -54,7 +54,7 @@
               v-if="item.privilege.maxbr === 999000"
               plain
               type="primary"
-              color="#ff8989"
+              color="#ff3024"
             >
               SQ
             </van-tag>

@@ -128,7 +128,7 @@ const getData = async function (force = false) {
   await getBlockPage(force)
   await getLoginStatus(force)
   await getHomepageIcon(force)
-  await getRecommendSongs(force)
+  // await getRecommendSongs(force)
 }
 
 const onRefresh = async function () {
