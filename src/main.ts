@@ -4,7 +4,7 @@ import App from './App.vue'
 import router from './router/index'
 import 'vant/lib/index.css'
 import { Button, Checkbox, NavBar, Picker, Field, Dialog, Popup, Toast, CountDown, Swipe, SwipeItem, Image,
-  Icon, Search, Tabbar, TabbarItem, Tag, Cell, PullRefresh, Tab, Tabs, List } from 'vant'
+  Icon, Search, Tabbar, TabbarItem, Tag, Cell, PullRefresh, Tab, Tabs, List, Progress } from 'vant'
 import SvgIcon from './components/SvgIcon.vue'
 import MiniPlayerVue from './components/MiniPlayer.vue'
 import SearchResultSongVue from './components/search/SearchResultSong.vue'
@@ -35,6 +35,7 @@ app.use(Button)
 .use(Tab)
 .use(Tabs)
 .use(List)
+.use(Progress)
 .component('svg-icon', SvgIcon)
 .component('MiniPlayerVue', MiniPlayerVue)
 // .component('SearchResultComprehensiveVue', SearchResultComprehensiveVue)

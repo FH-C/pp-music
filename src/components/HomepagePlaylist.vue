@@ -49,7 +49,7 @@
 <script setup lang="ts">
 import { computed, onMounted, PropType, ref } from 'vue'
 import { Icon, Image, Button } from 'vant'
-import { numberConvert } from '../utils/number'
+import { numberConvert } from '../utils/convert'
 const refs: any = ref([])
 const props = defineProps({
   homepagePlaylists: {

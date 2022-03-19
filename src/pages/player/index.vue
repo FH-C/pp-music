@@ -6,7 +6,7 @@
   >
   </div>
   <div
-    v-if="songStore.playingSongDetail.al"
+    v-if="songStore.playingSongDetail.al && songStore.playerRef.duration"
     class="body"
   >
     <div class="flex-row header align-items-center margin-row-4">
@@ -61,6 +61,12 @@
       :image-src="songStore.playingSongDetail.al.picUrl"
       :rotate="songStore.playStatus"
     ></PlayerRecordVue>
+    <PlayerProgressVue
+      class="progress"
+      :current-time="songStore.currentPlayTime"
+      :duration="songStore.playerRef.duration"
+    ></PlayerProgressVue>
+    <PlayerButtons class="buttons"></PlayerButtons>
   </div>
   <div style="display: none;">
     <MiniPlayerVue></MiniPlayerVue>
@@ -74,13 +80,15 @@ import { onMounted } from 'vue'
 import { getSongDetail } from '../../api/play'
 import { onClickLeft } from '../../utils/router'
 import PlayerRecordVue from '../../components/player/record.vue'
+import PlayerProgressVue from '../../components/player/progress.vue'
+import PlayerButtons from '../../components/player/buttons.vue'
 const router = useRouter()
 const route = useRoute()
 const songStore = useSongStore()
 onMounted (() => {
-  setTimeout(() => {
+  if (!songStore.playingSongDetail.al) {
     songStore.playingId = route.query.id as any
-  }, 1000)
+  }
 })
 
 </script>
@@ -108,10 +116,22 @@ onMounted (() => {
   position: absolute;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .record {
   position: relative;
   top: 10vh;
+}
+
+.progress {
+  position: absolute;
+  bottom: 10vh;
+}
+
+.buttons {
+  position: absolute;
+  bottom: 5vh;
 }
 </style>

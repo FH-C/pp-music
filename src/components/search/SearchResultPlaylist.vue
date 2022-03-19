@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import { numberConvert } from '../../utils/number'
+import { numberConvert } from '../../utils/convert'
 import { computed, ref } from 'vue'
 import { useSearchStore } from '../../store/search'
 import { useSongStore } from '../../store/song'

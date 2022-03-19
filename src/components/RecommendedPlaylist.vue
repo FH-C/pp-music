@@ -41,7 +41,7 @@
 <script setup lang="ts">
 import { computed, onMounted, PropType } from 'vue'
 import { Icon, Image, Button } from 'vant'
-import { numberConvert } from '../utils/number'
+import { numberConvert } from '../utils/convert'
 import { recommendedPlaylistsType } from '../types/types'
 
 const props = defineProps({
