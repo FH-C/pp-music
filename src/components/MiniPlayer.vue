@@ -5,6 +5,7 @@
     <div
       v-if="songStore.playingSongDetail.al"
       class="flex-row bar align-items-center"
+      @click="router.push({ path: '/player', query: { id: songStore.playingSongDetail.id } })"
     >
       <div class="image">
         <van-image
@@ -71,11 +72,13 @@
 import { getPlayingLocalStorage } from '../utils/localStorage'
 import { NavBar, Picker, Popup, Field, Button, Toast, Icon, Image } from 'vant'
 import { onMounted, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import { getSongDetail, getSongURL } from '../api/play'
 import { useSongStore } from '../store/song'
 import PlayingSongListVue from './PlayingSongList.vue'
 import CircleVue from './Circle.vue'
 
+const router = useRouter()
 const songStore = useSongStore()
 
 onMounted(() => {
@@ -89,6 +92,7 @@ watch(() => songStore.playingId, async (songId) => {
     ids: songId.toString(),
   })
   songStore.playingSongDetail = res.value.songs[0]
+  console.log(songStore.playingSongDetail)
   if (songStore.playingSongList.length === 0) {
     songStore.playingSongList = res.value.songs
   }

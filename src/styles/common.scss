@@ -112,6 +112,11 @@
   font-weight: 500;
 }
 
+.big-font {
+  font-size: 32px;
+  font-weight: 500;
+}
+
 .medium-lighter-font {
   font-size: 28px;
   font-weight: 200;
@@ -150,7 +155,7 @@
   height: 40px;
 }
 
-.midium-image {
+.medium-image {
   width: 200px;
   height: 200px;
 }
@@ -158,6 +163,12 @@
 .mini-icon {
   width: 80px;
   height: 80px;
+  border-radius: 50%;
+}
+
+.minier-icon {
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
 }
 
@@ -194,7 +205,7 @@
 }
 
 .rotate {
-  animation: rotate 3s linear infinite;
+  animation: rotate 5s linear infinite;
 }
 
 @keyframes rotate {

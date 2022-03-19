@@ -6,6 +6,7 @@
       safe-area-inset-top
       fixed
       placeholder
+      @click-left="onClickLeft"
     >
       <template #right>
         <van-icon
@@ -18,7 +19,10 @@
     <PlaylistMeansVue
       :playlist="playlist"
     ></PlaylistMeansVue>
-    <SongListVue :song-list="songList"></SongListVue>
+    <SongListVue
+      :song-list="songList"
+      :privileges="privileges"
+    ></SongListVue>
     <div class="fixed-left-bottom">
       <MiniPlayerVue></MiniPlayerVue>
     </div>
@@ -32,11 +36,13 @@ import { getPlaylistDetail } from '../../api/playlist'
 import { getSongDetail } from '../../api/play'
 import PlaylistMeansVue from '../../components/playlist/PlaylistMeans.vue'
 import SongListVue from '../../components/playlist/SongList.vue'
+import { onClickLeft } from '../../utils/router'
 
 const router = useRouter()
 const route = useRoute()
 const playlist = ref({}) as any
 const songList = ref([]) as any
+const privileges = ref([]) as any
 onMounted(async () => {
   await getData()
 })
@@ -51,6 +57,7 @@ const getData = async function () {
     ids: traceIds,
   })
   songList.value = res2.value.songs
+  privileges.value = res2.value.privileges
 }
 </script>
 

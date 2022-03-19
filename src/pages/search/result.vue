@@ -26,6 +26,7 @@
           v-for="(item, index) in tabs"
           :key="item"
           :title="item"
+          :disabled="[1, 2].indexOf(index) === -1"
         >
           <keep-alive>
             <component

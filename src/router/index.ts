@@ -8,6 +8,7 @@ import Search from '../pages/search/index.vue'
 import SearchResult from '../pages/search/result.vue'
 import Home from '../pages/home.vue'
 import Playlist from '../pages/playlist/index.vue'
+import Player from '../pages/player/index.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -59,6 +60,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/playlist',
     name: 'Playlist',
     component: Playlist,
+  },
+  {
+    path: '/player',
+    name: 'Player',
+    component: Player,
   },
 ]
 

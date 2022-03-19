@@ -7,7 +7,7 @@
     >
       <div>
         <van-image
-          class="midium-image"
+          class="medium-image"
           radius="10"
           :src="props.playlist.coverImgUrl"
         />
