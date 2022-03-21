@@ -1,14 +1,10 @@
 <template>
   <div
-    v-if="songStore.playingSongDetail.al"
     class="background"
-    :style="`background: url(${songStore.playingSongDetail.al.picUrl}) center;`"
+    :style="`background: url(${getPicURL}) center;`"
   >
   </div>
-  <div
-    v-if="songStore.playingSongDetail.al && songStore.playerRef.duration"
-    class="body"
-  >
+  <div class="body">
     <div class="flex-row header align-items-center margin-row-4">
       <div>
         <svg
@@ -57,39 +53,75 @@
       </div>
     </div>
     <PlayerRecordVue
+      ref="refRecord"
       class="record"
-      :image-src="songStore.playingSongDetail.al.picUrl"
       :rotate="songStore.playStatus"
+      :image-src-list="songStore.misicPicList"
+      :initial-swipe="songStore.playingIndex"
     ></PlayerRecordVue>
     <PlayerProgressVue
       class="progress"
       :current-time="songStore.currentPlayTime"
       :duration="songStore.playerRef.duration"
     ></PlayerProgressVue>
-    <PlayerButtons class="buttons"></PlayerButtons>
+    <PlayerButtons
+      class="buttons"
+      @next="next"
+      @play="play"
+      @prev="prev"
+      @show-list="showList"
+    ></PlayerButtons>
   </div>
   <div style="display: none;">
-    <MiniPlayerVue></MiniPlayerVue>
+    <MiniPlayerVue ref="refPlayer"></MiniPlayerVue>
   </div>
+  <PlayingSongListVue @play="swipeTo"></PlayingSongListVue>
 </template>
 
 <script setup lang="ts">
 import { useRouter, useRoute } from 'vue-router'
 import { useSongStore } from '../../store/song'
-import { onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { getSongDetail } from '../../api/play'
 import { onClickLeft } from '../../utils/router'
 import PlayerRecordVue from '../../components/player/record.vue'
 import PlayerProgressVue from '../../components/player/progress.vue'
 import PlayerButtons from '../../components/player/buttons.vue'
+import PlayingSongListVue from '../../components/PlayingSongList.vue'
 const router = useRouter()
 const route = useRoute()
 const songStore = useSongStore()
+const refPlayer: any = ref(null)
+const refRecord: any = ref(null)
 onMounted (() => {
   if (!songStore.playingSongDetail.al) {
-    songStore.playingId = route.query.id as any
+    router.push('home')
   }
 })
+
+const getPicURL = computed(() => {
+  console.log(songStore.misicPicList)
+  return songStore.misicPicList[songStore.playingIndex]
+})
+
+const prev = function () {
+  refRecord.value.prev()
+  refPlayer.value.getPrevSong()
+}
+const next = function () {
+  refRecord.value.next()
+  refPlayer.value.getNextSong()
+}
+const play = function () {
+  refPlayer.value.play()
+}
+const showList = function () {
+  songStore.showPopup = true
+}
+
+const swipeTo = function (index: number) {
+  refRecord.value.swipeTo(index)
+}
 
 </script>
 
@@ -132,6 +164,8 @@ onMounted (() => {
 
 .buttons {
   position: absolute;
-  bottom: 5vh;
+  bottom: 2vh;
+  width: 60vw;
+  left: 20vw;
 }
 </style>

@@ -43,6 +43,9 @@ import { computed, onMounted, PropType } from 'vue'
 import { Icon, Image, Button } from 'vant'
 import { numberConvert } from '../utils/convert'
 import { recommendedPlaylistsType } from '../types/types'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const props = defineProps({
   recommendPlaylists: {
@@ -58,7 +61,12 @@ const playCount = computed(() => {
   }
 })
 const toPlaylist = function (playlistId: number) {
-  console.log(playlistId)
+  router.push({
+    path: '/playlist',
+    query: {
+      id: playlistId,
+    },
+  })
 }
 </script>
 

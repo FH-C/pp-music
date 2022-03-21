@@ -117,6 +117,7 @@
 import { Popup, Cell } from 'vant'
 import { useSongStore } from '../store/song'
 import PlayingTypeVue from './PlayingType.vue'
+const emit = defineEmits(['play'])
 const songStore = useSongStore()
 const circleText = ['列表循环', '顺序播放', '随机播放', '单曲循环']
 
@@ -140,6 +141,7 @@ const removeAllSong = function () {
   songStore.playStatus = false
 }
 const play = function (index: number) {
+  emit('play', index)
   songStore.playingIndex = index
   songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
   setTimeout(() => {

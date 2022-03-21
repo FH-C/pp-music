@@ -6,9 +6,11 @@
     >{{ timeConvert(Math.ceil(props.currentTime)) }}</span>
     <van-progress
       inactive
-      :percentage="currentTime / duration"
+      :percentage="currentTime / duration * 100"
       :show-pivot="false"
       class="progress-bar"
+      color="rgba(108, 111, 111, 0.2)"
+      track-color="rgba(108, 111, 111, 0.1)"
     />
     <span
       class="small-font text"

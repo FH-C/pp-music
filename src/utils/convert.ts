@@ -13,7 +13,17 @@ const timeConvert = function(second: number) {
   return `${ hour ? ':' : '' }${ minute.toString().length > 1 ? minute: '0' + minute }:${ second1.toString().length >
      1 ? second1 : '0' + second1 }`
 }
+
+const dateConvert = function(timestamp: number) {
+  const date = new Date(timestamp)
+  const year = date.getFullYear()
+  const month = date.getMonth() + 1
+  const day = date.getDate()
+  return `${ year }.${ month }.${ day }`
+}
+
 export {
   numberConvert,
   timeConvert,
+  dateConvert,
 }

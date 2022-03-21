@@ -10,6 +10,8 @@ export const useSongStore = defineStore('song', {
       playingIndex: 0,
       playingType: 0,
       musicUrl: '',
+      musicUrlList: [''],
+      misicPicList: [''],
       playingSongDetail: {} as any,
       playingSongList: [] as any,
       lyrics: {} as any,

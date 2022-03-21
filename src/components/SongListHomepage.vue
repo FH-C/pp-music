@@ -111,6 +111,8 @@ import { songListHomepageType } from '../types/types'
 import { NavBar, Picker, Popup, Field, Button, Toast, Icon, Image, Swipe, SwipeItem, Tag } from 'vant'
 import { onMounted, PropType, watch } from 'vue'
 import { useSongStore } from '../store/song'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 const props = defineProps({
   songObject: {
     type: Object as PropType<songListHomepageType> | any,
@@ -120,31 +122,37 @@ const props = defineProps({
   },
 })
 const songStore = useSongStore()
-const playSong = function (song: any) {
-  songStore.playingId = song.resourceId
-  songStore.playingSongList = [song.resourceExtInfo.song]
-  songStore.showPlayer = true
-  setTimeout(() => {
-    songStore.playStatus = false
-  }, 200)
-  setTimeout(() => {
-    songStore.playStatus = true
-  }, 200)
-  // songStore.playerRef.play()
-}
-const playAll = function() {
+
+const getPlayingSongList = function () {
   const playingList = []
   for (const item1 of props.songObject.creatives) {
     for (const item2 of item1.resources) {
       playingList.push(item2.resourceExtInfo.songData)
     }
   }
-  songStore.playingId = playingList[0].id
+  return playingList
+}
+const playSong = function (song: any) {
+  if (songStore.playStatus && songStore.playingId == song.resourceId) {
+    router.push({ path: '/player', query: { id: song.resourceId } })
+  } else {
+    songStore.playingId = song.resourceId
+    songStore.playingIndex = 0
+    songStore.playingSongList = getPlayingSongList()
+    songStore.showPlayer = true
+    setTimeout(() => {
+      songStore.playStatus = false
+    }, 200)
+    setTimeout(() => {
+      songStore.playStatus = true
+    }, 200)
+  }
+}
+const playAll = function() {
+  songStore.playingSongList = getPlayingSongList()
+  songStore.playingId = songStore.playingSongList[0].id
   songStore.showPlayer = true
-  songStore.playingSongList = playingList
   songStore.playStatus = true
-  console.log(songStore.playingId)
-  console.log(songStore.playingSongList)
 }
 onMounted(() => {
   console.log('props.songObject', props.songObject)

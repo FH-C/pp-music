@@ -9,6 +9,7 @@ import SvgIcon from './components/SvgIcon.vue'
 import MiniPlayerVue from './components/MiniPlayer.vue'
 import SearchResultSongVue from './components/search/SearchResultSong.vue'
 import SearchResultPlaylistVue from './components/search/SearchResultPlaylist.vue'
+import SearchResultAlbumVue from './components/search/SearchResultAlbum.vue'
 import store from './store'
 
 const app = createApp(App)
@@ -44,7 +45,7 @@ app.use(Button)
 // .component('SearchResultVideoVue', SearchResultVideoVue)
 // .component('SearchResultSingerVue', SearchResultSingerVue)
 // .component('SearchResultLyricsVue', SearchResultLyricsVue)
-// .component('SearchResultAlbumVue', SearchResultAlbumVue)
+.component('SearchResultAlbumVue', SearchResultAlbumVue)
 // .component('SearchResultSoundVue', SearchResultSoundVue)
 // .component('SearchResultUserVue', SearchResultUserVue)
 .use(router)

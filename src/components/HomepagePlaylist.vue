@@ -50,6 +50,8 @@
 import { computed, onMounted, PropType, ref } from 'vue'
 import { Icon, Image, Button } from 'vant'
 import { numberConvert } from '../utils/convert'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 const refs: any = ref([])
 const props = defineProps({
   homepagePlaylists: {
@@ -65,11 +67,12 @@ const playCount = computed(() => {
   }
 })
 const toPlaylist = function (playlistId: number) {
-  console.log(playlistId)
-}
-const test = function (index: number) {
-  console.log('refs.value[index]', refs.value[index])
-  console.log('refs.value[index].offsetWidth', refs.value[index].offsetWidth)
+  router.push({
+    path: '/playlist',
+    query: {
+      id: playlistId,
+    },
+  })
 }
 </script>
 

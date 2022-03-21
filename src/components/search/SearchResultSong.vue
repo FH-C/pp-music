@@ -111,6 +111,9 @@
 import { computed, ref } from 'vue'
 import { useSearchStore } from '../../store/search'
 import { useSongStore } from '../../store/song'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 const emit = defineEmits(['load'])
 const searchStore = useSearchStore()
 const songStore = useSongStore()
@@ -129,6 +132,9 @@ const play = function (index: number) {
   songStore.playingIndex = 0
   if (index !== -1) {
     songStore.playingIndex = index
+    if (songStore.playStatus && songStore.playingId == songStore.playingSongList[songStore.playingIndex].id) {
+      router.push({ path: '/player', query: { id: songStore.playingId } })
+    }
   }
   songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
   songStore.showPlayer = true

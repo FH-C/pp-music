@@ -35,7 +35,7 @@
       <template #label>
         <span>
           <svg
-            v-if="props.privileges[index].maxbr === 999000"
+            v-if="props.songList[index].privilege.maxbr === 999000"
             t="1647653055755"
             class="micro-icon"
             viewBox="0 0 1024 1024"
@@ -98,12 +98,6 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const props = defineProps({
   songList: {
-    type: Array as any,
-    default: () => {
-      return []
-    },
-  },
-  privileges: {
     type: Array as any,
     default: () => {
       return []

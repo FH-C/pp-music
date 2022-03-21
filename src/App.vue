@@ -17,7 +17,7 @@ const timeUpdate = function (e: Event | any) {
   <div style="display: none;">
     <audio
       ref="playerRef"
-      :src="songStore.musicUrl"
+      :src="songStore.musicUrlList[songStore.playingIndex]"
       @timeupdate="timeUpdate"
     >
     </audio>

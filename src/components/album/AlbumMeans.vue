@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-if="props.playlist.coverImgUrl"
+      v-if="props.album.picUrl"
       style="background-color: #6c6e74;"
       class="flex-row box"
     >
@@ -9,38 +9,30 @@
         <van-image
           class="medium-image"
           radius="10"
-          :src="props.playlist.coverImgUrl"
+          :src="props.album.picUrl"
         />
-        <div class="play-count-background">
-          <van-icon name="play" />
-          {{ playCount(props.playlist.playCount) }}
-        </div>
       </div>
       <div class="flex-column margin-row-4 text-left box2">
         <div class="medium-lighter-font white-font">
-          {{ props.playlist.name }}
+          {{ props.album.name }}
         </div>
-        <div class="flex-row flex-grow-1 user">
-          <div>
-            <van-image
-              class="mini-image"
-              radius="50"
-              :src="props.playlist.creator.avatarUrl"
-            />
-          </div>
-          <div class="small-font white-font gray-font margin-left-2 text">
-            {{ props.playlist.creator.nickname }}
+        <div class="flex-grow-1 user">
+          <div class="small-font white-font gray-font text">
+            {{ `歌手：${props.album.artists[0].name}` }}
           </div>
         </div>
-        <div class="small-font white-font gray-font text-line-two">
-          {{ props.playlist.description }}
+        <div class="small-font white-font gray-font text">
+          {{ `发行时间：${dateConvert(props.album.publishTime)}` }}
+        </div>
+        <div class="small-font white-font gray-font text-line-one">
+          {{ props.album.description }}
         </div>
       </div>
     </div>
     <CommentCountVue
-      :subscribed-count="props.playlist.subscribedCount"
-      :comment-count="props.playlist.commentCount"
-      :share-count="props.playlist.shareCount"
+      :subscribed-count="props.count.subCount"
+      :comment-count="props.count.commentCount"
+      :share-count="props.count.shareCount"
     ></CommentCountVue>
   </div>
 </template>
@@ -49,19 +41,21 @@
 import { computed } from 'vue'
 import { numberConvert } from '../../utils/convert'
 import CommentCountVue from './CommentCount.vue'
+import { dateConvert } from '../../utils/convert'
 
 const props = defineProps({
-  playlist: {
+  album: {
     type: Object,
     default: () => {
       return {}
     },
   },
-})
-const playCount = computed(() => {
-  return function(count: number) {
-    return numberConvert(count)
-  }
+  count: {
+    type: Object,
+    default: () => {
+      return {}
+    },
+  },
 })
 </script>
 

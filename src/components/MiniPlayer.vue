@@ -41,7 +41,7 @@
       </div>
       <div class="icon flex-row">
         <div
-          @click="play(false)"
+          @click.stop="play(false)"
         >
           <CircleVue>
             <van-icon
@@ -56,7 +56,7 @@
             />
           </CircleVue>
         </div>
-        <div @click="songStore.showPopup = true">
+        <div @click.stop="songStore.showPopup = true">
           <van-icon
             name="bars"
             class="play-icon"
@@ -87,7 +87,6 @@ onMounted(() => {
 
 watch(() => songStore.playingId, async (songId) => {
   console.log(songId)
-  await getSongUrl()
   const res = await getSongDetail({
     ids: songId.toString(),
   })
@@ -101,9 +100,7 @@ watch(() => songStore.playingId, async (songId) => {
 })
 
 watch(() => songStore.playStatus, async (newValue) =>{
-  console.log(songStore.playStatus)
   if (newValue) {
-    await getSongUrl()
     const res = await getSongDetail({
       ids: songStore.playingId.toString(),
     })
@@ -117,6 +114,19 @@ watch(() => songStore.playStatus, async (newValue) =>{
   }
 })
 
+watch(() => songStore.playingSongList, async () => {
+  console.log('songStore.playingSongList', songStore.playingSongList)
+  songStore.misicPicList = songStore.playingSongList.map((item: any) => {
+    console.log('item', item)
+    if (item && item.al) {
+      return item.al.picUrl
+    } else if (item && item.album) {
+      return item.album.picUrl
+    }
+  })
+  await getSongUrlList()
+})
+
 const setPlayingLocalStorage = function () {
   const playing = {
     playingId: songStore.playingId,
@@ -127,11 +137,11 @@ const setPlayingLocalStorage = function () {
   localStorage.setItem('playing', JSON.stringify(playing))
 }
 
-const getSongUrl = async function () {
+const getSongUrlList = async function () {
   const res = await getSongURL({
-    id: songStore.playingId,
+    id: songStore.playingSongList.map((song: any) => song.id).join(','),
   })
-  songStore.musicUrl = res.value.data[0].url
+  songStore.musicUrlList = res.value.data.map((song: any) => song.url)
 }
 
 const getNextSong = function () {
@@ -194,6 +204,64 @@ const getNextSong = function () {
   }
 }
 
+const getPrevSong = function () {
+  switch (songStore.playingType) {
+    case 0:
+      // 列表循环
+      if (songStore.playingIndex - 1 < 0) {
+        songStore.playingIndex = songStore.playingSongList.length - 1
+      } else {
+        songStore.playingIndex --
+      }
+      songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
+      setTimeout(() => {
+        songStore.playStatus = false
+      }, 200)
+      setTimeout(() => {
+        songStore.playStatus = true
+      }, 200)
+      break
+    case 1:
+      // 顺序播放
+      if (songStore.playingIndex - 1 < 0) {
+        songStore.playingIndex = songStore.playingSongList.length - 1
+      } else {
+        songStore.playingIndex --
+      }
+      songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
+      setTimeout(() => {
+        songStore.playStatus = false
+      }, 200)
+      setTimeout(() => {
+        songStore.playStatus = true
+      }, 200)
+      break
+    case 2:
+      // 随机播放
+      const randomInt = Math.floor(Math.random() * (songStore.playingSongList.length + 1))
+      songStore.playingIndex = randomInt
+      songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
+      // songStore.playerRef.play()
+      setTimeout(() => {
+        songStore.playStatus = false
+      }, 200)
+      setTimeout(() => {
+        songStore.playStatus = true
+      }, 200)
+      break
+    case 3:
+      // 单曲循环
+      // songStore.playerRef.play()
+      setTimeout(() => {
+        songStore.playStatus = false
+      }, 200)
+      setTimeout(() => {
+        songStore.playStatus = true
+      }, 200)
+      break
+  }
+}
+
 const listenEnd = function () {
   songStore.playerRef.addEventListener('ended', getNextSong)
 }
@@ -213,7 +281,10 @@ const play = function (force: boolean) {
   songStore.playerRef.muted = false
 }
 
-watch(() => songStore.currentPlayTime, (newValue, oldValue) => {
+defineExpose({
+  getNextSong,
+  getPrevSong,
+  play,
 })
 
 </script>

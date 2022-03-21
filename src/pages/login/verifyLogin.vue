@@ -47,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onUnmounted, reactive, Ref, onMounted, watch } from 'vue'
+import { ref, onUnmounted, reactive, Ref, onMounted, watch, onBeforeUpdate } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { Field, Toast, Dialog } from 'vant'
 import { onClickLeft } from '../../utils/router'
@@ -79,15 +79,12 @@ const resend = async function () {
   }, 1000)
 }
 const next = async function () {
-  if (countdown) {
-    clearInterval(countdown)
-  }
   const res = await verifyCaptcha({
     phone: route.query.phone,
     ctcode: route.query.countryCode?.slice(1),
     captcha: verifyCode.join(''),
   }, true)
-  if ((res as any).data.data) {
+  if (res.value.data) {
     Toast('登录成功')
     router.push('home')
   }
@@ -145,6 +142,9 @@ onMounted (() => {
 })
 onUnmounted (() => {
   clearCountdown()
+})
+onBeforeUpdate(() => {
+  refs.value = []
 })
 </script>
 

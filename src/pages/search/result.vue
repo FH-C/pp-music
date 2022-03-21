@@ -26,7 +26,7 @@
           v-for="(item, index) in tabs"
           :key="item"
           :title="item"
-          :disabled="[1, 2].indexOf(index) === -1"
+          :disabled="[1, 2, 6].indexOf(index) === -1"
         >
           <keep-alive>
             <component
@@ -92,7 +92,6 @@ onMounted(async () => {
   searchStore.searchKeyword = route.query.key as string
 })
 watch(() => searchStore.active, async () =>{
-  console.log(searchStore.active)
   await search()
 })
 const onClickField = async function () {
@@ -168,6 +167,31 @@ const searchPlaylist = async function () {
     searchStore.finished = true
   }
 }
+const searchAlbum = async function () {
+  let res = undefined
+  searchStore.loading = true
+  res = await cloudsearch({
+    keywords: searchStore.searchKeyword,
+    type: types[searchStore.active],
+    limit: searchStore.currentLimit,
+    offset: searchStore.currentOffsetList[searchStore.active],
+  }, true)
+  console.log('searchStore.currentOffsetList', searchStore.currentOffsetList)
+  console.log('searchStore.currentOffsetList[searchStore.active]', searchStore.currentOffsetList[searchStore.active])
+  console.log('res.value.result', res.value.result)
+  if (searchStore.currentOffsetList[searchStore.active] === 0) {
+    searchStore.searchResultAlbum = res.value.result
+    console.log('searchStore.searchResultAlbum', searchStore.searchResultAlbum)
+  } else {
+    searchStore.searchResultAlbum.albums = searchStore.searchResultAlbum.albums.concat(res.value.result.albums)
+  }
+  searchStore.loading = false
+  showSearchResult.value = true
+  if (searchStore.currentLimit * (
+    searchStore.currentOffsetList[searchStore.active] + 1) >= res.value.result.albumCount) {
+    searchStore.finished = true
+  }
+}
 const search = async function (keyword?: string) {
   const res = undefined
   if (keyword) {
@@ -186,6 +210,8 @@ const search = async function (keyword?: string) {
     await searchSong()
   } else if (searchStore.active === 2) {
     await searchPlaylist()
+  } else if (searchStore.active === 6) {
+    await searchAlbum()
   }
   // searchStore.loading = true
   // res = await cloudsearch({
