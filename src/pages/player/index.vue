@@ -159,7 +159,7 @@ const swipeTo = function (index: number) {
 
 .progress {
   position: absolute;
-  bottom: 10vh;
+  bottom: 12vh;
 }
 
 .buttons {
