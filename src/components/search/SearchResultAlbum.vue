@@ -4,6 +4,7 @@
       v-model:loading="searchStore.loading"
       :finished="searchStore.finished"
       finished-text="到底啦~"
+      @load="onLoad"
     >
       <van-cell
         v-for="item in searchStore.searchResultAlbum.albums"
@@ -65,9 +66,6 @@ const searchStore = useSearchStore()
 const songStore = useSongStore()
 const router = useRouter()
 const onLoad = function () {
-  console.log(searchStore.searchResultPlaylist)
-  searchStore.currentOffsetList[searchStore.active] ++
-  console.log('++')
   emit('load')
 }
 const playCount = computed(() => {

@@ -60,7 +60,7 @@ import { useRouter } from 'vue-router'
 import { NavBar, Picker, Popup, Field, Button, Toast } from 'vant'
 import { ref } from 'vue'
 import { onClickLeft } from '../../utils/router'
-const columns = ['+86', '+87', '+88', '+89', '89', '89', '89']
+const columns = ['+86']
 const showPicker = ref(false)
 const countryCode = ref('+86')
 const phone = ref('')

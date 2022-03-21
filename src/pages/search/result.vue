@@ -203,9 +203,6 @@ const search = async function (keyword?: string) {
       searchStore.currentOffsetList[searchStore.active] = 0
     }
   }
-  if (!searchStore.searchResultSong.songs) {
-    searchStore.currentOffsetList[searchStore.active] = 0
-  }
   if (searchStore.active === 1) {
     await searchSong()
   } else if (searchStore.active === 2) {
@@ -213,24 +210,7 @@ const search = async function (keyword?: string) {
   } else if (searchStore.active === 6) {
     await searchAlbum()
   }
-  // searchStore.loading = true
-  // res = await cloudsearch({
-  //   keywords: searchStore.searchKeyword,
-  //   type: types[searchStore.active],
-  //   limit: searchStore.currentLimit,
-  //   offset: searchStore.currentOffsetList[searchStore.active],
-  // }, true)
-  // if (searchStore.currentOffsetList[searchStore.active] === 0) {
-  //   searchStore.searchResultSong = res.value.result
-  // } else {
-  //   searchStore.searchResultSong.songs = searchStore.searchResultSong.songs.concat(res.value.result.songs)
-  // }
-  // searchStore.loading = false
-  // showSearchResult.value = true
-  // if (searchStore.currentLimit * (
-  //   searchStore.currentOffsetList[searchStore.active] + 1) >= res.value.result.songCount) {
-  //   searchStore.finished = true
-  // }
+  searchStore.currentOffsetList[searchStore.active] ++
 }
 
 </script>

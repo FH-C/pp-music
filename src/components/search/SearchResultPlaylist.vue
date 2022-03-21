@@ -55,8 +55,6 @@ const searchStore = useSearchStore()
 const songStore = useSongStore()
 const router = useRouter()
 const onLoad = function () {
-  console.log(searchStore.searchResultPlaylist)
-  searchStore.currentOffsetList[searchStore.active] ++
   emit('load')
 }
 const playCount = computed(() => {

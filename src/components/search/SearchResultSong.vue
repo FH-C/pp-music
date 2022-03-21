@@ -119,7 +119,6 @@ const searchStore = useSearchStore()
 const songStore = useSongStore()
 
 const onLoad = function () {
-  searchStore.currentOffsetList[searchStore.active] ++
   emit('load')
 }
 const getIndex = computed(() => {

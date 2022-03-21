@@ -40,7 +40,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { numberConvert } from '../../utils/convert'
-import CommentCountVue from './CommentCount.vue'
+import CommentCountVue from '../CommentCount.vue'
 import { dateConvert } from '../../utils/convert'
 
 const props = defineProps({
