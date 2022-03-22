@@ -36,10 +36,9 @@ const props = defineProps({
   },
 })
 const songStore = useSongStore()
-const duration = songStore.playerRef.duration
 const dashArray = Math.PI * 100
 const dashOffset = computed(() => {
-  return isNaN(duration) ? 1 : ((1 - songStore.currentPlayTime / duration) * dashArray)
+  return (1 - songStore.currentPlayTime / (songStore.playerRef.duration || 1)) * dashArray
 })
 </script>
 

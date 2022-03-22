@@ -16,6 +16,13 @@
         >
         </div>
       </div>
+      <div
+        ref="transparent"
+        class="transparent-bar"
+        :style="transparentStyle"
+      >
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -53,6 +60,7 @@ const props = defineProps({
 const isMoving = ref(false)
 const pivot: any = ref(null)
 const trackBar: any = ref(null)
+const transparent: any = ref(null)
 const percentage = ref(props.percentage)
 const pivotSizeVar = ref(props.pivotSize)
 const strokeWidth = computed(() => {
@@ -83,7 +91,12 @@ const pivotStyle = computed(() => {
   return `${ pivotSize.value }${ pivotColor.value }bottom:calc(${ pivotSizeVar.value }/3);left:calc(100%);`
 })
 
-const touchstart = function (e: any) {
+const transparentStyle = computed(() => {
+  return `height:calc(${ props.strokeWidth } * 11);bottom:calc(${ props.strokeWidth } * 5);`
+})
+
+const touchstart = function () {
+  console.log('start')
   isMoving.value = true
   pivotSizeVar.value = `calc(${ props.pivotSize }*2)`
 }
@@ -99,19 +112,22 @@ const touchmove = function (e: any) {
   percentage.value = percentageNew
   emit('update:percentageDelay', percentage.value)
 }
-const touchend = function (e: any) {
+const touchend = function () {
   pivotSizeVar.value = props.pivotSize
   isMoving.value = false
   emit('update:percentage', percentage.value)
 }
 const listenTouchstart = function () {
   pivot.value.addEventListener('touchstart', touchstart)
+  transparent.value.addEventListener('touchstart', touchstart)
 }
 const listenTouchmove = function () {
   pivot.value.addEventListener('touchmove', touchmove)
+  transparent.value.addEventListener('touchmove', touchmove)
 }
 const listenTouchend = function () {
-  pivot.value.addEventListener('touchend', () => touchend)
+  pivot.value.addEventListener('touchend', touchend)
+  transparent.value.addEventListener('touchend', touchend)
 }
 watch(() => {
   return props.percentage
@@ -138,6 +154,10 @@ onMounted(() => {
       position: relative;
       border-radius: 50%;
     }
+  }
+  .transparent-bar {
+    background-color: transparent;
+    position: relative;
   }
 }
 </style>
