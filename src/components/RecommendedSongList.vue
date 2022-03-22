@@ -38,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import { recommendedSongsType } from '../types/types'
+import { recommendedSongsType } from '@/types/types'
 import { NavBar, Picker, Popup, Field, Button, Toast, Icon, Image, Swipe, SwipeItem } from 'vant'
 import { onMounted, PropType } from 'vue'
 import RecommendedSongVue from './RecommendedSong.vue'
@@ -53,5 +53,5 @@ const props = defineProps({
 </script>
 
 <style scoped>
-@import url('../styles/common.scss');
+@import url('@/style/common.scss');
 </style>

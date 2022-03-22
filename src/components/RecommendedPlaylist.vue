@@ -41,8 +41,8 @@
 <script setup lang="ts">
 import { computed, onMounted, PropType } from 'vue'
 import { Icon, Image, Button } from 'vant'
-import { numberConvert } from '../utils/convert'
-import { recommendedPlaylistsType } from '../types/types'
+import { numberConvert } from '@/utils/convert'
+import { recommendedPlaylistsType } from '@/types/types'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -71,7 +71,7 @@ const toPlaylist = function (playlistId: number) {
 </script>
 
 <style scoped lang="scss">
-@import url('../styles/common.scss');
+@import url('@/style/common.scss');
 .image {
   width: 27%;
   margin-left: 4%;

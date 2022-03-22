@@ -60,6 +60,6 @@ const props = defineProps({
 </script>
 
 <style scoped>
-@import url('../styles/common.scss');
+@import url('@/style/common.scss');
 
 </style>

@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import ProgressVue from '../../components/Progress.vue'
+import ProgressVue from 'components/Progress.vue'
 const percentage = ref(0)
 const strokeWidth = ref('20px')
 const color = ref('#1989fa')

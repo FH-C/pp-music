@@ -10,6 +10,7 @@
           size="18"
           color="#000000"
           badge="99+"
+          @click="userStore.showUserPopup = !userStore.showUserPopup"
         />
       </template>
       <template #title>
@@ -34,7 +35,9 @@
 import { NavBar, Picker, Popup, Field, Button, Toast, Icon, Search } from 'vant'
 import { onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import { searchDefault } from '../api/search'
+import { searchDefault } from '@/api/search'
+import { useUserStore } from 'store/user'
+const userStore = useUserStore()
 const router = useRouter()
 const showKeyword = ref('')
 const toSearch = function () {

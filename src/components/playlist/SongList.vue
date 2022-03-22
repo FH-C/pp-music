@@ -91,8 +91,8 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { useSearchStore } from '../../store/search'
-import { useSongStore } from '../../store/song'
+import { useSearchStore } from '@/store/search'
+import { useSongStore } from '@/store/song'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -133,5 +133,5 @@ const play = function (index: number) {
 </script>
 
 <style scoped lang="scss">
-@import url('../../styles/common.scss');
+@import url('@/style/common.scss');
 </style>

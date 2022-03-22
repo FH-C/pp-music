@@ -76,7 +76,7 @@ const props = defineProps({
 </script>
 
 <style scoped lang="scss">
-@import url('../styles/common.scss');
+@import url('@/style/common.scss');
 .box {
   width: 80vw;
   border-radius: 200px;

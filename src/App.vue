@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { useSongStore } from './store/song'
+import { useSongStore } from 'store/song'
 import { getPlayingLocalStorage } from './utils/localStorage'
 const songStore = useSongStore()
 const playerRef = ref(null)

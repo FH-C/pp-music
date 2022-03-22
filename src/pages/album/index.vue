@@ -32,11 +32,11 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { getAlbum, getAlbumDynamic } from '../../api/album'
-import { getSongDetail } from '../../api/play'
-import AlbumMeansVue from '../../components/album/AlbumMeans.vue'
-import SongListVue from '../../components/album/SongList.vue'
-import { onClickLeft } from '../../utils/router'
+import { getAlbum, getAlbumDynamic } from '@/api/album'
+import { getSongDetail } from '@/api/play'
+import AlbumMeansVue from 'components/album/AlbumMeans.vue'
+import SongListVue from 'components/album/SongList.vue'
+import { onClickLeft } from '@/utils/router'
 
 const router = useRouter()
 const route = useRoute()
@@ -61,7 +61,7 @@ const getData = async function () {
 </script>
 
 <style scoped lang="scss">
-@import url('../../styles/common.scss');
+@import url('@/style/common.scss');
 .content {
   :deep(.van-nav-bar) {
     background-color: #696e77;

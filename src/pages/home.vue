@@ -62,31 +62,36 @@
         </van-tabbar-item>
       </van-tabbar>
     </div>
+    <UserPopupVue :show="showUserPopup"></UserPopupVue>
   </div>
 </template>
 
 <script setup lang="ts">
-import Banner from '../components/Banner.vue'
+import Banner from 'components/Banner.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { NavBar, Picker, Popup, Field, Button, Toast, Icon, Tabbar, TabbarItem, PullRefresh } from 'vant'
-import SvgIcon from '../components/SvgIcon.vue'
+import SvgIcon from 'components/SvgIcon.vue'
 import { computed, onMounted, ref, reactive } from 'vue'
-import { onClickLeft } from '../utils/router'
-import { loginStatus } from '../api/login'
-import { blockPage } from '../api/home'
+import { onClickLeft } from '@/utils/router'
+import { loginStatus } from '@/api/login'
+import { blockPage } from '@/api/home'
 import { recommendResource, personalized, recommendSongs, personalizedNewsong, recommendVideo, personalizedMV,
-} from '../api/recommend'
-import { homepageIcon } from '../api/home'
-import RecommendedPlaylistVue from '../components/RecommendedPlaylist.vue'
-import HomepageHeaderVue from '../components/HomepageHeader.vue'
-import RecommendedSongListVue from '../components/RecommendedSongList.vue'
-import SongListHomepageVue from '../components/SongListHomepage.vue'
-import HomepageIconVue from '../components/HomepageIcon.vue'
-import HomepagePlaylistVue from '../components/HomepagePlaylist.vue'
-import MiniPlayerVue from '../components/MiniPlayer.vue'
-import { songListHomepageType, homepageiConType } from '../types/types'
-import { getPlayingLocalStorage } from '../utils/localStorage'
-import { useSongStore } from '../store/song'
+} from '@/api/recommend'
+import { homepageIcon } from '@/api/home'
+import RecommendedPlaylistVue from 'components/RecommendedPlaylist.vue'
+import HomepageHeaderVue from 'components/HomepageHeader.vue'
+import RecommendedSongListVue from 'components/RecommendedSongList.vue'
+import SongListHomepageVue from 'components/SongListHomepage.vue'
+import HomepageIconVue from 'components/HomepageIcon.vue'
+import HomepagePlaylistVue from 'components/HomepagePlaylist.vue'
+import MiniPlayerVue from 'components/MiniPlayer.vue'
+import UserPopupVue from 'components/user/UserPopup.vue'
+import { songListHomepageType, homepageiConType } from '@/types/types'
+import { getPlayingLocalStorage } from '@/utils/localStorage'
+import { useSongStore } from 'store/song'
+import { useUserStore } from 'store/user'
+
+const userStore = useUserStore()
 const songStore = useSongStore()
 const router = useRouter()
 const bannerList = ref([])
@@ -100,7 +105,6 @@ const loading = ref(false)
 
 const getBlockPage = async function (force = false) {
   const res = await blockPage({}, force)
-  console.log(res.value.data.blocks[1])
   if (res.value.data.blocks[2].creatives) {
     songObject.value = res.value.data.blocks[2]
   } else {
@@ -112,6 +116,8 @@ const getBlockPage = async function (force = false) {
 
 const getLoginStatus =  async function (force = false) {
   const res = await loginStatus(force)
+  userStore.account = res.value.data.account
+  userStore.profile = res.value.data.profile
 }
 
 const getHomepageIcon = async function (force = false) {
@@ -147,26 +153,12 @@ onMounted (async () => {
     songStore.playingType = playingObject.playingType
     songStore.showPlayer = true
   }
-  // console.log('songList.value:', songObject.value)
-  // const res3 = await recommendResource()
-  // console.log(res3)
-  // const res4 = await personalized({
-  //   limit: 6,
-  // })
-  // console.log(res4)
-  // recommendPlaylists.value = res4.value.result
-  // const res6 = await personalizedNewsong({})
-  // console.log('res6:', res6)
-  // const res7 = await recommendVideo({})
-  // console.log('res7:', res7)
-  // const res8 = await personalizedMV()
-  // console.log('res8:', res8)
   return
 })
 </script>
 
 <style scoped lang="scss">
-@import url('../styles/common.scss');
+@import url('@/style/common.scss');
 
 .placeholder1 {
   margin-top: 90px;

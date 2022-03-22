@@ -63,9 +63,9 @@
 <script setup lang="ts">
 import { NavBar, Field, Cell, Tab, Tabs, Toast } from 'vant'
 import { onMounted, onUnmounted, ref, watch } from 'vue'
-import { onClickLeft } from '../../utils/router'
-import SearchCardVue from '../../components/search/SearchCard.vue'
-import { useSearchStore } from '../../store/search'
+import { onClickLeft } from '@/utils/router'
+import SearchCardVue from 'components/search/SearchCard.vue'
+import { useSearchStore } from '@/store/search'
 import {
   cloudsearch,
   searchDefault,
@@ -73,9 +73,9 @@ import {
   searchHotDetail,
   searchSuggest,
   searchMultimatch,
-} from '../../api/search'
+} from '@/api/search'
 import { useRoute } from 'vue-router'
-import { types, tabs, components } from '../../utils/search'
+import { types, tabs, components } from '@/utils/search'
 
 const route = useRoute()
 const showKeyword = ref('')
@@ -105,12 +105,10 @@ const getDefaultKey = async function() {
 const getSearchHot = async function() {
   const res = await searchHot(true)
   searchHotList.value = res.value.result.hots
-  console.log(searchHotList.value)
 }
 const getsearchHotDetail = async function() {
   const res = await searchHotDetail(true)
   searchHotDetailList.value = res.value.data
-  console.log(searchHotDetailList.value)
   keywordList.value = searchHotDetailList.value
 }
 
@@ -155,7 +153,6 @@ const searchPlaylist = async function () {
     offset: searchStore.currentOffsetList[searchStore.active],
   }, true)
   if (searchStore.currentOffsetList[searchStore.active] === 0) {
-    console.log('res.value.result', res.value.result)
     searchStore.searchResultPlaylist = res.value.result
   } else {
     searchStore.searchResultPlaylist.playlists = searchStore.searchResultPlaylist.playlists.concat(res.value.result.playlists)
@@ -176,12 +173,8 @@ const searchAlbum = async function () {
     limit: searchStore.currentLimit,
     offset: searchStore.currentOffsetList[searchStore.active],
   }, true)
-  console.log('searchStore.currentOffsetList', searchStore.currentOffsetList)
-  console.log('searchStore.currentOffsetList[searchStore.active]', searchStore.currentOffsetList[searchStore.active])
-  console.log('res.value.result', res.value.result)
   if (searchStore.currentOffsetList[searchStore.active] === 0) {
     searchStore.searchResultAlbum = res.value.result
-    console.log('searchStore.searchResultAlbum', searchStore.searchResultAlbum)
   } else {
     searchStore.searchResultAlbum.albums = searchStore.searchResultAlbum.albums.concat(res.value.result.albums)
   }
@@ -215,7 +208,7 @@ const search = async function (keyword?: string) {
 
 </script>
 <style scoped lang="scss">
-@import url('../../styles/common.scss');
+@import url('@/style/common.scss');
 .input-field {
   :deep(.van-field__control) {
     border-bottom: 1px solid #a7a7a7;

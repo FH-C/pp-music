@@ -40,10 +40,10 @@
 <script setup lang="ts">
 import { NavBar, Field, Cell, Tab, Tabs } from 'vant'
 import { onMounted, onUnmounted, ref } from 'vue'
-import { onClickLeft } from '../../utils/router'
-import SearchCardVue from '../../components/search/SearchCard.vue'
-import SearchResultSongVue from '../../components/search/SearchResultSong.vue'
-import { useSearchStore } from '../../store/search'
+import { onClickLeft } from '@/utils/router'
+import SearchCardVue from 'components/search/SearchCard.vue'
+import SearchResultSongVue from 'components/search/SearchResultSong.vue'
+import { useSearchStore } from '@/store/search'
 import {
   cloudsearch,
   searchDefault,
@@ -51,9 +51,9 @@ import {
   searchHotDetail,
   searchSuggest,
   searchMultimatch,
-} from '../../api/search'
+} from '@/api/search'
 import { useRouter } from 'vue-router'
-import { types, tabs } from '../../utils/search'
+import { types, tabs } from '@/utils/search'
 
 const router = useRouter()
 const showKeyword = ref('')
@@ -74,12 +74,10 @@ const getDefaultKey = async function() {
 const getSearchHot = async function() {
   const res = await searchHot(true)
   searchHotList.value = res.value.result.hots
-  console.log(searchHotList.value)
 }
 const getsearchHotDetail = async function() {
   const res = await searchHotDetail(true)
   searchHotDetailList.value = res.value.data
-  console.log(searchHotDetailList.value)
   keywordList.value = searchHotDetailList.value
 }
 
@@ -133,7 +131,7 @@ const search = async function (keyword?: string) {
 
 </script>
 <style scoped lang="scss">
-@import url('../../styles/common.scss');
+@import url('@/style/common.scss');
 .input-field {
   :deep(.van-field__control) {
     border-bottom: 1px solid #a7a7a7;

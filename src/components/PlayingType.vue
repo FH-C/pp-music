@@ -87,11 +87,11 @@
 </template>
 
 <script setup lang="ts">
-import { useSongStore } from '../store/song'
+import { useSongStore } from 'store/song'
 const songStore = useSongStore()
 </script>
 
 <style scoped lang="scss">
-@import url('../styles/common.scss');
+@import url('@/style/common.scss');
 
 </style>

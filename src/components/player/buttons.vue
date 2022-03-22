@@ -58,8 +58,8 @@
 </template>
 
 <script setup lang="ts">
-import PlayingTypeVue from '../PlayingType.vue'
-import { useSongStore } from '../../store/song'
+import PlayingTypeVue from 'components/PlayingType.vue'
+import { useSongStore } from '@/store/song'
 const emit = defineEmits(['next', 'prev', 'play', 'showList'])
 const songStore = useSongStore()
 const prev = function () {
@@ -77,5 +77,5 @@ const showList = function () {
 </script>
 
 <style scoped lang="scss">
-@import url('../../styles/common.scss');
+@import url('@/style/common.scss');
 </style>

@@ -39,9 +39,9 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { numberConvert } from '../../utils/convert'
-import CommentCountVue from '../CommentCount.vue'
-import { dateConvert } from '../../utils/convert'
+import { numberConvert } from '@/utils/convert'
+import CommentCountVue from 'components/CommentCount.vue'
+import { dateConvert } from '@/utils/convert'
 
 const props = defineProps({
   album: {
@@ -60,7 +60,7 @@ const props = defineProps({
 </script>
 
 <style scoped lang="scss">
-@import url('../../styles/common.scss');
+@import url('@/style/common.scss');
 
 .box {
   padding: 40px 20px 60px;

@@ -5,12 +5,12 @@ import router from './router/index'
 import 'vant/lib/index.css'
 import { Button, Checkbox, NavBar, Picker, Field, Dialog, Popup, Toast, CountDown, Swipe, SwipeItem, Image,
   Icon, Search, Tabbar, TabbarItem, Tag, Cell, PullRefresh, Tab, Tabs, List, Progress } from 'vant'
-import SvgIcon from './components/SvgIcon.vue'
-import MiniPlayerVue from './components/MiniPlayer.vue'
-import SearchResultSongVue from './components/search/SearchResultSong.vue'
-import SearchResultPlaylistVue from './components/search/SearchResultPlaylist.vue'
-import SearchResultAlbumVue from './components/search/SearchResultAlbum.vue'
-import store from './store'
+import SvgIcon from 'components/SvgIcon.vue'
+import MiniPlayerVue from 'components/MiniPlayer.vue'
+import SearchResultSongVue from 'components/search/SearchResultSong.vue'
+import SearchResultPlaylistVue from 'components/search/SearchResultPlaylist.vue'
+import SearchResultAlbumVue from 'components/search/SearchResultAlbum.vue'
+import store from '@/store'
 
 const app = createApp(App)
 app.use(Button)

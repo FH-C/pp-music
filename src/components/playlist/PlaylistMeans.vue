@@ -47,8 +47,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { numberConvert } from '../../utils/convert'
-import CommentCountVue from '../CommentCount.vue'
+import { numberConvert } from '@/utils/convert'
+import CommentCountVue from 'components/CommentCount.vue'
 
 const props = defineProps({
   playlist: {
@@ -66,7 +66,7 @@ const playCount = computed(() => {
 </script>
 
 <style scoped lang="scss">
-@import url('../../styles/common.scss');
+@import url('@/style/common.scss');
 
 .box {
   padding: 40px 20px 60px;

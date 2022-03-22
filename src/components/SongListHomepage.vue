@@ -107,10 +107,10 @@
 </template>
 
 <script setup lang="ts">
-import { songListHomepageType } from '../types/types'
+import { songListHomepageType } from '@/types/types'
 import { NavBar, Picker, Popup, Field, Button, Toast, Icon, Image, Swipe, SwipeItem, Tag } from 'vant'
 import { onMounted, PropType, watch } from 'vue'
-import { useSongStore } from '../store/song'
+import { useSongStore } from 'store/song'
 import { useRouter } from 'vue-router'
 const router = useRouter()
 const props = defineProps({
@@ -155,10 +155,9 @@ const playAll = function() {
   songStore.playStatus = true
 }
 onMounted(() => {
-  console.log('props.songObject', props.songObject)
 })
 </script>
 
 <style scoped>
-@import url('../styles/common.scss');
+@import url('@/style/common.scss');
 </style>

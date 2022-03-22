@@ -7,14 +7,10 @@
 import { useRouter, useRoute } from 'vue-router'
 import { NavBar, Picker, Popup, Field, Button, Toast } from 'vant'
 import { computed, onMounted, ref } from 'vue'
-import { onClickLeft } from '../../utils/router'
-import { loginStatus } from '../../api/login'
-import { blockPage } from '../../api/home'
+import { onClickLeft } from '@/utils/router'
+import { loginStatus } from '@/api/login'
+import { blockPage } from '@/api/home'
 onMounted (async () => {
-  const res = await loginStatus()
-  console.log(res)
-  const res2 = await blockPage({})
-  console.log(res2)
   return
 })
 

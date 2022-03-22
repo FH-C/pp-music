@@ -49,7 +49,7 @@
 <script setup lang="ts">
 import { computed, onMounted, PropType, ref } from 'vue'
 import { Icon, Image, Button } from 'vant'
-import { numberConvert } from '../utils/convert'
+import { numberConvert } from '@/utils/convert'
 import { useRouter } from 'vue-router'
 const router = useRouter()
 const refs: any = ref([])
@@ -77,7 +77,7 @@ const toPlaylist = function (playlistId: number) {
 </script>
 
 <style scoped lang="scss">
-@import url('../styles/common.scss');
+@import url('@/style/common.scss');
 .image {
   width: 200px;
   margin-left: 4%;

@@ -30,7 +30,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { Image as VanImage } from 'vant'
-import { cloudsearch } from '../../api/search'
+import { cloudsearch } from '@/api/search'
 
 const emit = defineEmits(['search'])
 const props = defineProps({
@@ -65,7 +65,7 @@ const search = async function (keyword: string) {
 </script>
 
 <style scoped lang="scss">
-@import url('../../styles/common.scss');
+@import url('@/style/common.scss');
 .contain {
     width: 40vw;
     padding-left: 4vw;

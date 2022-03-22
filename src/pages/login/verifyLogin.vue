@@ -50,8 +50,8 @@
 import { ref, onUnmounted, reactive, Ref, onMounted, watch, onBeforeUpdate } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { Field, Toast, Dialog } from 'vant'
-import { onClickLeft } from '../../utils/router'
-import { sendCaptcha, verifyCaptcha, phoneLogin } from '../../api/login'
+import { onClickLeft } from '@/utils/router'
+import { sendCaptcha, verifyCaptcha, phoneLogin } from '@/api/login'
 const route = useRoute()
 const router = useRouter()
 const time = ref(60)
@@ -72,7 +72,6 @@ const resend = async function () {
     phone: route.query.phone,
     ctcode: route.query.countryCode?.slice(1),
   }, true)
-  console.log(result)
   time.value = 60
   countdown = setInterval(() => {
     time.value --
@@ -158,7 +157,7 @@ onBeforeUpdate(() => {
 </script>
 
 <style scoped lang="scss">
-@import url('../../styles/common.scss');
+@import url('@/style/common.scss');
 
 .text1 {
   font-size: 40px;

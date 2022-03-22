@@ -96,7 +96,6 @@ const transparentStyle = computed(() => {
 })
 
 const touchstart = function () {
-  console.log('start')
   isMoving.value = true
   pivotSizeVar.value = `calc(${ props.pivotSize }*2)`
 }

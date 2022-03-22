@@ -59,7 +59,7 @@
 import { useRouter } from 'vue-router'
 import { NavBar, Picker, Popup, Field, Button, Toast } from 'vant'
 import { ref } from 'vue'
-import { onClickLeft } from '../../utils/router'
+import { onClickLeft } from '@/utils/router'
 const columns = ['+86']
 const showPicker = ref(false)
 const countryCode = ref('+86')
@@ -72,8 +72,6 @@ const onConfirm = (value: string) => {
 }
 const nextStep = function () {
   if (phone.value.length < 11) {
-    console.log(phone.value)
-    console.log(phone.value.length)
     return Toast('请输入11位数字的手机号')
   }
   Toast.loading({
@@ -90,7 +88,7 @@ const nextStep = function () {
 </script>
 
 <style scoped lang="scss">
-@import url('../../styles/common.scss');
+@import url('@/style/common.scss');
 .text1 {
   font-size: 40px;
   font-weight: 550;

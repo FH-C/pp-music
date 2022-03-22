@@ -55,12 +55,12 @@
 </template>
 
 <script setup lang="ts">
-import { numberConvert } from '../../utils/convert'
+import { numberConvert } from '@/utils/convert'
 import { computed, ref } from 'vue'
-import { useSearchStore } from '../../store/search'
-import { useSongStore } from '../../store/song'
+import { useSearchStore } from '@/store/search'
+import { useSongStore } from '@/store/song'
 import { useRouter, useRoute } from 'vue-router'
-import { dateConvert } from '../../utils/convert'
+import { dateConvert } from '@/utils/convert'
 const emit = defineEmits(['load'])
 const searchStore = useSearchStore()
 const songStore = useSongStore()
@@ -95,7 +95,7 @@ const toAlbumDetail = function (albumId: number) {
 </script>
 
 <style scoped lang="scss">
-@import url('../../styles/common.scss');
+@import url('@/style/common.scss');
 .text {
   padding-left: 2vw;
 }

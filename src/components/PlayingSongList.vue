@@ -115,8 +115,8 @@
 
 <script setup lang="ts">
 import { Popup, Cell } from 'vant'
-import { useSongStore } from '../store/song'
-import PlayingTypeVue from './PlayingType.vue'
+import { useSongStore } from 'store/song'
+import PlayingTypeVue from 'components/PlayingType.vue'
 const emit = defineEmits(['play'])
 const songStore = useSongStore()
 const circleText = ['列表循环', '顺序播放', '随机播放', '单曲循环']
@@ -154,7 +154,7 @@ const play = function (index: number) {
 </script>
 
 <style scoped lang="scss">
-@import url('../styles/common.scss');
+@import url('@/style/common.scss');
 
 .red {
   color: #ff4040;

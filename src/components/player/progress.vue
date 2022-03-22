@@ -29,8 +29,8 @@
 
 <script setup lang="ts">
 import { watch, ref } from 'vue'
-import { timeConvert } from '../../utils/convert'
-import ProgressVue from '../Progress.vue'
+import { timeConvert } from '@/utils/convert'
+import ProgressVue from 'components/Progress.vue'
 const emit = defineEmits(['update:currentTime'])
 const props = defineProps({
   currentTime: {
@@ -57,7 +57,7 @@ const updatePercentageDelay = function (percentage: number) {
 </script>
 
 <style scoped lang="scss">
-@import url('../../styles/common.scss');
+@import url('@/style/common.scss');
 .progress-bar {
   width: 70%;
 }

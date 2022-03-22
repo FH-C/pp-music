@@ -43,8 +43,8 @@
 import { useRouter, useRoute } from 'vue-router'
 import { NavBar, Picker, Popup, Field, Button, Toast } from 'vant'
 import { computed, ref } from 'vue'
-import { onClickLeft } from '../../utils/router'
-import { phoneLogin, loginStatus } from '../../api/login'
+import { onClickLeft } from '@/utils/router'
+import { phoneLogin, loginStatus } from '@/api/login'
 const router = useRouter()
 const route = useRoute()
 const password = ref('')
@@ -64,7 +64,7 @@ const buttonColor = computed(() => {
 </script>
 
 <style scoped lang="scss">
-@import url('../../styles/common.scss');
+@import url('@/style/common.scss');
 .text1 {
     font-size: 16px;
     color: #6189b7;

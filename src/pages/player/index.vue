@@ -82,14 +82,14 @@
 
 <script setup lang="ts">
 import { useRouter, useRoute } from 'vue-router'
-import { useSongStore } from '../../store/song'
+import { useSongStore } from 'store/song'
 import { computed, onMounted, ref } from 'vue'
-import { getSongDetail } from '../../api/play'
-import { onClickLeft } from '../../utils/router'
-import PlayerRecordVue from '../../components/player/Record.vue'
-import PlayerProgressVue from '../../components/player/Progress.vue'
-import PlayerButtons from '../../components/player/Buttons.vue'
-import PlayingSongListVue from '../../components/PlayingSongList.vue'
+import { getSongDetail } from '@/api/play'
+import { onClickLeft } from '@/utils/router'
+import PlayerRecordVue from 'components/player/Record.vue'
+import PlayerProgressVue from 'components/player/Progress.vue'
+import PlayerButtons from 'components/player/Buttons.vue'
+import PlayingSongListVue from 'components/PlayingSongList.vue'
 const router = useRouter()
 const route = useRoute()
 const songStore = useSongStore()
@@ -102,7 +102,6 @@ onMounted (() => {
 })
 
 const getPicURL = computed(() => {
-  console.log(songStore.misicPicList)
   return songStore.misicPicList[songStore.playingIndex]
 })
 
@@ -139,7 +138,7 @@ const updateCurrentTime = function (percentage: number) {
 </script>
 
 <style scoped lang="scss">
-@import url('../../styles/common.scss');
+@import url('@/style/common.scss');
 
 .background {
   height: 100%;

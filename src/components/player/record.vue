@@ -80,7 +80,7 @@ defineExpose({
 </script>
 
 <style scoped lang="scss">
-@import url('../../styles/common.scss');
+@import url('@/style/common.scss');
 .inner {
   background-color: rgba(108, 113, 115, 0.5);
   height: 50vw;

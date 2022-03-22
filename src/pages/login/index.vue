@@ -4,7 +4,7 @@
       <div class="logo">
         <img
           alt="Vue logo"
-          src="../../assets/logo.png"
+          src="@/assets/logo.png"
           height="82"
           width="82"
         />
@@ -77,7 +77,7 @@ const mobileLogin = function () {
 </script>
 
 <style scoped lang="scss">
-@import url('../../styles/common.scss');
+@import url('@/style/common.scss');
 
 .box {
   grid-template-rows: repeat(20, 5%);

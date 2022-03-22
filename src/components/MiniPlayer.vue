@@ -69,12 +69,12 @@
 </template>
 
 <script setup lang="ts">
-import { getPlayingLocalStorage } from '../utils/localStorage'
+import { getPlayingLocalStorage } from '@/utils/localStorage'
 import { NavBar, Picker, Popup, Field, Button, Toast, Icon, Image } from 'vant'
 import { onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import { getSongDetail, getSongURL } from '../api/play'
-import { useSongStore } from '../store/song'
+import { getSongDetail, getSongURL } from '@/api/play'
+import { useSongStore } from 'store/song'
 import PlayingSongListVue from './PlayingSongList.vue'
 import CircleVue from './Circle.vue'
 
@@ -86,12 +86,10 @@ onMounted(() => {
 })
 
 watch(() => songStore.playingId, async (songId) => {
-  console.log(songId)
   const res = await getSongDetail({
     ids: songId.toString(),
   })
   songStore.playingSongDetail = res.value.songs[0]
-  console.log(songStore.playingSongDetail)
   if (songStore.playingSongList.length === 0) {
     songStore.playingSongList = res.value.songs
   }
@@ -115,9 +113,7 @@ watch(() => songStore.playStatus, async (newValue) =>{
 })
 
 watch(() => songStore.playingSongList, async () => {
-  console.log('songStore.playingSongList', songStore.playingSongList)
   songStore.misicPicList = songStore.playingSongList.map((item: any) => {
-    console.log('item', item)
     if (item && item.al) {
       return item.al.picUrl
     } else if (item && item.album) {
@@ -302,7 +298,7 @@ defineExpose({
 </script>
 
 <style scoped lang="scss">
-@import url('../styles/common.scss');
+@import url('@/style/common.scss');
 .bar {
   background-color: #ffffff;
   width: 100vw;

@@ -28,8 +28,8 @@
 
 <script setup lang="ts">
 import { PropType } from 'vue'
-import { homepageIcon } from '../api/home'
-import { homepageiConType } from '../types/types'
+import { homepageIcon } from '@/api/home'
+import { homepageiConType } from '@/types/types'
 import { Image } from 'vant'
 const props = defineProps({
   homepageIconList: {
@@ -42,7 +42,7 @@ const props = defineProps({
 </script>
 
 <style scoped>
-@import url('../styles/common.scss');
+@import url('@/style/common.scss');
 .icon {
   margin-left: 4%;
   margin-right: 2%;

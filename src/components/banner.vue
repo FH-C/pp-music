@@ -27,7 +27,7 @@
 <script setup lang="ts">
 import { computed, onMounted, PropType } from 'vue'
 import { Swipe, SwipeItem, Image } from 'vant'
-import { bannerListType } from '../types/types'
+import { bannerListType } from '@/types/types'
 const props = defineProps({
   bannerList: {
     type: Array as PropType<bannerListType[]>,
@@ -37,11 +37,7 @@ const props = defineProps({
   },
 })
 onMounted(() => {
-  console.log(11111, props.bannerList)
 })
-const aaa = function () {
-  console.log(11111, props.bannerList)
-}
 const getColor = function (color: string) {
   let bgColor = color
   if (color === 'red') {
