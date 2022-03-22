@@ -21,7 +21,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted } from 'vue'
+import { computed, ref, onMounted, watch } from 'vue'
+const emit = defineEmits(['update:percentage', 'update:percentageDelay'])
 const props = defineProps({
   percentage: {
     type: Number,
@@ -29,7 +30,7 @@ const props = defineProps({
   },
   strokeWidth: {
     type: String,
-    default: '5px',
+    default: '.2vh',
   },
   color: {
     type: String,
@@ -41,16 +42,19 @@ const props = defineProps({
   },
   pivotColor: {
     type: String,
-    default: 'green',
+    default: '#fff',
   },
   pivotSize: {
     type: String,
-    default: '10px',
+    default: '.8vh',
   },
 })
 
+const isMoving = ref(false)
 const pivot: any = ref(null)
 const trackBar: any = ref(null)
+const percentage = ref(props.percentage)
+const pivotSizeVar = ref(props.pivotSize)
 const strokeWidth = computed(() => {
   return `height:${ props.strokeWidth };`
 })
@@ -64,7 +68,7 @@ const pivotColor = computed(() => {
   return `background-color:${ props.pivotColor };`
 })
 const pivotSize = computed(() => {
-  return `width:${ props.pivotSize };height:${ props.pivotSize };`
+  return `width:${ pivotSizeVar.value };height:${ pivotSizeVar.value };`
 })
 // const pivotLeft = computed(() => {
 //   return `left:${ props.percentage }%;`
@@ -73,34 +77,49 @@ const trackStyle = computed(() => {
   return `${ strokeWidth.value }${ trackColor.value }`
 })
 const strokeStyle = computed(() => {
-  return `${ strokeWidth.value }${ color.value }width:${ props.percentage }%;`
+  return `${ strokeWidth.value }${ color.value }width:${ percentage.value }%;`
 })
 const pivotStyle = computed(() => {
-  return `${ pivotSize.value }${ pivotColor.value }bottom:calc(${ props.pivotSize }/4);left:calc(100%);`
+  return `${ pivotSize.value }${ pivotColor.value }bottom:calc(${ pivotSizeVar.value }/3);left:calc(100%);`
 })
+
 const touchstart = function (e: any) {
+  isMoving.value = true
+  pivotSizeVar.value = `calc(${ props.pivotSize }*2)`
+}
+const touchmove = function (e: any) {
   const { clientX } = e.touches[0]
-  const { left } = pivot.value.getBoundingClientRect()
-  const percentage = (clientX - left) / trackBar.value.clientWidth * 100
-  console.log('clientX', clientX)
-  console.log('left', left)
-  console.log('percentage', percentage)
-  props.percentage = percentage
-  console.log('props.percentage', props.percentage)
+  const { left } = trackBar.value.getBoundingClientRect()
+  let percentageNew = (clientX - left) / trackBar.value.clientWidth * 100
+  if (percentageNew < 0) {
+    percentageNew = 0
+  } else if (percentageNew > 100) {
+    percentageNew = 100
+  }
+  percentage.value = percentageNew
+  emit('update:percentageDelay', percentage.value)
+}
+const touchend = function (e: any) {
+  pivotSizeVar.value = props.pivotSize
+  isMoving.value = false
+  emit('update:percentage', percentage.value)
 }
 const listenTouchstart = function () {
-  pivot.value.addEventListener('touchstart', (e) => {
-    console.log(e)
-  })
+  pivot.value.addEventListener('touchstart', touchstart)
 }
 const listenTouchmove = function () {
-  pivot.value.addEventListener('touchmove', touchstart)
+  pivot.value.addEventListener('touchmove', touchmove)
 }
 const listenTouchend = function () {
-  pivot.value.addEventListener('touchend', (e) => {
-    console.log(e)
-  })
+  pivot.value.addEventListener('touchend', () => touchend)
 }
+watch(() => {
+  return props.percentage
+}, (newValue: number) => {
+  if (!isMoving.value) {
+    percentage.value = newValue
+  }
+})
 onMounted(() => {
   listenTouchstart()
   listenTouchmove()

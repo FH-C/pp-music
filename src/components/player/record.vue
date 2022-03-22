@@ -7,12 +7,13 @@
         :show-indicators="false"
         class="swipe"
         :initial-swipe="initialSwipe"
+        @change="onChange"
       >
         <van-swipe-item
           v-for="src in props.imageSrcList"
           :key="src"
         >
-          <div :class="['outer', {'rotate': props.rotate}]">
+          <div :class="['outer', 'rotate', {'play-paused': !props.rotate}]">
             <div class="inner">
               <!-- <van-image
             round
@@ -36,6 +37,7 @@
 import type { SwipeInstance } from 'vant'
 import { PropType, ref } from 'vue'
 
+const emit = defineEmits(['onChange'])
 const swipeRef = ref<SwipeInstance>()
 const props = defineProps({
   imageSrcList: {
@@ -64,6 +66,10 @@ const prev = function () {
 
 const swipeTo = function (index: number) {
   swipeRef.value?.swipeTo(index)
+}
+
+const onChange = function (index: number) {
+  emit('onChange', index)
 }
 
 defineExpose({

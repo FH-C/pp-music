@@ -4,13 +4,13 @@ const sendCaptcha = (data: object, force = false) => post(
   '/captcha/sent' + '?timestamp=' + new Date().getTime(), data, force)
 const verifyCaptcha = (data: object, force = false) => post(
   '/captcha/verify' + '?timestamp=' + new Date().getTime(), data, force)
-const passwordLogin = (data: object, force = false) => post(
+const phoneLogin = (data: object, force = false) => post(
   '/login/cellphone' + '?timestamp=' + new Date().getTime(), data, force)
 const loginStatus = (force = false) => post('/login/status' + '?timestamp=' + new Date().getTime(), {}, force)
 
 export {
   sendCaptcha,
   verifyCaptcha,
-  passwordLogin,
+  phoneLogin,
   loginStatus,
 }

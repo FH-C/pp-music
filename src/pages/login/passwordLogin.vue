@@ -44,12 +44,12 @@ import { useRouter, useRoute } from 'vue-router'
 import { NavBar, Picker, Popup, Field, Button, Toast } from 'vant'
 import { computed, ref } from 'vue'
 import { onClickLeft } from '../../utils/router'
-import { passwordLogin, loginStatus } from '../../api/login'
+import { phoneLogin, loginStatus } from '../../api/login'
 const router = useRouter()
 const route = useRoute()
 const password = ref('')
 const login = async function () {
-  const res = await passwordLogin({
+  const res = await phoneLogin({
     phone: route.query.phone,
     password: password.value,
     countrycode: route.query.countryCode?.slice(1),

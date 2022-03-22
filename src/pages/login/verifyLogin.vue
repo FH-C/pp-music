@@ -51,7 +51,7 @@ import { ref, onUnmounted, reactive, Ref, onMounted, watch, onBeforeUpdate } fro
 import { useRoute, useRouter } from 'vue-router'
 import { Field, Toast, Dialog } from 'vant'
 import { onClickLeft } from '../../utils/router'
-import { sendCaptcha, verifyCaptcha } from '../../api/login'
+import { sendCaptcha, verifyCaptcha, phoneLogin } from '../../api/login'
 const route = useRoute()
 const router = useRouter()
 const time = ref(60)
@@ -85,8 +85,17 @@ const next = async function () {
     captcha: verifyCode.join(''),
   }, true)
   if (res.value.data) {
+    const res = await phoneLogin({
+      phone: route.query.phone,
+      captcha: verifyCode.join(''),
+      countrycode: route.query.countryCode?.slice(1),
+    }, true)
     Toast('登录成功')
+    // const res2 = await loginStatus()
     router.push('home')
+  } else {
+    Toast('验证码错误')
+    reset()
   }
 }
 const reset = function () {
@@ -152,7 +161,7 @@ onBeforeUpdate(() => {
 @import url('../../styles/common.scss');
 
 .text1 {
-    font-size: 40px;
+  font-size: 40px;
   font-weight: 550;
   text-align: left;
   padding-left: 40px;

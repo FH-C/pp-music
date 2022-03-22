@@ -3,15 +3,23 @@
     <span
       class="small-font text"
       style="color: #a0a2a3; padding-right: 2vw;"
-    >{{ timeConvert(Math.ceil(props.currentTime)) }}</span>
-    <van-progress
+    >{{ showCurrentTime ? timeConvert(Math.ceil(showCurrentTime)) : timeConvert(Math.ceil(props.currentTime)) }}</span>
+    <!-- <van-progress
       inactive
       :percentage="currentTime / duration * 100"
       :show-pivot="false"
       class="progress-bar"
       color="rgba(108, 111, 111, 0.2)"
       track-color="rgba(108, 111, 111, 0.1)"
-    />
+    /> -->
+    <ProgressVue
+      :percentage="currentTime / duration * 100"
+      color="rgba(108, 111, 111, 0.2)"
+      track-color="rgba(108, 111, 111, 0.1)"
+      class="progress-bar"
+      @update:percentage="updatePercentage"
+      @update:percentageDelay="updatePercentageDelay"
+    ></ProgressVue>
     <span
       class="small-font text"
       style="color: #6d7173; padding-left: 2vw;"
@@ -20,8 +28,10 @@
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue'
+import { watch, ref } from 'vue'
 import { timeConvert } from '../../utils/convert'
+import ProgressVue from '../Progress.vue'
+const emit = defineEmits(['update:currentTime'])
 const props = defineProps({
   currentTime: {
     type: Number,
@@ -32,6 +42,17 @@ const props = defineProps({
     default: 0,
   },
 })
+
+const showCurrentTime = ref(0)
+
+const updatePercentage = function (percentage: number) {
+  emit('update:currentTime', percentage)
+  showCurrentTime.value = 0
+}
+
+const updatePercentageDelay = function (percentage: number) {
+  showCurrentTime.value = percentage / 100 * props.duration
+}
 
 </script>
 

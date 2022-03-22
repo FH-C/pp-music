@@ -58,11 +58,13 @@
       :rotate="songStore.playStatus"
       :image-src-list="songStore.misicPicList"
       :initial-swipe="songStore.playingIndex"
+      @onChange="onChange"
     ></PlayerRecordVue>
     <PlayerProgressVue
       class="progress"
       :current-time="songStore.currentPlayTime"
       :duration="songStore.playerRef.duration"
+      @update:current-time="updateCurrentTime"
     ></PlayerProgressVue>
     <PlayerButtons
       class="buttons"
@@ -84,9 +86,9 @@ import { useSongStore } from '../../store/song'
 import { computed, onMounted, ref } from 'vue'
 import { getSongDetail } from '../../api/play'
 import { onClickLeft } from '../../utils/router'
-import PlayerRecordVue from '../../components/player/record.vue'
-import PlayerProgressVue from '../../components/player/progress.vue'
-import PlayerButtons from '../../components/player/buttons.vue'
+import PlayerRecordVue from '../../components/player/Record.vue'
+import PlayerProgressVue from '../../components/player/Progress.vue'
+import PlayerButtons from '../../components/player/Buttons.vue'
 import PlayingSongListVue from '../../components/PlayingSongList.vue'
 const router = useRouter()
 const route = useRoute()
@@ -121,6 +123,17 @@ const showList = function () {
 
 const swipeTo = function (index: number) {
   refRecord.value.swipeTo(index)
+  refPlayer.value.playByIndex(index)
+}
+
+const onChange = function (index: number) {
+  setTimeout(() =>{
+    refPlayer.value.playByIndex(index)
+  }, 500)
+}
+
+const updateCurrentTime = function (percentage: number) {
+  songStore.playerRef.currentTime = (percentage / 100) * songStore.playerRef.duration
 }
 
 </script>

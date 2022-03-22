@@ -262,6 +262,17 @@ const getPrevSong = function () {
   }
 }
 
+const playByIndex = function (index: number) {
+  songStore.playingIndex = index
+  songStore.playingId = songStore.playingSongList[index].id
+  setTimeout(() => {
+    songStore.playStatus = false
+  }, 200)
+  setTimeout(() => {
+    songStore.playStatus = true
+  }, 200)
+}
+
 const listenEnd = function () {
   songStore.playerRef.addEventListener('ended', getNextSong)
 }
@@ -285,6 +296,7 @@ defineExpose({
   getNextSong,
   getPrevSong,
   play,
+  playByIndex,
 })
 
 </script>

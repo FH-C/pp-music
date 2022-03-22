@@ -92,12 +92,12 @@ const toPlaylist = function (playlistId: number) {
 .text2 {
   position: relative;
   top: -260px;
-  left: 50px;
+  left: 70px;
   font-size: 10px;
   background-color: rgba(128, 128, 128, 0.2);
   color: rgba($color: #ffffff, $alpha: 0.7);
   border-radius: 10px;
-  width: 150px;
+  width: 60%;
 }
 
 .more {

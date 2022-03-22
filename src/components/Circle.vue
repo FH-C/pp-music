@@ -39,7 +39,7 @@ const songStore = useSongStore()
 const duration = songStore.playerRef.duration
 const dashArray = Math.PI * 100
 const dashOffset = computed(() => {
-  return isNaN(duration) ? 0 : ((1 - songStore.currentPlayTime / duration) * dashArray)
+  return isNaN(duration) ? 1 : ((1 - songStore.currentPlayTime / duration) * dashArray)
 })
 </script>
 

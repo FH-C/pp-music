@@ -220,3 +220,8 @@
     transform: rotate(360deg);
   }
 }
+
+.play-paused {
+  animation-play-state: paused;
+  -webkit-animation-play-state: paused;
+}
