@@ -40,10 +40,6 @@ const props = defineProps({
     type: Array as PropType<lyricsType[]>,
     default: () => ([]),
   },
-  currentTime: {
-    type: Number,
-    default: 0,
-  },
   currentLine: {
     type: Number,
     default: 0,
@@ -92,10 +88,6 @@ const touchmove = function () {
 }
 const touchend = function () {
   isMoving.value = false
-  refs.value[dropIndex.value].scrollIntoView({
-    behavior: 'smooth',
-    block: 'center',
-  })
   emit('update:line', dropIndex.value)
 }
 const listenTouchstart = function () {

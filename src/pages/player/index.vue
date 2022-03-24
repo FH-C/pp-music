@@ -66,7 +66,6 @@
       v-else
       class="lyrics"
       :lyrics="songStore.lyrics"
-      :current-time="songStore.currentPlayTime"
       :current-line="currentLine"
       @click="showLyrics = !showLyrics"
       @update:line="updateLine"
