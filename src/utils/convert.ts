@@ -22,8 +22,30 @@ const dateConvert = function(timestamp: number) {
   return `${ year }.${ month }.${ day }`
 }
 
+const lyricsConvert = function(lyrics: string) {
+  const lines = lyrics.split('\n')
+  const result: Array<object> = []
+  lines.forEach(line => {
+    if (!line) return
+    const time = line.match(/\d{2}:\d{2}\.\d{2,3}/g)
+    const content = line.replace(/\[.*\]/g, '')
+    if (time) {
+      time.forEach(t => {
+        const timeArr = t.split(/[:\.]/)
+        const timeNum = parseInt(timeArr[0], 10) * 60 + parseInt(timeArr[1], 10) + parseFloat(timeArr[2]) / 1000
+        result.push({
+          time: timeNum,
+          content,
+        })
+      })
+    }
+  })
+  return result
+}
+
 export {
   numberConvert,
   timeConvert,
   dateConvert,
+  lyricsConvert,
 }

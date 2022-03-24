@@ -9,7 +9,6 @@ export const useSongStore = defineStore('home-page', {
       playingId: 0,
       playingSongDetail: {} as any,
       songList: [] as any,
-      lyrics: {} as any,
     }
   },
   actions: {

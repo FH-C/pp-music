@@ -73,10 +73,11 @@ import { getPlayingLocalStorage } from '@/utils/localStorage'
 import { NavBar, Picker, Popup, Field, Button, Toast, Icon, Image } from 'vant'
 import { onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import { getSongDetail, getSongURL } from '@/api/play'
+import { getSongDetail, getSongURL, getLyrics } from '@/api/play'
 import { useSongStore } from 'store/song'
 import PlayingSongListVue from './PlayingSongList.vue'
 import CircleVue from './Circle.vue'
+import { lyricsConvert } from '@/utils/convert'
 
 const router = useRouter()
 const songStore = useSongStore()
@@ -93,6 +94,7 @@ watch(() => songStore.playingId, async (songId) => {
   if (songStore.playingSongList.length === 0) {
     songStore.playingSongList = res.value.songs
   }
+  getLyricsById(songId)
   setPlayingLocalStorage()
   // play(true)
 })
@@ -113,8 +115,6 @@ watch(() => songStore.playStatus, async (newValue) =>{
 })
 
 watch(() => songStore.playingIndex, async (newValue) =>{
-  console.log('songStore.playingIndex', songStore.playingIndex)
-  console.log('songStore.url', songStore.musicUrlList[songStore.playingIndex])
 })
 
 watch(() => songStore.playingSongList, async () => {
@@ -127,6 +127,13 @@ watch(() => songStore.playingSongList, async () => {
   })
   await getSongUrlList()
 })
+
+const getLyricsById = async function (songId: number) {
+  const res = await getLyrics({
+    id: songId.toString(),
+  })
+  songStore.lyrics = lyricsConvert(res.value.lrc.lyric)
+}
 
 const setPlayingLocalStorage = function () {
   const playing = {

@@ -5,7 +5,7 @@ import router from './router/index'
 import 'vant/lib/index.css'
 import { registerSW } from 'virtual:pwa-register'
 import { Button, Checkbox, NavBar, Picker, Field, Dialog, Popup, Toast, CountDown, Swipe, SwipeItem, Image,
-  Icon, Search, Tabbar, TabbarItem, Tag, Cell, PullRefresh, Tab, Tabs, List, Progress } from 'vant'
+  Icon, Search, Tabbar, TabbarItem, Tag, Cell, PullRefresh, Tab, Tabs, List, Progress, CellGroup } from 'vant'
 import SvgIcon from 'components/SvgIcon.vue'
 import MiniPlayerVue from 'components/MiniPlayer.vue'
 import SearchResultSongVue from 'components/search/SearchResultSong.vue'
@@ -42,6 +42,7 @@ app.use(Button)
 .use(Tabs)
 .use(List)
 .use(Progress)
+.use(CellGroup)
 .component('svg-icon', SvgIcon)
 .component('MiniPlayerVue', MiniPlayerVue)
 // .component('SearchResultComprehensiveVue', SearchResultComprehensiveVue)

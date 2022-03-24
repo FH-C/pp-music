@@ -5,7 +5,10 @@ const getSongDetail = (data: object, force = false) => post(
 
 const getSongURL = (data: object) => post('/song/url' + '?timestamp=' + new Date().getTime(), data, true)
 
+const getLyrics = (data: object) => post('/lyric' + '?timestamp=' + new Date().getTime(), data, true)
+
 export {
   getSongDetail,
   getSongURL,
+  getLyrics,
 }

@@ -70,12 +70,17 @@
 }
 
 .scroll-x::-webkit-scrollbar {
-  display: none; /* Chrome Safari */
+  display: none;
 }
 
 .scroll-y {
   overflow-y: scroll;
   overflow-x: hidden;
+  scrollbar-width: none;
+}
+
+.scroll-y::-webkit-scrollbar {
+  display: none;
 }
 
 .text-line-two {
@@ -232,4 +237,8 @@
 .play-paused {
   animation-play-state: paused;
   -webkit-animation-play-state: paused;
+}
+
+.text-center {
+  text-align: center;
 }

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="background-color: #f5f5f5;">
     <van-popup
       :show="userStore.showUserPopup"
       position="left"
@@ -40,6 +40,17 @@
           </div>
         </template>
       </van-cell>
+      <van-cell-group inset>
+        <van-cell
+          title="我的消息"
+        />
+        <van-cell
+          title="云贝中心"
+        />
+        <van-cell
+          title="创作者中心"
+        />
+      </van-cell-group>
     </van-popup>
   </div>
 </template>

@@ -14,7 +14,7 @@ export const useSongStore = defineStore('song', {
       misicPicList: [''],
       playingSongDetail: {} as any,
       playingSongList: [] as any,
-      lyrics: {} as any,
+      lyrics: [] as any,
       playerRef: null as any,
       showPopup: false,
     }

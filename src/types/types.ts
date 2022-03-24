@@ -44,10 +44,16 @@ interface songDetailType {
   id: number
 }
 
+interface lyricsType {
+  time: number,
+  content: string
+}
+
 export {
   recommendedPlaylistsType,
   recommendedSongsType,
   bannerListType,
   songListHomepageType,
   homepageiConType,
+  lyricsType,
 }

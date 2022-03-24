@@ -53,13 +53,24 @@
       </div>
     </div>
     <PlayerRecordVue
+      v-if="!showLyrics"
       ref="refRecord"
       class="record"
       :rotate="songStore.playStatus"
       :image-src-list="songStore.misicPicList"
       :initial-swipe="songStore.playingIndex"
-      @onChange="onChange"
+      @on-change="onChange"
+      @click="showLyrics = !showLyrics"
     ></PlayerRecordVue>
+    <LyricsVue
+      v-else
+      class="lyrics"
+      :lyrics="songStore.lyrics"
+      :current-time="songStore.currentPlayTime"
+      :current-line="currentLine"
+      @click="showLyrics = !showLyrics"
+      @update:line="updateLine"
+    ></LyricsVue>
     <PlayerProgressVue
       class="progress"
       :current-time="songStore.currentPlayTime"
@@ -83,18 +94,22 @@
 <script setup lang="ts">
 import { useRouter, useRoute } from 'vue-router'
 import { useSongStore } from 'store/song'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { getSongDetail } from '@/api/play'
 import { onClickLeft } from '@/utils/router'
 import PlayerRecordVue from 'components/player/Record.vue'
 import PlayerProgressVue from 'components/player/Progress.vue'
 import PlayerButtons from 'components/player/Buttons.vue'
 import PlayingSongListVue from 'components/PlayingSongList.vue'
+import LyricsVue from '@/components/player/Lyrics.vue'
+import { lyricsType } from '@/types/types'
 const router = useRouter()
 const route = useRoute()
 const songStore = useSongStore()
 const refPlayer: any = ref(null)
 const refRecord: any = ref(null)
+const showLyrics = ref(false)
+const currentLine = ref(0)
 onMounted (() => {
   if (!songStore.playingSongDetail.al) {
     router.push('home')
@@ -103,6 +118,17 @@ onMounted (() => {
 
 const getPicURL = computed(() => {
   return songStore.misicPicList[songStore.playingIndex]
+})
+
+watch(() => songStore.currentPlayTime, async (newValue) => {
+  for (let i = songStore.lyrics.length-1; i >= 0; i--) {
+    if (newValue > songStore.lyrics[i].time) {
+      if (songStore.lyrics[i].content) {
+        currentLine.value = i
+        break
+      }
+    }
+  }
 })
 
 const prev = function () {
@@ -133,6 +159,11 @@ const onChange = function (index: number) {
 
 const updateCurrentTime = function (percentage: number) {
   songStore.playerRef.currentTime = (percentage / 100) * songStore.playerRef.duration
+}
+
+const updateLine = function (index: number) {
+  currentLine.value = index
+  songStore.playerRef.currentTime = songStore.lyrics[index].time
 }
 
 </script>
@@ -167,6 +198,11 @@ const updateCurrentTime = function (percentage: number) {
 .record {
   position: relative;
   top: 10vh;
+}
+
+.lyrics {
+  position: relative;
+  top: 2vh;
 }
 
 .progress {
