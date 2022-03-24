@@ -99,17 +99,22 @@ watch(() => songStore.playingId, async (songId) => {
 
 watch(() => songStore.playStatus, async (newValue) =>{
   if (newValue) {
-    const res = await getSongDetail({
-      ids: songStore.playingId.toString(),
-    })
-    songStore.playingSongDetail = res.value.songs[0]
-    if (songStore.playingSongList.length === 0) {
-      songStore.playingSongList = res.value.songs
-    }
+    // const res = await getSongDetail({
+    //   ids: songStore.playingId.toString(),
+    // })
+    // songStore.playingSongDetail = res.value.songs[0]
+    // if (songStore.playingSongList.length === 0) {
+    //   songStore.playingSongList = res.value.songs
+    // }
     songStore.playerRef.play()
   } else {
     songStore.playerRef.pause()
   }
+})
+
+watch(() => songStore.playingIndex, async (newValue) =>{
+  console.log('songStore.playingIndex', songStore.playingIndex)
+  console.log('songStore.url', songStore.musicUrlList[songStore.playingIndex])
 })
 
 watch(() => songStore.playingSongList, async () => {
@@ -134,10 +139,13 @@ const setPlayingLocalStorage = function () {
 }
 
 const getSongUrlList = async function () {
+  const ids = songStore.playingSongList.map((song: any) => song.id)
   const res = await getSongURL({
-    id: songStore.playingSongList.map((song: any) => song.id).join(','),
+    id: ids.join(','),
   })
-  songStore.musicUrlList = res.value.data.map((song: any) => song.url)
+  songStore.musicUrlList = res.value.data.sort((a: any,b: any)=>{
+    return ids.indexOf(a.id) - ids.indexOf(b.id)
+  }).map((song: any) => song.url)
 }
 
 const getNextSong = function () {

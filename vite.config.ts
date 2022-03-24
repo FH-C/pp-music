@@ -18,7 +18,9 @@ export default defineConfig({
         name: 'PP Music',
         short_name: 'PP Music',
         description: 'PP Music',
-        theme_color: '#ffffff',
+        theme_color: '#db2c1f',
+        background_color: '#db2c1f',
+        display: 'standalone',
         icons: [
           {
             src: 'pwa-192x192.png',
@@ -38,6 +40,7 @@ export default defineConfig({
           },
         ],
       },
+      strategies: 'generateSW',
     }),
     svgBuilder('./src/icons/svg/'),
   ],

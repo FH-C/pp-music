@@ -62,7 +62,7 @@
         </van-tabbar-item>
       </van-tabbar>
     </div>
-    <UserPopupVue :show="showUserPopup"></UserPopupVue>
+    <UserPopupVue :show="userStore.showUserPopup"></UserPopupVue>
   </div>
 </template>
 

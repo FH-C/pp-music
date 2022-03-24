@@ -3,6 +3,7 @@ import App from './App.vue'
 // import { createPinia } from 'pinia'
 import router from './router/index'
 import 'vant/lib/index.css'
+import { registerSW } from 'virtual:pwa-register'
 import { Button, Checkbox, NavBar, Picker, Field, Dialog, Popup, Toast, CountDown, Swipe, SwipeItem, Image,
   Icon, Search, Tabbar, TabbarItem, Tag, Cell, PullRefresh, Tab, Tabs, List, Progress } from 'vant'
 import SvgIcon from 'components/SvgIcon.vue'
@@ -12,6 +13,10 @@ import SearchResultPlaylistVue from 'components/search/SearchResultPlaylist.vue'
 import SearchResultAlbumVue from 'components/search/SearchResultAlbum.vue'
 import store from '@/store'
 
+const updateSW = registerSW({
+  onNeedRefresh() {},
+  onOfflineReady() {},
+})
 const app = createApp(App)
 app.use(Button)
 .use(Checkbox)
