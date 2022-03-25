@@ -174,10 +174,10 @@ const updateLine = function (index: number) {
   height: 100%;
   width: 100%;
   background-size: cover;
-  -webkit-filter: blur(3vw) brightness(0.2) saturate(2);
-  -moz-filter: blur(3vw) brightness(0.2) saturate(2);
-  -ms-filter: blur(3vw) brightness(0.2) saturate(2);
-  filter: blur(3vw) brightness(0.2) saturate(2);
+  -webkit-filter: brightness(0.2) saturate(2) blur(10px);
+  -moz-filter: brightness(0.2) saturate(2) blur(10px);
+  -ms-filter: brightness(0.2) saturate(2) blur(10px);
+  filter: brightness(0.2) saturate(2) blur(10px);
   z-index: -1;
 }
 

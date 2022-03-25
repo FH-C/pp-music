@@ -14,7 +14,7 @@
         />
       </template>
       <template #title>
-        <span class="bold">播放全部</span>
+        <span class="bold">{{ props.title || '播放全部' }}</span>
       </template>
     </van-cell>
     <van-cell
@@ -24,6 +24,9 @@
       center
       @click="play(index)"
     >
+      <template #icon>
+        <span class="index">{{ index + 1 }}</span>
+      </template>
       <template #title>
         <span
           class="medium-font text-line-one"
@@ -56,7 +59,7 @@
             p-id="13136"
           ></path></svg>
         </span>
-        <span class="small-font">
+        <span>
           <!-- <van-tag
             v-if="item.privilege.maxbr === 999000"
             plain
@@ -103,6 +106,10 @@ const props = defineProps({
       return []
     },
   },
+  title: {
+    type: String,
+    default: '',
+  },
 })
 const songStore = useSongStore()
 
@@ -128,4 +135,8 @@ const play = function (index: number) {
 
 <style scoped lang="scss">
 @import url('@/style/common.scss');
+.index {
+  color: #a7a7a7;
+  padding-right: 4vw;
+}
 </style>

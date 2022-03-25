@@ -10,7 +10,7 @@ import Home from 'pages/home.vue'
 import Playlist from 'pages/playlist/index.vue'
 import Player from 'pages/player/index.vue'
 import Album from 'pages/album/index.vue'
-import test from 'pages/test/index.vue'
+import Artist from 'pages/artist/index.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -74,9 +74,9 @@ const routes: Array<RouteRecordRaw> = [
     component: Album,
   },
   {
-    path: '/test',
-    name: 'test',
-    component: test,
+    path: '/artist',
+    name: 'Artist',
+    component: Artist,
   },
 ]
 

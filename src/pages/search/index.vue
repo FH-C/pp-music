@@ -7,6 +7,7 @@
       class="input-field"
       size="large"
       @update:model-value="onUpdate"
+      @keydown.enter="search()"
     >
       <template #left-icon>
         <van-icon

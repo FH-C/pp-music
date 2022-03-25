@@ -32,8 +32,11 @@
           {{ item.name }}
         </span>
       </template>
+      <template #icon>
+        <span class="index">{{ index + 1 }}</span>
+      </template>
       <template #label>
-        <span>
+        <div>
           <svg
             v-if="props.privileges[index].maxbr === 999000"
             t="1647653055755"
@@ -55,29 +58,21 @@
             fill="#ff3024"
             p-id="13136"
           ></path></svg>
-        </span>
-        <span class="small-font">
-          <!-- <van-tag
-            v-if="item.privilege.maxbr === 999000"
-            plain
-            type="primary"
-            color="#ff3024"
-          >
-            SQ
-          </van-tag> -->
-          <span v-if="item.ar.length > 0">
-            <span
-              v-for="(ar, index2) in item.ar"
-              :key="ar.id"
-            >
-              {{ ar.name }}
-              <span v-if="index2 + 1 !== item.ar.length">/</span>
+          <span>
+            <span v-if="item.ar.length > 0">
+              <span
+                v-for="(ar, index2) in item.ar"
+                :key="ar.id"
+              >
+                {{ ar.name }}
+                <span v-if="index2 + 1 !== item.ar.length">/</span>
+              </span>
+            </span>
+            <span>
+              -{{ item.al.name }}
             </span>
           </span>
-          <span>
-            -{{ item.al.name }}
-          </span>
-        </span>
+        </div>
       </template>
       <template #right-icon>
         <!-- <van-icon
@@ -134,4 +129,8 @@ const play = function (index: number) {
 
 <style scoped lang="scss">
 @import url('@/style/common.scss');
+.index {
+  color: #a7a7a7;
+  padding-right: 4vw;
+}
 </style>

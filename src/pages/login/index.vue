@@ -4,7 +4,7 @@
       <div class="logo">
         <img
           alt="Vue logo"
-          src="@/assets/logo.png"
+          src="src/assets/logo.png"
           height="82"
           width="82"
         />

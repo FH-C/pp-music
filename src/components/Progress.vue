@@ -21,7 +21,6 @@
         class="transparent-bar"
         :style="transparentStyle"
       >
-        >
       </div>
     </div>
   </div>
