@@ -152,7 +152,12 @@ const playAll = function() {
   songStore.playingSongList = getPlayingSongList()
   songStore.playingId = songStore.playingSongList[0].id
   songStore.showPlayer = true
-  songStore.playStatus = true
+  setTimeout(() => {
+    songStore.playStatus = false
+  }, 200)
+  setTimeout(() => {
+    songStore.playStatus = true
+  }, 200)
 }
 onMounted(() => {
 })

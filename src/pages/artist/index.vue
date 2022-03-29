@@ -32,7 +32,6 @@
         <SongListVue
           :song-list="songList"
           title="播放热门50"
-          :num="songNum"
           :finished="true"
         ></SongListVue>
         <van-cell

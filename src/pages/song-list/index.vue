@@ -16,6 +16,7 @@
         :loading="loading"
         :finished="finished"
         @load="load"
+        @play-all="playAll"
       ></SongListVue>
     </div>
   </div>
@@ -31,6 +32,8 @@ import { useRoute } from 'vue-router'
 import { onMounted, ref } from 'vue'
 import { getArtistSongs } from '@/api/artist'
 import { getSongDetail } from '@/api/play'
+import { useSongStore } from '@/store/song'
+const songStore = useSongStore()
 const route = useRoute()
 const songList = ref([])
 const songNum = ref(0)
@@ -69,6 +72,38 @@ const load = async function () {
   currentPage.value ++
 }
 const playAll = async function () {
+  songStore.playingSongList = []
+  for (let i=0; i < songNum.value / 200; i++) {
+    const res = await getArtistSongs({
+      id: route.query.id,
+      limit: 200,
+      offset: i * 200,
+      order: order.value,
+    })
+    const res2 = await getSongDetail({
+      ids: res.value.songs.map((song: any) => song.id).join(','),
+    })
+    for (let i = 0; i < res.value.songs.length; i++) {
+      for (let j = 0; j < res2.value.songs.length; j++) {
+        if (res.value.songs[i].id === res2.value.songs[j].id) {
+          res.value.songs[i].al.picUrl = res2.value.songs[j].al.picUrl
+          break
+        }
+      }
+    }
+    songStore.playingSongList.concat(res.value.songs)
+    if (i === 0) {
+      songStore.playingIndex = 0
+      songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
+      songStore.showPlayer = true
+      setTimeout(() => {
+        songStore.playStatus = false
+      }, 200)
+      setTimeout(() => {
+        songStore.playStatus = true
+      }, 200)
+    }
+  }
 }
 </script>
 

@@ -132,7 +132,7 @@ const props = defineProps({
     default: false,
   },
 })
-const emit = defineEmits(['load'])
+const emit = defineEmits(['load', 'playAll'])
 const router = useRouter()
 const songStore = useSongStore()
 const loading = ref(props.loading)
@@ -143,6 +143,11 @@ watch(() => props.loading, (val) => {
   loading.value = val
 })
 const play = function (index: number) {
+  if (index === -1) {
+    if (props.songList.length < props.num) {
+      return emit('playAll')
+    }
+  }
   songStore.playingSongList = props.songList
   songStore.playingIndex = 0
   if (index !== -1) {
