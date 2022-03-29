@@ -32,11 +32,38 @@
         <SongListVue
           :song-list="songList"
           title="播放热门50"
+          :num="songNum"
+          :finished="true"
         ></SongListVue>
+        <van-cell
+          center
+          clickable
+          style="margin-bottom: 5vh;"
+        >
+          <template #value>
+            <div
+              style="text-align: center;color: #9a9a9a;"
+              @click="showAllSongs"
+            >
+              <span>全部演唱</span>
+              <van-icon name="arrow" />
+            </div>
+          </template>
+        </van-cell>
       </van-tab>
-      <van-tab title="专辑">专辑</van-tab>
+      <van-tab title="专辑">
+        <ArtistAlbumsVue
+          :albums="albums.hotAlbums"
+          :loading="loading"
+          :finished="finished"
+          @load="loadAlbums"
+        ></ArtistAlbumsVue>
+      </van-tab>
       <van-tab title="视频">视频</van-tab>
     </van-tabs>
+    <div class="fixed-left-bottom">
+      <MiniPlayerVue></MiniPlayerVue>
+    </div>
   </div>
 </template>
 
@@ -44,11 +71,11 @@
 import { onMounted, reactive, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { getArtistDetail, getArtistDesc, getArtistFollowCount, getSimilarArtists, subscribeArtist,
-  getArtistHotSongs } from '@/api/artist'
-import { getSongDetail } from '@/api/play'
+  getArtistHotSongs, getArtistAlbum } from '@/api/artist'
 import ArtistInfo from 'components/artist/ArtistInfo.vue'
 import ArtistWikiVue from '@/components/artist/ArtistWiki.vue'
 import SongListVue from '@/components/album/SongList.vue'
+import ArtistAlbumsVue from '@/components/artist/ArtistAlbums.vue'
 import { onClickLeft } from '@/utils/router'
 
 const router = useRouter()
@@ -59,6 +86,12 @@ const active = ref(0)
 const similarArtists = ref([])
 const introduction = ref('暂无介绍')
 const songList = ref([])
+const songNum = ref(0)
+const currentAlbumPage = ref(0)
+const loading = ref(false)
+const albums: any = ref({})
+const limit = ref(10)
+const finished = ref(false)
 onMounted(async () => {
   await getData()
 })
@@ -89,6 +122,7 @@ const getInfo = async function () {
   artistInfo.value.identity = res.value.data.identify.imageDesc
   imageURL.value = res.value.data.artist.cover
   introduction.value = res.value.data.artist.briefDesc
+  songNum.value = res.value.data.artist.musicSize
 }
 
 const getSimilar = async function () {
@@ -118,6 +152,31 @@ const follow = async function (info: any) {
   } else {
     artistInfo.value.isFollowed = !artistInfo.value.isFollowed
   }
+}
+const loadAlbums = async function () {
+  let res = undefined
+  loading.value = true
+  res = await getArtistAlbum({
+    id: route.query.id,
+    limit: limit.value,
+    offset: currentAlbumPage.value * limit.value,
+  })
+  if (currentAlbumPage.value === 0) {
+    albums.value = res.value
+  } else {
+    albums.value.hotAlbums = albums.value.hotAlbums.concat(res.value.hotAlbums)
+  }
+  loading.value = false
+  finished.value = !res.value.more
+  currentAlbumPage.value ++
+}
+const showAllSongs = function () {
+  router.push({
+    path: '/song-list',
+    query: {
+      id: route.query.id,
+    },
+  })
 }
 </script>
 

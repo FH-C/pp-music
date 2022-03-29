@@ -21,6 +21,12 @@ const getSimilarArtists = (data: object) => post(
 
 const getArtistHotSongs = (data: object) => post(
   '/artists' + '?timestamp=' + new Date().getTime(), data, true)
+
+const getArtistAlbum = (data: object) => post(
+  '/artist/album' + '?timestamp=' + new Date().getTime(), data, true)
+
+const getArtistSongs = (data: object) => post(
+  '/artist/songs' + '?timestamp=' + new Date().getTime(), data, true)
     
 export {
   subscribeArtist,
@@ -30,4 +36,6 @@ export {
   getArtistFollowCount,
   getSimilarArtists,
   getArtistHotSongs,
+  getArtistAlbum,
+  getArtistSongs,
 }

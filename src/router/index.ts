@@ -11,6 +11,7 @@ import Playlist from 'pages/playlist/index.vue'
 import Player from 'pages/player/index.vue'
 import Album from 'pages/album/index.vue'
 import Artist from 'pages/artist/index.vue'
+import SongList from 'pages/song-list/index.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -34,7 +35,7 @@ const routes: Array<RouteRecordRaw> = [
     component: VerifyLogin,
   },
   {
-    path: '/password_ogin',
+    path: '/password_login',
     name: 'PasswordLogin',
     component: PasswordLogin,
   },
@@ -77,6 +78,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/artist',
     name: 'Artist',
     component: Artist,
+  },
+  {
+    path: '/song-list',
+    name: 'SongList',
+    component: SongList,
   },
 ]
 

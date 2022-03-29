@@ -16,7 +16,7 @@
           >
             <van-image
               round
-              src="src/assets/image/user-avatar.jpg"
+              src="/src/assets/image/user-avatar.jpg"
               class="mini-image"
             />
             <span class="big-font margin-row-4">
@@ -30,7 +30,7 @@
           >
             <van-image
               round
-              src="src/assets/images/user-avatar.jpg"
+              src="/src/assets/images/user-avatar.jpg"
               class="mini-image"
             />
             <span class="big-font margin-row-4">

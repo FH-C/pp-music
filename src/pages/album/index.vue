@@ -22,6 +22,7 @@
     ></AlbumMeansVue>
     <SongListVue
       :song-list="songList"
+      :num="songNum"
     ></SongListVue>
     <div class="fixed-left-bottom">
       <MiniPlayerVue></MiniPlayerVue>
@@ -43,6 +44,7 @@ const route = useRoute()
 const album = ref({}) as any
 const songList = ref([]) as any
 const count = ref({}) as any
+const songNum = ref(0)
 onMounted(async () => {
   await getData()
 })
@@ -57,6 +59,7 @@ const getData = async function () {
     id: route.query.id,
   })
   count.value = res2.value
+  songNum.value = res2.value.trackCount
 }
 </script>
 
