@@ -91,7 +91,7 @@ const playAll = async function () {
         }
       }
     }
-    songStore.playingSongList.concat(res.value.songs)
+    songStore.playingSongList = songStore.playingSongList.concat(res.value.songs)
     if (i === 0) {
       songStore.playingIndex = 0
       songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
@@ -103,6 +103,7 @@ const playAll = async function () {
         songStore.playStatus = true
       }, 200)
     }
+    break
   }
 }
 </script>
