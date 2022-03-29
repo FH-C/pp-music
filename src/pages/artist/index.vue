@@ -33,6 +33,7 @@
           :song-list="songList"
           title="播放热门50"
           :finished="true"
+          finished-text=""
         ></SongListVue>
         <van-cell
           center
