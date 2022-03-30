@@ -3,7 +3,7 @@
     <van-list
       v-model:loading="loading"
       :finished="props.finished"
-      finished-text="到底啦~"
+      :finished-text="props.finishedText"
       @load="onLoad"
     >
       <van-cell
@@ -130,6 +130,10 @@ const props = defineProps({
   finished: {
     type: Boolean,
     default: false,
+  },
+  finishedText: {
+    type: String,
+    default: '到底啦~',
   },
 })
 const emit = defineEmits(['load', 'playAll'])

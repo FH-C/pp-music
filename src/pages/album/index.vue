@@ -23,6 +23,9 @@
     <SongListVue
       :song-list="songList"
       :num="songNum"
+      :loading="false"
+      :finished="true"
+      finished-text=""
     ></SongListVue>
     <div class="fixed-left-bottom">
       <MiniPlayerVue></MiniPlayerVue>
@@ -59,7 +62,7 @@ const getData = async function () {
     id: route.query.id,
   })
   count.value = res2.value
-  songNum.value = res2.value.trackCount
+  songNum.value = res.value.album.size
 }
 </script>
 
