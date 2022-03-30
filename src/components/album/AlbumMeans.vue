@@ -22,7 +22,7 @@
           </div>
         </div>
         <div class="small-font white-font gray-font text">
-          {{ `发行时间：${dateConvert(props.album.publishTime)}` }}
+          {{ `发行时间：${dateConvert(props.album.publishTime, 'yyyy.MM.dd')}` }}
         </div>
         <div class="small-font white-font gray-font text-line-one">
           {{ props.album.description }}

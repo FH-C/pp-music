@@ -12,6 +12,7 @@ import SearchResultSongVue from 'components/search/SearchResultSong.vue'
 import SearchResultPlaylistVue from 'components/search/SearchResultPlaylist.vue'
 import SearchResultAlbumVue from 'components/search/SearchResultAlbum.vue'
 import SearchResultSingerVue from 'components/search/SearchResultSinger.vue'
+import SearchResultVideoVue from 'components/search/SearchResultVideo.vue'
 import store from '@/store'
 
 const updateSW = registerSW({
@@ -49,7 +50,7 @@ app.use(Button)
 // .component('SearchResultComprehensiveVue', SearchResultComprehensiveVue)
 .component('SearchResultSongVue', SearchResultSongVue)
 .component('SearchResultPlaylistVue', SearchResultPlaylistVue)
-// .component('SearchResultVideoVue', SearchResultVideoVue)
+.component('SearchResultVideoVue', SearchResultVideoVue)
 .component('SearchResultSingerVue', SearchResultSingerVue)
 // .component('SearchResultLyricsVue', SearchResultLyricsVue)
 .component('SearchResultAlbumVue', SearchResultAlbumVue)

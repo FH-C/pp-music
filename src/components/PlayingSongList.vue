@@ -142,14 +142,6 @@ const removeAllSong = function () {
 }
 const play = function (index: number) {
   emit('play', index)
-  songStore.playingIndex = index
-  songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
-  setTimeout(() => {
-    songStore.playStatus = false
-  }, 200)
-  setTimeout(() => {
-    songStore.playStatus = true
-  }, 200)
 }
 </script>
 

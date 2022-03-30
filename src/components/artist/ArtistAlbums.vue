@@ -76,7 +76,7 @@ const onLoad = function () {
 }
 const getDate = computed(() => {
   return function(timestamp: number) {
-    return dateConvert(timestamp)
+    return dateConvert(timestamp, 'yyyy.MM.dd')
   }
 })
 

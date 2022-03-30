@@ -163,6 +163,6 @@ onMounted(() => {
 })
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 @import url('@/style/common.scss');
 </style>

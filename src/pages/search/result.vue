@@ -26,7 +26,7 @@
           v-for="(item, index) in tabs"
           :key="item"
           :title="item"
-          :disabled="[1, 2, 4, 6].indexOf(index) === -1"
+          :disabled="[1, 2, 3, 4, 6].indexOf(index) === -1"
         >
           <keep-alive>
             <component
@@ -206,6 +206,27 @@ const searchSinger = async function () {
     searchStore.finished = true
   }
 }
+const searchVideo = async function () {
+  let res = undefined
+  searchStore.loading = true
+  res = await cloudsearch({
+    keywords: searchStore.searchKeyword,
+    type: types[searchStore.active],
+    limit: searchStore.currentLimit,
+    offset: searchStore.currentOffsetList[searchStore.active],
+  }, true)
+  // if (searchStore.currentOffsetList[searchStore.active] === 0) {
+  //   searchStore.searchResultSinger = res.value.result
+  // } else {
+  //   searchStore.searchResultSinger.artists = searchStore.searchResultSinger.artists.concat(res.value.result.artists)
+  // }
+  // searchStore.loading = false
+  // showSearchResult.value = true
+  // if (searchStore.currentLimit * (
+  //   searchStore.currentOffsetList[searchStore.active] + 1) >= res.value.result.artistCount) {
+  //   searchStore.finished = true
+  // }
+}
 const search = async function (keyword?: string) {
   if (keyword) {
     searchStore.searchKeyword = keyword
@@ -220,6 +241,8 @@ const search = async function (keyword?: string) {
     await searchSong()
   } else if (searchStore.active === 2) {
     await searchPlaylist()
+  } else if (searchStore.active === 3) {
+    await searchVideo()
   } else if (searchStore.active === 4) {
     await searchSinger()
   } else if (searchStore.active === 6) {

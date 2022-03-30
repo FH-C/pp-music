@@ -75,7 +75,7 @@ const playCount = computed(() => {
 })
 const getDate = computed(() => {
   return function(timestamp: number) {
-    return dateConvert(timestamp)
+    return dateConvert(timestamp, 'yyyy.MM.dd')
   }
 })
 const getIndex = computed(() => {

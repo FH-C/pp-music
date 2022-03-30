@@ -14,12 +14,32 @@ const timeConvert = function(second: number) {
      1 ? second1 : '0' + second1 }`
 }
 
-const dateConvert = function(timestamp: number) {
-  const date = new Date(timestamp)
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  return `${ year }.${ month }.${ day }`
+const dateConvert = function(timestamp: number, format: string) {
+  let date = null
+  if (timestamp < 1e12)  {
+    date = new Date(timestamp * 1000)
+  } else {
+    date = new Date(timestamp)
+  }
+  const map: {[key: string]: number} = {
+    'M+': date.getMonth() + 1,
+    'd+': date.getDate(),
+    'h+': date.getHours(),
+    'm+': date.getMinutes(),
+    's+': date.getSeconds(),
+    'q+': Math.floor((date.getMonth() + 3) / 3),
+    S: date.getMilliseconds(),
+  }
+  if (/(y+)/.test(format)) {
+    format = format.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
+  }
+  for (const k in map) {
+    if (new RegExp('(' + k + ')').test(format)) {
+      format = format.replace(
+        RegExp.$1, RegExp.$1.length === 1 ? map[k].toString() : ('00' + map[k]).substr(('' + map[k]).length))
+    }
+  }
+  return format
 }
 
 const lyricsConvert = function(lyrics: string) {

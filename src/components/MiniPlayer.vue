@@ -64,7 +64,7 @@
         </div>
       </div>
     </div>
-    <PlayingSongListVue></PlayingSongListVue>
+    <PlayingSongListVue @play="playByIndex"></PlayingSongListVue>
   </div>
 </template>
 
@@ -165,12 +165,6 @@ const getNextSong = function () {
         songStore.playingIndex ++
       }
       songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
-      // setTimeout(() => {
-      //   songStore.playStatus = false
-      // }, 200)
-      // setTimeout(() => {
-      //   songStore.playStatus = true
-      // }, 200)
       break
     case 1:
       // 顺序播放
@@ -180,13 +174,6 @@ const getNextSong = function () {
       } else {
         songStore.playingIndex ++
         songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
-        // songStore.playerRef.play()
-        // setTimeout(() => {
-        //   songStore.playStatus = false
-        // }, 200)
-        // setTimeout(() => {
-        //   songStore.playStatus = true
-        // }, 200)
       }
       break
     case 2:
@@ -194,25 +181,12 @@ const getNextSong = function () {
       const randomInt = Math.floor(Math.random() * (songStore.playingSongList.length + 1))
       songStore.playingIndex = randomInt
       songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
-      // songStore.playerRef.play()
-      // setTimeout(() => {
-      //   songStore.playStatus = false
-      // }, 200)
-      // setTimeout(() => {
-      //   songStore.playStatus = true
-      // }, 200)
       break
     case 3:
       // 单曲循环
-      // songStore.playerRef.play()
-      setTimeout(() => {
-        songStore.playStatus = false
-      }, 200)
-      setTimeout(() => {
-        songStore.playStatus = true
-      }, 200)
       break
   }
+  setTimeout(() => songStore.playerRef.play(), 50)
 }
 
 const getPrevSong = function () {
@@ -225,12 +199,6 @@ const getPrevSong = function () {
         songStore.playingIndex --
       }
       songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
-      setTimeout(() => {
-        songStore.playStatus = false
-      }, 200)
-      setTimeout(() => {
-        songStore.playStatus = true
-      }, 200)
       break
     case 1:
       // 顺序播放
@@ -240,12 +208,6 @@ const getPrevSong = function () {
         songStore.playingIndex --
       }
       songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
-      setTimeout(() => {
-        songStore.playStatus = false
-      }, 200)
-      setTimeout(() => {
-        songStore.playStatus = true
-      }, 200)
       break
     case 2:
       // 随机播放
@@ -253,24 +215,13 @@ const getPrevSong = function () {
       songStore.playingIndex = randomInt
       songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
       // songStore.playerRef.play()
-      setTimeout(() => {
-        songStore.playStatus = false
-      }, 200)
-      setTimeout(() => {
-        songStore.playStatus = true
-      }, 200)
       break
     case 3:
       // 单曲循环
       // songStore.playerRef.play()
-      setTimeout(() => {
-        songStore.playStatus = false
-      }, 200)
-      setTimeout(() => {
-        songStore.playStatus = true
-      }, 200)
       break
   }
+  setTimeout(() => songStore.playerRef.play(), 50)
 }
 
 const playByIndex = function (index: number) {
