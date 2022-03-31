@@ -8,6 +8,7 @@ export const useSearchStore = defineStore('search', {
       searchResultPlaylist: {} as any,
       searchResultAlbum: {} as any,
       searchResultSinger: {} as any,
+      searchResultVideo: {} as any,
       searchSuggestList: [] as any,
       currentOffsetList: Array(9).fill(0),
       currentLimit: 30,

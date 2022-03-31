@@ -7,7 +7,7 @@ const baseURL = import.meta.env.VITE_APP_BASE_API
 axios.defaults.withCredentials = true
 
 axios.interceptors.response.use((res: AxiosResponse) => {
-  if (res.data.code === 200 || res.data.data.code === 200) {
+  if (res.data.code === 200 || res.data.data?.code === 200) {
     const path = res.config.url?.split('?timestamp')[0] || ''
     if (cacheUrl.indexOf(path) === -1) {
       return Promise.resolve(ref(res.data))

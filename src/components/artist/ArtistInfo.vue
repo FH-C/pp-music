@@ -1,7 +1,9 @@
 <template>
   <div class="card">
     <div class="bold name">{{ props.info.name }}</div>
-    <div class="medium-font gray-font">{{ followCount(props.info.followCount) + ' 粉丝' }}</div>
+    <div class="medium-font gray-font">
+      {{ props.info.followCount ? (followCount(props.info.followCount) + ' 粉丝') : '' }}
+    </div>
     <div class="medium-font gray-font">{{ props.info.identity }}</div>
     <div class="button flex-row align-items-center justify-content-center">
       <van-button

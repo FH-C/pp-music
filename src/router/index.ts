@@ -12,6 +12,7 @@ import Player from 'pages/player/index.vue'
 import Album from 'pages/album/index.vue'
 import Artist from 'pages/artist/index.vue'
 import SongList from 'pages/song-list/index.vue'
+import Video from 'pages/video/index.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -83,6 +84,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/song-list',
     name: 'SongList',
     component: SongList,
+  },
+  {
+    path: '/video',
+    name: 'Video',
+    component: Video,
   },
 ]
 

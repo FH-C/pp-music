@@ -1,10 +1,20 @@
+import { computed } from 'vue'
+
 const numberConvert = function (num: number) {
   if (num > 1e8) {
     return (num / 1e8).toFixed(1) + '亿'
   } else if (num > 1e4) {
     return Math.round(num / 1e4)+ '万'
+  } else {
+    return num
   }
 }
+
+const playCount = computed(() => {
+  return function(count: number) {
+    return numberConvert(count)
+  }
+})
 
 const timeConvert = function(second: number) {
   const hour = Math.floor(second / 3600) || 0
@@ -65,6 +75,7 @@ const lyricsConvert = function(lyrics: string) {
 
 export {
   numberConvert,
+  playCount,
   timeConvert,
   dateConvert,
   lyricsConvert,

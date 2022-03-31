@@ -27,6 +27,11 @@ const getArtistAlbum = (data: object) => post(
 
 const getArtistSongs = (data: object) => post(
   '/artist/songs' + '?timestamp=' + new Date().getTime(), data, true)
+
+const getArtistVideos = (data: object) => post(
+  '/artist/video' + '?timestamp=' + new Date().getTime(), data, true)
+const getArtistMV = (data: object) => post(
+  '/artist/mv' + '?timestamp=' + new Date().getTime(), data, true)
     
 export {
   subscribeArtist,
@@ -38,4 +43,6 @@ export {
   getArtistHotSongs,
   getArtistAlbum,
   getArtistSongs,
+  getArtistVideos,
+  getArtistMV,
 }

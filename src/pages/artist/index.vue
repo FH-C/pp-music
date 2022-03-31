@@ -53,13 +53,20 @@
       </van-tab>
       <van-tab title="专辑">
         <ArtistAlbumsVue
-          :albums="albums.hotAlbums"
+          :albums="albums"
           :loading="loading"
           :finished="finished"
           @load="loadAlbums"
         ></ArtistAlbumsVue>
       </van-tab>
-      <van-tab title="视频">视频</van-tab>
+      <van-tab title="视频">
+        <VideosVue
+          :videos="videoList"
+          :loading="loading"
+          :finished="finished"
+          @load="loadVideos"
+        ></VideosVue>
+      </van-tab>
     </van-tabs>
     <div class="fixed-left-bottom">
       <MiniPlayerVue></MiniPlayerVue>
@@ -71,11 +78,12 @@
 import { onMounted, reactive, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { getArtistDetail, getArtistDesc, getArtistFollowCount, getSimilarArtists, subscribeArtist,
-  getArtistHotSongs, getArtistAlbum } from '@/api/artist'
+  getArtistHotSongs, getArtistAlbum, getArtistVideos } from '@/api/artist'
 import ArtistInfo from 'components/artist/ArtistInfo.vue'
 import ArtistWikiVue from '@/components/artist/ArtistWiki.vue'
 import SongListVue from '@/components/album/SongList.vue'
 import ArtistAlbumsVue from '@/components/artist/ArtistAlbums.vue'
+import VideosVue from '@/components/Videos.vue'
 import { onClickLeft } from '@/utils/router'
 
 const router = useRouter()
@@ -86,10 +94,12 @@ const active = ref(0)
 const similarArtists = ref([])
 const introduction = ref('暂无介绍')
 const songList = ref([])
+const videoList = ref([])
 const songNum = ref(0)
 const currentAlbumPage = ref(0)
+const currentVideoPage = ref(0)
 const loading = ref(false)
-const albums: any = ref({})
+const albums: any = ref([])
 const limit = ref(10)
 const finished = ref(false)
 onMounted(async () => {
@@ -104,6 +114,7 @@ const getData = async function () {
   })
   await getSimilar()
   await getSongs()
+  // await getVideos()
 }
 
 const getCount = async function () {
@@ -120,7 +131,7 @@ const getInfo = async function () {
   })
   artistInfo.value.name = res.value.data.artist.name
   artistInfo.value.identity = res.value.data.identify.imageDesc
-  imageURL.value = res.value.data.artist.cover
+  imageURL.value = res.value.data.user?.backgroundUrl || res.value.data.artist?.cover
   introduction.value = res.value.data.artist.briefDesc
   songNum.value = res.value.data.artist.musicSize
 }
@@ -136,6 +147,12 @@ const getSongs = async function () {
     id: route.query.id,
   })
   songList.value = res.value.hotSongs
+}
+const getVideos = async function () {
+  const res = await getArtistVideos({
+    id: route.query.id,
+  })
+  videoList.value = res.value.data.records
 }
 const follow = async function (info: any) {
   const res = await subscribeArtist({
@@ -154,21 +171,37 @@ const follow = async function (info: any) {
   }
 }
 const loadAlbums = async function () {
-  let res = undefined
   loading.value = true
-  res = await getArtistAlbum({
+  const res = await getArtistAlbum({
     id: route.query.id,
     limit: limit.value,
     offset: currentAlbumPage.value * limit.value,
   })
   if (currentAlbumPage.value === 0) {
-    albums.value = res.value
+    albums.value = res.value.hotAlbums
   } else {
-    albums.value.hotAlbums = albums.value.hotAlbums.concat(res.value.hotAlbums)
+    albums.value = albums.value.concat(res.value.hotAlbums)
   }
   loading.value = false
   finished.value = !res.value.more
   currentAlbumPage.value ++
+}
+const loadVideos = async function () {
+  loading.value = true
+  const res = await getArtistVideos({
+    id: route.query.id,
+    size: limit.value,
+    cursor: currentVideoPage.value * limit.value,
+    order: 0,
+  })
+  if (currentVideoPage.value === 0) {
+    videoList.value = res.value.data.records
+  } else {
+    videoList.value = videoList.value.concat(res.value.data.records)
+  }
+  loading.value = false
+  finished.value = !res.value.data.page.more
+  currentVideoPage.value ++
 }
 const showAllSongs = function () {
   router.push({

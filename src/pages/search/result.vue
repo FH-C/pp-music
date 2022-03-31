@@ -31,6 +31,9 @@
           <keep-alive>
             <component
               :is="components[index]"
+              :videos="searchStore.searchResultVideo.videos"
+              :loading="searchStore.loading"
+              :finished="searchStore.finished"
               @load="search"
             ></component>
           </keep-alive>
@@ -90,6 +93,7 @@ onMounted(async () => {
   // getSearchHot()
   getsearchHotDetail()
   searchStore.searchKeyword = route.query.key as string
+  await search()
 })
 watch(() => searchStore.active, async () =>{
   await search()
@@ -155,7 +159,8 @@ const searchPlaylist = async function () {
   if (searchStore.currentOffsetList[searchStore.active] === 0) {
     searchStore.searchResultPlaylist = res.value.result
   } else {
-    searchStore.searchResultPlaylist.playlists = searchStore.searchResultPlaylist.playlists.concat(res.value.result.playlists)
+    searchStore.searchResultPlaylist.playlists = searchStore.searchResultPlaylist.playlists.concat(
+      res.value.result.playlists)
   }
   searchStore.loading = false
   showSearchResult.value = true
@@ -215,17 +220,17 @@ const searchVideo = async function () {
     limit: searchStore.currentLimit,
     offset: searchStore.currentOffsetList[searchStore.active],
   }, true)
-  // if (searchStore.currentOffsetList[searchStore.active] === 0) {
-  //   searchStore.searchResultSinger = res.value.result
-  // } else {
-  //   searchStore.searchResultSinger.artists = searchStore.searchResultSinger.artists.concat(res.value.result.artists)
-  // }
-  // searchStore.loading = false
-  // showSearchResult.value = true
-  // if (searchStore.currentLimit * (
-  //   searchStore.currentOffsetList[searchStore.active] + 1) >= res.value.result.artistCount) {
-  //   searchStore.finished = true
-  // }
+  if (searchStore.currentOffsetList[searchStore.active] === 0) {
+    searchStore.searchResultVideo = res.value.result
+  } else {
+    searchStore.searchResultVideo.videos = searchStore.searchResultVideo.videos.concat(res.value.result.videos)
+  }
+  searchStore.loading = false
+  showSearchResult.value = true
+  if (searchStore.currentLimit * (
+    searchStore.currentOffsetList[searchStore.active] + 1) >= res.value.result.videoCount) {
+    searchStore.finished = true
+  }
 }
 const search = async function (keyword?: string) {
   if (keyword) {

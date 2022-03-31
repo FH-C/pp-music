@@ -69,10 +69,6 @@ const props = defineProps({
 .white-font {
   color: #fff;
 }
-
-.gray-font {
-  color: #93959a;
-}
 .user {
   align-items: center;
   position: relative;
