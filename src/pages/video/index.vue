@@ -8,8 +8,12 @@
     >
     </van-nav-bar>
     <video
+      ref="refVideo"
       :src="url"
       class="video"
+      autoplay
+      muted
+      @click="onClickVideo"
     ></video>
     <div
       v-if="mv.name || video.title"
@@ -44,6 +48,16 @@
       <div class="small-font">{{ mv.playCount? playCount(mv.playCount) : playCount(video.playTime) }}次播放</div>
     </div>
     <div>
+      <ProgressVue
+        :percentage="currentTime / duration * 100"
+        color="rgba(108, 111, 111, 0.2)"
+        track-color="rgba(108, 111, 111, 0.1)"
+        class="progress-bar"
+        stroke-width="0.4vh"
+        @update:percentage="updatePercentage"
+      ></ProgressVue>
+    </div>
+    <div>
       <div></div>
       <div></div>
       <div></div>
@@ -55,17 +69,24 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useSongStore } from '@/store/song'
 import { mlogToVideo, getVideoDetail, getVideoUrl, getMVDetail, getMVUrl, getRelatedVideo } from '@/api/video'
 import { onClickLeft } from '@/utils/router'
 import { playCount } from '@/utils/convert'
 import { subscribeArtist } from '@/api/artist'
+import ProgressVue from '@/components/Progress.vue'
 const router = useRouter()
 const route = useRoute()
+const songStore = useSongStore()
 const video = ref({}) as any
 const url = ref('')
 const videoId = ref(route.query.id)
 const mv = ref({}) as any
+const refVideo = ref(null) as any
+const currentTime = ref(0)
+const duration =  ref(0)
 onMounted(async () => {
+  songStore.playStatus = false
   if ((route.query.type as string) === 'mv') {
     await mvDetail()
     await mvUrl()
@@ -80,6 +101,10 @@ onMounted(async () => {
     console.log('error')
   }
   await relatedVideo()
+  duration.value = refVideo.value.duration
+  refVideo.value.addEventListener('timeupdate', () => {
+    currentTime.value = refVideo.value.currentTime
+  })
 })
 const mvDetail = async function () {
   const res = await getMVDetail({
@@ -124,6 +149,18 @@ const follow = async function (artist: any) {
   })
   artist.followed = !artist.followed
 }
+const onClickVideo = function () {
+  if (refVideo.value.paused) {
+    refVideo.value.muted = false
+    refVideo.value.play()
+  } else {
+    refVideo.value.pause()
+  }
+}
+
+const updatePercentage = function (percentage: number) {
+  refVideo.value.currentTime = percentage / 100 * duration.value
+}
 </script>
 
 <style scoped lang="scss">
@@ -153,5 +190,11 @@ const follow = async function (artist: any) {
   position: absolute;
   left: 4vw;
   bottom: 8vh;
+}
+
+.progress-bar {
+  position: absolute;
+  bottom: 4vh;
+  width: 100vw;
 }
 </style>

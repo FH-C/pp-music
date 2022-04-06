@@ -60,4 +60,7 @@ export default defineConfig({
       replacement: resolve(__dirname, 'src/store'),
     }],
   },
+  server: {
+    host: '0.0.0.0',
+  },
 })

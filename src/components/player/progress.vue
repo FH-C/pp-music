@@ -18,7 +18,7 @@
       track-color="rgba(108, 111, 111, 0.1)"
       class="progress-bar"
       @update:percentage="updatePercentage"
-      @update:percentageDelay="updatePercentageDelay"
+      @update:percentage-delay="updatePercentageDelay"
     ></ProgressVue>
     <span
       class="small-font text"
