@@ -12,7 +12,7 @@
         <van-icon
           name="arrow-left"
           style="padding-right: 10px;"
-          @click="onClickLeft"
+          @click.stop="() => { onClickLeft(); searchStore.searchKeyword = '' }"
         />
       </template>
     </van-field>
