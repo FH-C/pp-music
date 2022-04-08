@@ -1,6 +1,7 @@
 <template>
   <div>
     <van-field
+      ref="refInput"
       v-model="searchStore.searchKeyword"
       clearable
       :placeholder="showKeyword"
@@ -18,7 +19,7 @@
       </template>
     </van-field>
     <div
-      v-if="!searchStore.searchKeyword && searchHistory.length !== -1"
+      v-if="!searchStore.searchKeyword && searchHistory.length !== 0"
       class="history padding-column-2"
     >
       <span class="bold history-text">历史</span>
@@ -37,10 +38,10 @@
       </span>
       <span
         class="clear"
-        @click="clearSearchHistoryLocalStorage"
+        @click="clearSearchHistory"
       ><van-icon name="delete-o" /></span>
     </div>
-    <div v-if="!searchStore.searchKeyword">
+    <div v-if="searchStore.searchSuggestList?.length === 0">
       <SearchCardVue
         :keyword-list="keywordList"
         @search="search"
@@ -88,11 +89,15 @@ const keywordList = ref([])
 const showSearchResult = ref(false)
 const searchStore = useSearchStore()
 const searchHistory = ref([])
+const refInput = ref(null) as any
 onMounted(async () => {
   getDefaultKey()
   // getSearchHot()
   getsearchHotDetail()
   searchHistory.value = getSearchHistoryLocalStorage()
+  if (searchStore.searchSuggestList.length !== 0) {
+    refInput.value.focus()
+  }
 })
 const getDefaultKey = async function() {
   const res = await searchDefault(true)
@@ -109,6 +114,9 @@ const getsearchHotDetail = async function() {
 }
 
 const onUpdate = async function (value: string) {
+  if (!value) {
+    return
+  }
   const res = await searchSuggest({
     keywords: value,
     type: 'mobile',
@@ -135,6 +143,11 @@ const search = async function (keyword?: string) {
       key: searchStore.searchKeyword,
     },
   })
+}
+
+const clearSearchHistory = function () {
+  clearSearchHistoryLocalStorage()
+  searchHistory.value = []
 }
 
 </script>

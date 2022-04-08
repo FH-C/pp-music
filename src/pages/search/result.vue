@@ -80,6 +80,7 @@ import {
 import { useRoute } from 'vue-router'
 import { types, tabs, components } from '@/utils/search'
 import { updateSearchHistoryLocalStorage } from '@/utils/localStorage'
+import router from '@/router'
 
 const route = useRoute()
 const showKeyword = ref('')
@@ -101,7 +102,9 @@ watch(() => searchStore.active, async () =>{
 })
 const onClickField = async function () {
   await onUpdate(searchStore.searchKeyword)
-  onClickLeft()
+  router.push({
+    path: '/search',
+  })
 }
 const getDefaultKey = async function() {
   const res = await searchDefault(true)
@@ -118,6 +121,9 @@ const getsearchHotDetail = async function() {
 }
 
 const onUpdate = async function (value: string) {
+  if (!value) {
+    return
+  }
   const res = await searchSuggest({
     keywords: value,
     type: 'mobile',
