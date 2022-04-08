@@ -83,7 +83,13 @@ const router = useRouter()
 const songStore = useSongStore()
 
 onMounted(() => {
-  listenEnd()
+  songStore.playerRef.addEventListener('ended', getNextSong)
+  songStore.playerRef.addEventListener('pause', () => {
+    songStore.playStatus = false
+  })
+  songStore.playerRef.addEventListener('play', () => {
+    songStore.playStatus = true
+  })
 })
 
 watch(() => songStore.playingId, async (songId) => {
@@ -233,10 +239,6 @@ const playByIndex = function (index: number) {
   setTimeout(() => {
     songStore.playStatus = true
   }, 200)
-}
-
-const listenEnd = function () {
-  songStore.playerRef.addEventListener('ended', getNextSong)
 }
 
 const play = function (force: boolean) {

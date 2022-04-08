@@ -79,6 +79,7 @@ import {
 } from '@/api/search'
 import { useRoute } from 'vue-router'
 import { types, tabs, components } from '@/utils/search'
+import { updateSearchHistoryLocalStorage } from '@/utils/localStorage'
 
 const route = useRoute()
 const showKeyword = ref('')
@@ -242,6 +243,7 @@ const search = async function (keyword?: string) {
       searchStore.currentOffsetList[searchStore.active] = 0
     }
   }
+  updateSearchHistoryLocalStorage(searchStore.searchKeyword)
   if (searchStore.active === 1) {
     await searchSong()
   } else if (searchStore.active === 2) {
