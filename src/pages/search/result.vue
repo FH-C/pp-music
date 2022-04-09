@@ -95,7 +95,7 @@ onMounted(async () => {
   // getSearchHot()
   getsearchHotDetail()
   searchStore.searchKeyword = route.query.key as string
-  await search()
+  // await search()
 })
 watch(() => searchStore.active, async () =>{
   await search()
@@ -141,6 +141,7 @@ const searchSong = async function () {
     limit: searchStore.currentLimit,
     offset: searchStore.currentOffsetList[searchStore.active],
   }, true)
+  console.log(searchStore.currentOffsetList[searchStore.active])
   if (searchStore.currentOffsetList[searchStore.active] === 0) {
     searchStore.searchResultSong = res.value.result
   } else {
