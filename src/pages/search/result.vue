@@ -102,7 +102,7 @@ watch(() => searchStore.active, async () =>{
 })
 const onClickField = async function () {
   await onUpdate(searchStore.searchKeyword)
-  router.push({
+  router.replace({
     path: '/search',
   })
 }

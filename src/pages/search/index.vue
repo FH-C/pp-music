@@ -19,7 +19,7 @@
       </template>
     </van-field>
     <div
-      v-if="!searchStore.searchKeyword && searchHistory.length !== 0"
+      v-if="searchStore.searchSuggestList?.length === 0 && searchHistory.length !== 0"
       class="history padding-column-2"
     >
       <span class="bold history-text">历史</span>
