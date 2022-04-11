@@ -9,7 +9,7 @@
           width="82"
         />
       </div>
-      <div class="button1">
+      <div class="button2">
         <Button
           round
           type="primary"
@@ -22,7 +22,7 @@
           手机号登录
         </Button>
       </div>
-      <div class="button2">
+      <!-- <div class="button2">
         <Button
           round
           type="primary"
@@ -31,27 +31,28 @@
         >
           立即体验
         </Button>
-      </div>
+      </div> -->
       <div class="agree">
         <van-checkbox
           v-model="checked"
-          class="agree"
           icon-size="12px"
           checked-color="#db2c1f"
           shape="square"
         >
-          <span>
-            同意
-          </span>
-          <span>
-            《用户协议》
-          </span>
-          <span>
-            《隐私政策》
-          </span>
-          <span>
-            《儿童隐私协议》
-          </span>
+          <div class="agree-text">
+            <span>
+              同意
+            </span>
+            <span>
+              《用户协议》
+            </span>
+            <span>
+              《隐私政策》
+            </span>
+            <span>
+              《儿童隐私协议》
+            </span>
+          </div>
         </van-checkbox>
       </div>
       <div>
@@ -101,5 +102,10 @@ const mobileLogin = function () {
 .agree {
   grid-row-start: 19;
   font-size: 12px;
+}
+
+.agree-text {
+  position: relative;
+  top: 2px;
 }
 </style>

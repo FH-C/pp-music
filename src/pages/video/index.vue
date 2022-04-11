@@ -20,7 +20,7 @@
       name="play-circle-o"
       color="rgba(255, 255, 255, 0.8)"
       size="20vw"
-      style="position: absolute;top: 36%;left: 50%;transform: translate(-50%, -50%);"
+      style="position: absolute;top: 44%;left: 50%;transform: translate(-50%, -50%);"
       @click="playStatus = !playStatus"
     />
     <div
@@ -93,6 +93,20 @@
         p-id="3068"
         fill="#cdcdcd"
       ></path></svg>
+      <svg
+        v-if="pictureInPictureEnabled"
+        t="1649656552570"
+        class="video-icon"
+        viewBox="0 0 1024 1024"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        p-id="1944"
+        @click="refVideo.requestPictureInPicture()"
+      ><path
+        d="M358.4 921.6H102.4a51.2 51.2 0 0 1-51.2-51.2V153.6a51.2 51.2 0 0 1 51.2-51.2h819.2a51.2 51.2 0 0 1 51.2 51.2v230.4a25.6 25.6 0 0 1-25.6 25.6h-51.2a25.6 25.6 0 0 1-25.6-25.6V204.8H153.6v614.4h230.4a25.6 25.6 0 0 1 25.6 25.6v51.2a25.6 25.6 0 0 1-25.6 25.6H358.4z m256-307.2v204.8h307.2v-204.8h-307.2z m-51.2-102.4h409.6a51.2 51.2 0 0 1 51.2 51.2v307.2a51.2 51.2 0 0 1-51.2 51.2h-409.6a51.2 51.2 0 0 1-51.2-51.2v-307.2a51.2 51.2 0 0 1 51.2-51.2z"
+        p-id="1945"
+        fill="#cdcdcd"
+      ></path></svg>
     </div>
     <div>
       <div></div>
@@ -104,7 +118,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useSongStore } from '@/store/song'
 import { mlogToVideo, getVideoDetail, getVideoUrl, getMVDetail, getMVUrl, getRelatedVideo } from '@/api/video'
@@ -147,6 +161,9 @@ onMounted(async () => {
     currentTime.value = e.target.currentTime
   })
   await relatedVideo()
+})
+const pictureInPictureEnabled = computed(() => {
+  return document.pictureInPictureEnabled
 })
 const mvDetail = async function () {
   const res = await getMVDetail({
@@ -225,7 +242,7 @@ watch(playStatus, (newValue) => {
 .video {
   width: 100vw;
   position: relative;
-  top: 20vh;
+  top: 30vh;
 }
 .left-nav-bar {
   position: absolute;
@@ -250,6 +267,14 @@ watch(playStatus, (newValue) => {
 .volumn-icon {
   position: absolute;
   right: 12vw;
+  bottom: 3vh;
+  width: 4vw;
+  height: 4vw;
+}
+
+.video-icon {
+  position: absolute;
+  right: 4vw;
   bottom: 3vh;
   width: 4vw;
   height: 4vw;

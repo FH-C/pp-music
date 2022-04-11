@@ -1,7 +1,7 @@
 <template>
   <div
     class="background"
-    :style="`background: gray url(${getPicURL}) center;`"
+    :style="`background: url(/src/assets/images/album.png) center, url(${getPicURL}) center;`"
   >
   </div>
   <div class="body">
@@ -131,12 +131,16 @@ watch(() => songStore.currentPlayTime, async (newValue) => {
 })
 
 const prev = function () {
+  showLyrics.value = false
   refRecord.value.prev()
   // refPlayer.value.getPrevSong()
 }
 const next = function () {
-  refRecord.value.next()
-  // refPlayer.value.getNextSong()
+  if (showLyrics.value) {
+    refPlayer.value.getNextSong()
+  } else {
+    refRecord.value.next()
+  }
 }
 const play = function () {
   refPlayer.value.play()
