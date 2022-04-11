@@ -1,7 +1,7 @@
 <template>
   <div
     class="background"
-    :style="`background: url(${getPicURL}) center;`"
+    :style="`background: gray url(${getPicURL}) center;`"
   >
   </div>
   <div class="body">
@@ -174,10 +174,10 @@ const updateLine = function (index: number) {
   height: 100%;
   width: 100%;
   background-size: cover;
-  -webkit-filter: brightness(0.2) saturate(2) blur(10px);
-  -moz-filter: brightness(0.2) saturate(2) blur(10px);
-  -ms-filter: brightness(0.2) saturate(2) blur(10px);
-  filter: brightness(0.2) saturate(2) blur(10px);
+  -webkit-filter: brightness(0.2) saturate(2) blur(20px);
+  -moz-filter: brightness(0.2) saturate(2) blur(20px);
+  -ms-filter: brightness(0.2) saturate(2) blur(20px);
+  filter: brightness(0.2) saturate(2) blur(20px);
   z-index: -1;
 }
 

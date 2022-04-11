@@ -24,7 +24,15 @@
                 round
                 :src="src"
                 class="image"
-              />
+              >
+                <template #loading>
+                  <div
+                    class="image"
+                    style="background-color: gray;border-radius: 50%;"
+                  >
+                  </div>
+                </template>
+              </van-image>
             </div>
           </div>
         </van-swipe-item>
