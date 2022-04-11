@@ -51,6 +51,7 @@ const refBox: any = ref(null)
 const isMoving = ref(false)
 const domrects: any = ref([])
 const dropIndex = ref(props.currentLine)
+const timestamp = ref(0)
 const getTextColor = computed(() => {
   return function(line: number) {
     if (isMoving.value) {
@@ -76,6 +77,7 @@ const getTextColor = computed(() => {
 })
 const touchstart = function () {
   isMoving.value = true
+  timestamp.value = Date.now()
 }
 const touchmove = function () {
   const { top } = refBox.value.getBoundingClientRect()
@@ -88,7 +90,9 @@ const touchmove = function () {
 }
 const touchend = function () {
   isMoving.value = false
-  emit('update:line', dropIndex.value)
+  if (Date.now() - timestamp.value > 300) {
+    emit('update:line', dropIndex.value)
+  }
 }
 const listenTouchstart = function () {
   refBox.value.addEventListener('touchstart', touchstart)

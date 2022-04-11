@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span @click="songStore.playingType >= 3 ? songStore.playingType = 0 : songStore.playingType ++">
+    <span @click="songStore.playingType >= 2 ? songStore.playingType = 0 : songStore.playingType ++">
       <span v-if="songStore.playingType === 0">
         <svg
           t="1647509427692"
@@ -21,40 +21,6 @@
       </span>
       <span v-else-if="songStore.playingType === 1">
         <svg
-          t="1647509475479"
-          class="micro-icon"
-          viewBox="0 0 1516 1024"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-          p-id="4712"
-        ><path
-          d="M364.474576 395.715254h833.084746v48.59661h-833.084746z"
-          p-id="4713"
-          fill="#cdcdcd"
-        ></path><path
-          d="M1214.915254 458.19661H347.118644V381.830508h867.79661v76.366102z m-833.084746-27.769491h798.372882v-20.827119H381.830508v20.827119z m-17.355932 180.501695h833.084746V659.525424h-833.084746v-48.59661z m0 0"
-          p-id="4714"
-          fill="#cdcdcd"
-        ></path><path
-          d="M1214.915254 673.410169H347.118644v-76.366101h867.79661v76.366101z m-833.084746-27.769491h798.372882V624.813559H381.830508v20.827119z m0 0M364.474576 840.027119h833.084746v48.59661h-833.084746z"
-          p-id="4715"
-          fill="#cdcdcd"
-        ></path><path
-          d="M1214.915254 902.508475H347.118644v-76.366102h867.79661V902.508475z m-833.084746-27.769492h798.372882v-20.827119H381.830508v20.827119z m0 0"
-          p-id="4716"
-          fill="#cdcdcd"
-        ></path><path
-          d="M989.288136 229.098305l201.328813 152.732203-41.654237 34.711865-201.328814-152.732204 41.654238-34.711864z m0 0"
-          p-id="4717"
-          fill="#cdcdcd"
-        ></path><path
-          d="M1148.962712 437.369492l-225.627119-170.088136L985.816949 208.271186l225.627119 170.088136-62.481356 59.01017zM971.932203 267.281356l177.030509 131.905085 17.355932-17.355933-177.030508-131.905084-17.355933 17.355932z m0 0"
-          p-id="4718"
-          fill="#cdcdcd"
-        ></path></svg>
-      </span>
-      <span v-else-if="songStore.playingType === 2">
-        <svg
           t="1647509363860"
           class="micro-icon"
           viewBox="0 0 1024 1024"
@@ -67,7 +33,7 @@
           p-id="2921"
         ></path></svg>
       </span>
-      <span v-else-if="songStore.playingType === 3">
+      <span v-else-if="songStore.playingType === 2">
         <svg
           t="1647509208334"
           class="micro-icon"

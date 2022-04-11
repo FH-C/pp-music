@@ -173,22 +173,12 @@ const getNextSong = function () {
       songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
       break
     case 1:
-      // 顺序播放
-      if (songStore.playingSongList.length <= songStore.playingIndex + 1) {
-        songStore.playingIndex = 0
-        songStore.playStatus = false
-      } else {
-        songStore.playingIndex ++
-        songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
-      }
-      break
-    case 2:
       // 随机播放
       const randomInt = Math.floor(Math.random() * (songStore.playingSongList.length + 1))
       songStore.playingIndex = randomInt
       songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
       break
-    case 3:
+    case 2:
       // 单曲循环
       break
   }
@@ -207,22 +197,13 @@ const getPrevSong = function () {
       songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
       break
     case 1:
-      // 顺序播放
-      if (songStore.playingIndex - 1 < 0) {
-        songStore.playingIndex = songStore.playingSongList.length - 1
-      } else {
-        songStore.playingIndex --
-      }
-      songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
-      break
-    case 2:
       // 随机播放
       const randomInt = Math.floor(Math.random() * (songStore.playingSongList.length + 1))
       songStore.playingIndex = randomInt
       songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
       // songStore.playerRef.play()
       break
-    case 3:
+    case 2:
       // 单曲循环
       // songStore.playerRef.play()
       break
@@ -243,14 +224,8 @@ const playByIndex = function (index: number) {
 
 const play = function (force: boolean) {
   if (force) {
-    songStore.playerRef.play()
     songStore.playStatus = true
   } else {
-    if (songStore.playStatus) {
-      songStore.playerRef.pause()
-    } else {
-      songStore.playerRef.play()
-    }
     songStore.playStatus = !songStore.playStatus
   }
   songStore.playerRef.muted = false

@@ -119,7 +119,7 @@ import { useSongStore } from 'store/song'
 import PlayingTypeVue from 'components/PlayingType.vue'
 const emit = defineEmits(['play'])
 const songStore = useSongStore()
-const circleText = ['列表循环', '顺序播放', '随机播放', '单曲循环']
+const circleText = ['列表循环', '随机播放', '单曲循环']
 
 const removeSong = function (index: number) {
   songStore.playingSongList.splice(index, 1)

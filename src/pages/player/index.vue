@@ -132,11 +132,11 @@ watch(() => songStore.currentPlayTime, async (newValue) => {
 
 const prev = function () {
   refRecord.value.prev()
-  refPlayer.value.getPrevSong()
+  // refPlayer.value.getPrevSong()
 }
 const next = function () {
   refRecord.value.next()
-  refPlayer.value.getNextSong()
+  // refPlayer.value.getNextSong()
 }
 const play = function () {
   refPlayer.value.play()
