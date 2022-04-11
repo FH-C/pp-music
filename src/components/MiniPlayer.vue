@@ -71,7 +71,7 @@
 <script setup lang="ts">
 import { getPlayingLocalStorage } from '@/utils/localStorage'
 import { NavBar, Picker, Popup, Field, Button, Toast, Icon, Image } from 'vant'
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { getSongDetail, getSongURL, getLyrics } from '@/api/play'
 import { useSongStore } from 'store/song'
@@ -81,16 +81,6 @@ import { lyricsConvert } from '@/utils/convert'
 
 const router = useRouter()
 const songStore = useSongStore()
-
-onMounted(() => {
-  songStore.playerRef.addEventListener('ended', getNextSong)
-  songStore.playerRef.addEventListener('pause', () => {
-    songStore.playStatus = false
-  })
-  songStore.playerRef.addEventListener('play', () => {
-    songStore.playStatus = true
-  })
-})
 
 watch(() => songStore.playingId, async (songId) => {
   const res = await getSongDetail({
@@ -171,6 +161,8 @@ const getNextSong = function () {
         songStore.playingIndex ++
       }
       songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
+      console.log(songStore.playingIndex)
+      console.log(songStore.playingSongList[songStore.playingIndex])
       break
     case 1:
       // 随机播放

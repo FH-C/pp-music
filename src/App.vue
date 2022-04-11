@@ -6,7 +6,37 @@ const songStore = useSongStore()
 const playerRef = ref(null)
 onMounted(() => {
   songStore.playerRef = playerRef.value
+  songStore.playerRef.addEventListener('ended', getNextSong)
+  songStore.playerRef.addEventListener('pause', () => {
+    songStore.playStatus = false
+  })
+  songStore.playerRef.addEventListener('play', () => {
+    songStore.playStatus = true
+  })
 })
+const getNextSong = function () {
+  switch (songStore.playingType) {
+    case 0:
+      // 列表循环
+      if (songStore.playingSongList.length <= songStore.playingIndex + 1) {
+        songStore.playingIndex = 0
+      } else {
+        songStore.playingIndex ++
+      }
+      songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
+      break
+    case 1:
+      // 随机播放
+      const randomInt = Math.floor(Math.random() * (songStore.playingSongList.length + 1))
+      songStore.playingIndex = randomInt
+      songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
+      break
+    case 2:
+      // 单曲循环
+      break
+  }
+  setTimeout(() => songStore.playerRef.play(), 50)
+}
 const timeUpdate = function (e: Event | any) {
   songStore.currentPlayTime = e.target.currentTime
 }
