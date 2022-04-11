@@ -56,6 +56,10 @@ const load = async () => {
     limit: limit.value,
     offset: currentPage.value++ * limit.value,
   })
+  if (!res.value) {
+    finished.value = true
+    return loading.value = false
+  }
   if (songList.value.length === 0) {
     songList.value = res.value.data.map((item: any) => {
       if (!item.simpleSong.al.name) {
@@ -65,6 +69,7 @@ const load = async () => {
       return item.simpleSong
     })
   } else {
+    console.log(songList.value.length === 0)
     songList.value = songList.value.concat(res.value.data.map((item: any) => {
       if (!item.simpleSong.al.name) {
         item.simpleSong.al.name = item.album
@@ -73,8 +78,7 @@ const load = async () => {
       return item.simpleSong
     }))
   }
-  loading.value = false
-  finished.value = !res.value.hasMore
+  finished.value = res.value.hasMore !== undefined && !res.value.hasMore
   songNum.value = res.value.count
 }
 
@@ -104,7 +108,6 @@ const playAll = async function () {
         songStore.playStatus = true
       }, 200)
     }
-    break
   }
 }
 </script>

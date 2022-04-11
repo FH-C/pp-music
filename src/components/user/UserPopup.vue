@@ -49,12 +49,15 @@
       >
         <van-cell
           title="我的消息"
+          class="disabled"
         />
         <van-cell
           title="云贝中心"
+          class="disabled"
         />
         <van-cell
           title="创作者中心"
+          class="disabled"
         />
       </van-cell-group>
       <van-cell-group

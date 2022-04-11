@@ -7,6 +7,7 @@ const baseURL = import.meta.env.VITE_APP_BASE_API
 axios.defaults.withCredentials = true
 
 axios.interceptors.response.use((res: AxiosResponse) => {
+  console.log(123, res)
   if (res.data.code === 200 || res.data.data?.code === 200) {
     const path = res.config.url?.split('?timestamp')[0] || ''
     if (cacheUrl.indexOf(path) === -1) {
@@ -25,7 +26,7 @@ axios.interceptors.response.use((res: AxiosResponse) => {
 }, (error: AxiosError) => {
   if (error.response) {
     // 请求已发出，但服务器响应的状态码不在 2xx 范围内
-    return Toast(error.response.data.message)
+    return Toast(error.response.data.message || error.response.data.msg || '出错了')
   } else {
     // Something happened in setting up the request that triggered an Error
     return Toast(error.message)
