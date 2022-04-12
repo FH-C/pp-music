@@ -1,7 +1,7 @@
 <template>
   <div
     class="background"
-    :style="`background: url(/src/assets/images/album.png) center, url(${getPicURL}) center;`"
+    :style="`background: gainsboro url(${getPicURL}) center;`"
   >
   </div>
   <div class="body">
