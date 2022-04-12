@@ -13,7 +13,14 @@
           round
           :class="['mini-icon', {'rotate': songStore.playStatus}]"
           style="margin-left: 4vw;"
-        />
+        >
+          <template #loading>
+            <div
+              :class="['mini-icon', {'rotate': songStore.playStatus}]"
+              style="background-color: gainsboro;"
+            ></div>
+          </template>
+        </van-image>
       </div>
       <div
         class="text-line-one"
