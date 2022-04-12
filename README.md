@@ -38,6 +38,15 @@ npm install
 npm run build
 ```
 7. 将 `/dist` 目录下的文件上传到你的 Web 服务器
+## 截图预览
+![home](/public/home.png)
+![album](/public/album.png)
+![lyric](/public/lyric.png)
+![player](/public/player.png)
+![playlist](/public/playlist.png)
+![search](/public/search.png)
+![singer](/public/singer.png)
+![video](/public/video.png)
 ## 免责声明
 本项目的图片、音频文件均来自第三方平台，本项目只做展示用，不会修改任何资源。
 
