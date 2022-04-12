@@ -90,7 +90,7 @@ const touchmove = function () {
 }
 const touchend = function () {
   isMoving.value = false
-  if (Date.now() - timestamp.value > 300) {
+  if (Date.now() - timestamp.value > 300 && props.lyrics[dropIndex.value].content !== '暂时没有歌词') {
     emit('update:line', dropIndex.value)
   }
 }

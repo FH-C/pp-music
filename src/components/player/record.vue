@@ -26,11 +26,15 @@
                 class="image"
               >
                 <template #loading>
-                  <van-image
+                  <!-- <van-image
                     round
                     src="/src/assets/images/album.png"
                     class="image"
-                  />
+                  /> -->
+                  <div
+                    class="image"
+                    style="background-color: gainsboro;"
+                  ></div>
                 </template>
               </van-image>
             </div>

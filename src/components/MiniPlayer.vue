@@ -128,7 +128,7 @@ const getLyricsById = async function (songId: number) {
   const res = await getLyrics({
     id: songId.toString(),
   })
-  songStore.lyrics = lyricsConvert(res.value.lrc.lyric)
+  songStore.lyrics = lyricsConvert(res.value.lrc?.lyric || '[99:99.999]暂时没有歌词')
 }
 
 const setPlayingLocalStorage = function () {
