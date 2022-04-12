@@ -9,7 +9,10 @@
         <Banner
           :banner-list="bannerList"
         ></Banner>
-        <HomepageIconVue :homepage-icon-list="homepageIconList"></HomepageIconVue>
+        <HomepageIconVue
+          :homepage-icon-list="homepageIconList"
+          @click="Toast('敬请期待')"
+        ></HomepageIconVue>
         <HomepagePlaylistVue
           :homepage-playlists="homepagePlaylists"
           style="margin-top: 10px;"

@@ -46,6 +46,7 @@
       <van-cell-group
         inset
         class="card"
+        @click="Toast('敬请期待')"
       >
         <van-cell
           title="我的消息"
@@ -87,6 +88,7 @@
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/store/user'
 import { logout } from '@/api/login'
+import { Toast } from 'vant'
 const userStore = useUserStore()
 const props = defineProps({
   show: {

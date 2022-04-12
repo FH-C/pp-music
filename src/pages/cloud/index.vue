@@ -80,6 +80,9 @@ const load = async () => {
   }
   finished.value = res.value.hasMore !== undefined && !res.value.hasMore
   songNum.value = res.value.count
+  if (!finished.value) {
+    await load()
+  }
 }
 
 const playAll = async function () {

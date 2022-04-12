@@ -148,7 +148,6 @@ onMounted(() => {
   .stroke-bar {
     border-radius: 200px;
     position: relative;
-    transition: width .5s;
     .pivot {
       position: relative;
       border-radius: 50%;
