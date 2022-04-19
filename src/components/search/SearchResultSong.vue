@@ -71,7 +71,9 @@
               fill="#ff3024"
               p-id="13136"
             ></path></svg>
-            <span v-if="item.ar.length > 0">
+            <span
+              v-if="item.ar.length > 0"
+            >
               <span
                 v-for="(ar, index2) in item.ar"
                 :key="ar.id"

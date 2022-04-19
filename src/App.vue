@@ -21,7 +21,7 @@ const getNextSong = function () {
       if (songStore.playingSongList.length <= songStore.playingIndex + 1) {
         songStore.playingIndex = 0
       } else {
-        songStore.playingIndex ++
+        songStore.playingIndex++
       }
       songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
       break
@@ -55,9 +55,12 @@ const timeUpdate = function (e: Event | any) {
 </template>
 
 <style>
-html, body{ 
-  margin:0; height:100%;
+html,
+body {
+  margin: 0;
+  height: 100%;
 }
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

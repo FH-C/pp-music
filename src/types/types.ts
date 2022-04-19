@@ -19,7 +19,11 @@ interface bannerListType {
   bannerId: string,
   pic: string,
   typeTitle: string,
-  titleColor: string
+  titleColor: string,
+  song: any,
+  url: string,
+  targetType: number,
+  targetId: number
 }
 
 interface songListHomepageType {

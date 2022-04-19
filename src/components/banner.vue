@@ -7,6 +7,7 @@
       <van-swipe-item
         v-for="(banner, index) in props.bannerList"
         :key="banner.bannerId"
+        @click="onClickBanner(index)"
       >
         <van-image
           :src="banner.pic"
@@ -28,6 +29,8 @@
 import { computed, onMounted, PropType } from 'vue'
 import { Swipe, SwipeItem, Image } from 'vant'
 import { bannerListType } from '@/types/types'
+import { useSongStore } from '@/store/song'
+import { useRouter } from 'vue-router'
 const props = defineProps({
   bannerList: {
     type: Array as PropType<bannerListType[]>,
@@ -36,16 +39,40 @@ const props = defineProps({
     },
   },
 })
-onMounted(() => {
-})
+const songStore = useSongStore()
+const router = useRouter()
 const getColor = function (color: string) {
   let bgColor = color
   if (color === 'red') {
-    bgColor = '#fa4c49' 
+    bgColor = '#fa4c49'
   } else if (color === 'blue') {
     bgColor = '#3489cc'
   }
   return `background-color: ${ bgColor };`
+}
+
+const onClickBanner = function (index: number) {
+  console.log(index)
+  if (props.bannerList[index].targetType === 1) {
+    songStore.playingId = props.bannerList[index].song.id
+    songStore.playingSongList = [props.bannerList[index].song]
+    songStore.playingIndex = 0
+    setTimeout(() => {
+      songStore.playStatus = false
+    }, 200)
+    setTimeout(() => {
+      songStore.playStatus = true
+    }, 200)
+  } else if (props.bannerList[index].targetType === 10) {
+    router.push({
+      path: 'album',
+      query: {
+        id: props.bannerList[index].targetId,
+      },
+    })
+  } else if (props.bannerList[index].targetType === 3000) {
+    location.href = props.bannerList[index].url
+  }
 }
 </script>
 

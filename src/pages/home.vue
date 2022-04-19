@@ -31,7 +31,7 @@
     <div class="placeholder2"></div>
     <div class="fixed-left-bottom">
       <MiniPlayerVue></MiniPlayerVue>
-      <van-tabbar
+      <!-- <van-tabbar
         v-model="active"
         active-color="#ff7979"
         :placeholder="true"
@@ -63,7 +63,7 @@
             ></svg-icon>
           </template>
         </van-tabbar-item>
-      </van-tabbar>
+      </van-tabbar> -->
     </div>
     <UserPopupVue :show="userStore.showUserPopup"></UserPopupVue>
   </div>

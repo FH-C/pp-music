@@ -1,7 +1,7 @@
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import styleImport, { VantResolve } from 'vite-plugin-style-import'
-import  {  VitePWA  }  from  'vite-plugin-pwa'
+import { VitePWA } from 'vite-plugin-pwa'
 import { resolve } from 'path'
 import { svgBuilder } from './src/plugins/svgBuilder'
 
@@ -13,7 +13,7 @@ export default defineConfig({
       resolves: [VantResolve()],
     }),
     VitePWA({
-      includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon.png'],  
+      includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
       manifest: {
         name: 'PP Music',
         short_name: 'PP Music',
@@ -44,7 +44,7 @@ export default defineConfig({
     }),
     svgBuilder('./src/icons/svg/'),
   ],
-  base:  './',
+  base: './',
   resolve: {
     alias: [{
       find: '@',
@@ -62,5 +62,6 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0',
+    hmr: true,
   },
 })
