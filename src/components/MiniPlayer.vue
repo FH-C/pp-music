@@ -93,9 +93,9 @@ watch(() => songStore.playingId, async (songId) => {
   const res = await getSongDetail({
     ids: songId.toString(),
   })
-  songStore.playingSongDetail = res.value.songs[0]
+  songStore.playingSongDetail = res.songs[0]
   if (songStore.playingSongList.length === 0) {
-    songStore.playingSongList = res.value.songs
+    songStore.playingSongList = res.songs
   }
   getLyricsById(songId)
   setPlayingLocalStorage()
@@ -107,9 +107,9 @@ watch(() => songStore.playStatus, async (newValue) =>{
     // const res = await getSongDetail({
     //   ids: songStore.playingId.toString(),
     // })
-    // songStore.playingSongDetail = res.value.songs[0]
+    // songStore.playingSongDetail = res.songs[0]
     // if (songStore.playingSongList.length === 0) {
-    //   songStore.playingSongList = res.value.songs
+    //   songStore.playingSongList = res.songs
     // }
     songStore.playerRef.play()
   } else {
@@ -135,7 +135,7 @@ const getLyricsById = async function (songId: number) {
   const res = await getLyrics({
     id: songId.toString(),
   })
-  songStore.lyrics = lyricsConvert(res.value.lrc?.lyric || '[99:99.999]暂时没有歌词')
+  songStore.lyrics = lyricsConvert(res.lrc?.lyric || '[99:99.999]暂时没有歌词')
 }
 
 const setPlayingLocalStorage = function () {
@@ -153,7 +153,7 @@ const getSongUrlList = async function () {
   const res = await getSongURL({
     id: ids.join(','),
   })
-  songStore.musicUrlList = res.value.data.sort((a: any,b: any)=>{
+  songStore.musicUrlList = res.data.sort((a: any,b: any)=>{
     return ids.indexOf(a.id) - ids.indexOf(b.id)
   }).map((song: any) => song.url)
 }

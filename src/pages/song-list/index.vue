@@ -51,24 +51,24 @@ const load = async function () {
     order: order.value,
   })
   const res2 = await getSongDetail({
-    ids: res.value.songs.map((song: any) => song.id).join(','),
+    ids: res.songs.map((song: any) => song.id).join(','),
   })
-  for (let i = 0; i < res.value.songs.length; i++) {
-    for (let j = 0; j < res2.value.songs.length; j++) {
-      if (res.value.songs[i].id === res2.value.songs[j].id) {
-        res.value.songs[i].al.picUrl = res2.value.songs[j].al.picUrl
+  for (let i = 0; i < res.songs.length; i++) {
+    for (let j = 0; j < res2.songs.length; j++) {
+      if (res.songs[i].id === res2.songs[j].id) {
+        res.songs[i].al.picUrl = res2.songs[j].al.picUrl
         break
       }
     }
   }
   if (currentPage.value === 0) {
-    songList.value = res.value.songs
-    songNum.value = res.value.total
+    songList.value = res.songs
+    songNum.value = res.total
   } else {
-    songList.value = songList.value.concat(res.value.songs)
+    songList.value = songList.value.concat(res.songs)
   }
   loading.value = false
-  finished.value = !res.value.more
+  finished.value = !res.more
   currentPage.value ++
 }
 const playAll = async function () {
@@ -81,17 +81,17 @@ const playAll = async function () {
       order: order.value,
     })
     const res2 = await getSongDetail({
-      ids: res.value.songs.map((song: any) => song.id).join(','),
+      ids: res.songs.map((song: any) => song.id).join(','),
     })
-    for (let i = 0; i < res.value.songs.length; i++) {
-      for (let j = 0; j < res2.value.songs.length; j++) {
-        if (res.value.songs[i].id === res2.value.songs[j].id) {
-          res.value.songs[i].al.picUrl = res2.value.songs[j].al.picUrl
+    for (let i = 0; i < res.songs.length; i++) {
+      for (let j = 0; j < res2.songs.length; j++) {
+        if (res.songs[i].id === res2.songs[j].id) {
+          res.songs[i].al.picUrl = res2.songs[j].al.picUrl
           break
         }
       }
     }
-    songStore.playingSongList = songStore.playingSongList.concat(res.value.songs)
+    songStore.playingSongList = songStore.playingSongList.concat(res.songs)
     if (i === 0) {
       songStore.playingIndex = 0
       songStore.playingId = songStore.playingSongList[songStore.playingIndex].id

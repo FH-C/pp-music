@@ -45,7 +45,7 @@ const toSearch = function () {
 }
 const getDefaultKey = async function() {
   const res = await searchDefault()
-  showKeyword.value = res.value.data.showKeyword
+  showKeyword.value = res.data.showKeyword
 }
 onMounted(() => {
   getDefaultKey()

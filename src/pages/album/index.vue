@@ -56,13 +56,13 @@ const getData = async function () {
   const res = await getAlbum({
     id: route.query.id,
   })
-  album.value = res.value.album
-  songList.value = res.value.songs
+  album.value = res.album
+  songList.value = res.songs
   const res2 = await getAlbumDynamic({
     id: route.query.id,
   })
-  count.value = res2.value
-  songNum.value = res.value.album.size
+  count.value = res2
+  songNum.value = res.album.size
 }
 </script>
 

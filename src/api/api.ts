@@ -8,12 +8,7 @@ axios.defaults.withCredentials = true
 
 axios.interceptors.response.use((res: AxiosResponse) => {
   if (res.data.code === 200 || res.data.data?.code === 200) {
-    const path = res.config.url?.split('?timestamp')[0] || ''
-    if (cacheUrl.indexOf(path) === -1) {
-      return Promise.resolve(ref(res.data))
-    }
-    localStorage.setItem(path, JSON.stringify(res.data))
-    return Promise.resolve(ref(res.data))
+    return Promise.resolve(res.data)
   }
   if (res.data && res.data.message){
     return Toast(res.data.message)
@@ -32,12 +27,6 @@ axios.interceptors.response.use((res: AxiosResponse) => {
   }
 })
 function axiosHttp (method: string, url: string, data: any, force: boolean) {
-  const path = url.split('?timestamp')[0]
-  const item = localStorage.getItem(path)
-  if (cacheUrl.indexOf(path) !== -1 && !force && item) {
-    const storage = ref(JSON.parse(item))
-    return Promise.resolve(storage)
-  }
   const config = {
     url,
     method,

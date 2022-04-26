@@ -83,7 +83,7 @@ const next = async function () {
     ctcode: route.query.countryCode?.slice(1),
     captcha: verifyCode.join(''),
   }, true)
-  if (res.value.data) {
+  if (res.data) {
     const res = await phoneLogin({
       phone: route.query.phone,
       captcha: verifyCode.join(''),

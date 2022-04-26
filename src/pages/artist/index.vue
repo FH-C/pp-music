@@ -121,38 +121,38 @@ const getCount = async function () {
   const res = await getArtistFollowCount({
     id: route.query.id,
   })
-  artistInfo.value.followCount = res.value.data.fansCnt
-  artistInfo.value.isFollowed = res.value.data.isFollow
+  artistInfo.value.followCount = res.data.fansCnt
+  artistInfo.value.isFollowed = res.data.isFollow
   artistInfo.value.id = route.query.id
 }
 const getInfo = async function () {
   const res = await getArtistDetail({
     id: route.query.id,
   })
-  artistInfo.value.name = res.value.data.artist.name
-  artistInfo.value.identity = res.value.data.identify.imageDesc
-  imageURL.value = res.value.data.user?.backgroundUrl || res.value.data.artist?.cover
-  introduction.value = res.value.data.artist.briefDesc
-  songNum.value = res.value.data.artist.musicSize
+  artistInfo.value.name = res.data.artist.name
+  artistInfo.value.identity = res.data.identify.imageDesc
+  imageURL.value = res.data.user?.backgroundUrl || res.data.artist?.cover
+  introduction.value = res.data.artist.briefDesc
+  songNum.value = res.data.artist.musicSize
 }
 
 const getSimilar = async function () {
   const res = await getSimilarArtists({
     id: route.query.id,
   })
-  similarArtists.value = res.value.artists
+  similarArtists.value = res.artists
 }
 const getSongs = async function () {
   const res = await getArtistHotSongs({
     id: route.query.id,
   })
-  songList.value = res.value.hotSongs
+  songList.value = res.hotSongs
 }
 const getVideos = async function () {
   const res = await getArtistVideos({
     id: route.query.id,
   })
-  videoList.value = res.value.data.records
+  videoList.value = res.data.records
 }
 const follow = async function (info: any) {
   const res = await subscribeArtist({
@@ -178,12 +178,12 @@ const loadAlbums = async function () {
     offset: currentAlbumPage.value * limit.value,
   })
   if (currentAlbumPage.value === 0) {
-    albums.value = res.value.hotAlbums
+    albums.value = res.hotAlbums
   } else {
-    albums.value = albums.value.concat(res.value.hotAlbums)
+    albums.value = albums.value.concat(res.hotAlbums)
   }
   loading.value = false
-  finished.value = !res.value.more
+  finished.value = !res.more
   currentAlbumPage.value ++
 }
 const loadVideos = async function () {
@@ -195,12 +195,12 @@ const loadVideos = async function () {
     order: 0,
   })
   if (currentVideoPage.value === 0) {
-    videoList.value = res.value.data.records
+    videoList.value = res.data.records
   } else {
-    videoList.value = videoList.value.concat(res.value.data.records)
+    videoList.value = videoList.value.concat(res.data.records)
   }
   loading.value = false
-  finished.value = !res.value.data.page.more
+  finished.value = !res.data.page.more
   currentVideoPage.value ++
 }
 const showAllSongs = function () {

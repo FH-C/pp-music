@@ -101,15 +101,15 @@ onMounted(async () => {
 })
 const getDefaultKey = async function() {
   const res = await searchDefault(true)
-  showKeyword.value = res.value.data.showKeyword
+  showKeyword.value = res.data.showKeyword
 }
 const getSearchHot = async function() {
   const res = await searchHot(true)
-  searchHotList.value = res.value.result.hots
+  searchHotList.value = res.result.hots
 }
 const getsearchHotDetail = async function() {
   const res = await searchHotDetail(true)
-  searchHotDetailList.value = res.value.data
+  searchHotDetailList.value = res.data
   keywordList.value = searchHotDetailList.value
 }
 
@@ -121,7 +121,7 @@ const onUpdate = async function (value: string) {
     keywords: value,
     type: 'mobile',
   }, true)
-  searchStore.searchSuggestList = res.value.result.allMatch
+  searchStore.searchSuggestList = res.result.allMatch
 }
 onUnmounted (() => {
   searchStore.searchKeyword = ''

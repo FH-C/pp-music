@@ -93,6 +93,7 @@ import { songListHomepageType, homepageiConType } from '@/types/types'
 import { getPlayingLocalStorage } from '@/utils/localStorage'
 import { useSongStore } from 'store/song'
 import { useUserStore } from 'store/user'
+import { StorageSerializers, useStorage } from '@vueuse/core'
 
 const userStore = useUserStore()
 const songStore = useSongStore()
@@ -108,29 +109,29 @@ const loading = ref(false)
 
 const getBlockPage = async function (force = false) {
   const res = await blockPage({}, force)
-  if (res.value.data.blocks[2].creatives) {
-    songObject.value = res.value.data.blocks[2]
+  if (res.data.blocks[2].creatives) {
+    songObject.value = res.data.blocks[2]
   } else {
-    songObject.value = res.value.data.blocks[3]
+    songObject.value = res.data.blocks[3]
   }
-  homepagePlaylists.value = res.value.data.blocks[1]
-  bannerList.value = res.value.data.blocks[0].extInfo.banners
+  homepagePlaylists.value = res.data.blocks[1]
+  bannerList.value = res.data.blocks[0].extInfo.banners
 }
 
 const getLoginStatus =  async function (force = false) {
   const res = await loginStatus(force)
-  userStore.account = res.value.data.account
-  userStore.profile = res.value.data.profile
+  userStore.account = res.data.account
+  userStore.profile = res.data.profile
 }
 
 const getHomepageIcon = async function (force = false) {
   const res = await homepageIcon(force)
-  homepageIconList.value = res.value.data
+  homepageIconList.value = res.data
 }
 
 const getRecommendSongs = async function (force = false) {
   const res = await recommendSongs(force)
-  recommendSonglist.value = res.value.data.dailySongs
+  recommendSonglist.value = res.data.dailySongs
 }
 
 const getData = async function (force = false) {
@@ -147,13 +148,13 @@ const onRefresh = async function () {
 
 onMounted (async () => {
   getData()
-  const playing = getPlayingLocalStorage()
-  if (playing && !songStore.playingId) {
-    const playingObject = JSON.parse(playing)
-    songStore.playingId = playingObject.playingId
-    songStore.playingIndex = playingObject.playingIndex
-    songStore.playingSongList = playingObject.playingSongList
-    songStore.playingType = playingObject.playingType
+  // const playing = getPlayingLocalStorage()
+  const playingObject = useStorage('playing', null, undefined, { serializer: StorageSerializers.object })
+  if (playingObject.value && !songStore.playingId) {
+    songStore.playingId = playingObject.value.playingId
+    songStore.playingIndex = playingObject.value.playingIndex
+    songStore.playingSongList = playingObject.value.playingSongList
+    songStore.playingType = playingObject.value.playingType
     songStore.showPlayer = true
   }
   return

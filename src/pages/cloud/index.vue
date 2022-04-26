@@ -56,12 +56,12 @@ const load = async () => {
     limit: limit.value,
     offset: currentPage.value++ * limit.value,
   })
-  if (!res.value) {
+  if (!res) {
     finished.value = true
     return loading.value = false
   }
   if (songList.value.length === 0) {
-    songList.value = res.value.data.map((item: any) => {
+    songList.value = res.data.map((item: any) => {
       if (!item.simpleSong.al.name) {
         item.simpleSong.al.name = item.album
         item.simpleSong.ar[0].name = item.artist
@@ -70,7 +70,7 @@ const load = async () => {
     })
   } else {
     console.log(songList.value.length === 0)
-    songList.value = songList.value.concat(res.value.data.map((item: any) => {
+    songList.value = songList.value.concat(res.data.map((item: any) => {
       if (!item.simpleSong.al.name) {
         item.simpleSong.al.name = item.album
         item.simpleSong.ar[0].name = item.artist
@@ -78,8 +78,8 @@ const load = async () => {
       return item.simpleSong
     }))
   }
-  finished.value = res.value.hasMore !== undefined && !res.value.hasMore
-  songNum.value = res.value.count
+  finished.value = res.hasMore !== undefined && !res.hasMore
+  songNum.value = res.count
   if (!finished.value) {
     await load()
   }
@@ -93,7 +93,7 @@ const playAll = async function () {
       limit: 200,
       offset: i * 200,
     })
-    songStore.playingSongList = songStore.playingSongList.concat(res.value.data.map((item: any) => {
+    songStore.playingSongList = songStore.playingSongList.concat(res.data.map((item: any) => {
       if (!item.simpleSong.al.name) {
         item.simpleSong.al.name = item.album
         item.simpleSong.ar[0].name = item.artist

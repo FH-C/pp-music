@@ -108,15 +108,15 @@ const onClickField = async function () {
 }
 const getDefaultKey = async function() {
   const res = await searchDefault(true)
-  showKeyword.value = res.value.data.showKeyword
+  showKeyword.value = res.data.showKeyword
 }
 const getSearchHot = async function() {
   const res = await searchHot(true)
-  searchHotList.value = res.value.result.hots
+  searchHotList.value = res.result.hots
 }
 const getsearchHotDetail = async function() {
   const res = await searchHotDetail(true)
-  searchHotDetailList.value = res.value.data
+  searchHotDetailList.value = res.data
   keywordList.value = searchHotDetailList.value
 }
 
@@ -128,7 +128,7 @@ const onUpdate = async function (value: string) {
     keywords: value,
     type: 'mobile',
   }, true)
-  searchStore.searchSuggestList = res.value.result.allMatch
+  searchStore.searchSuggestList = res.result.allMatch
 }
 onUnmounted (() => {
 })
@@ -143,14 +143,14 @@ const searchSong = async function () {
   }, true)
   console.log(searchStore.currentOffsetList[searchStore.active])
   if (searchStore.currentOffsetList[searchStore.active] === 0) {
-    searchStore.searchResultSong = res.value.result
+    searchStore.searchResultSong = res.result
   } else {
-    searchStore.searchResultSong.songs = searchStore.searchResultSong.songs.concat(res.value.result.songs)
+    searchStore.searchResultSong.songs = searchStore.searchResultSong.songs.concat(res.result.songs)
   }
   searchStore.loading = false
   showSearchResult.value = true
   if (searchStore.currentLimit * (
-    searchStore.currentOffsetList[searchStore.active] + 1) >= res.value.result.songCount) {
+    searchStore.currentOffsetList[searchStore.active] + 1) >= res.result.songCount) {
     searchStore.finished = true
   }
 }
@@ -165,15 +165,15 @@ const searchPlaylist = async function () {
     offset: searchStore.currentOffsetList[searchStore.active],
   }, true)
   if (searchStore.currentOffsetList[searchStore.active] === 0) {
-    searchStore.searchResultPlaylist = res.value.result
+    searchStore.searchResultPlaylist = res.result
   } else {
     searchStore.searchResultPlaylist.playlists = searchStore.searchResultPlaylist.playlists.concat(
-      res.value.result.playlists)
+      res.result.playlists)
   }
   searchStore.loading = false
   showSearchResult.value = true
   if (searchStore.currentLimit * (
-    searchStore.currentOffsetList[searchStore.active] + 1) >= res.value.result.playlistCount) {
+    searchStore.currentOffsetList[searchStore.active] + 1) >= res.result.playlistCount) {
     searchStore.finished = true
   }
 }
@@ -187,14 +187,14 @@ const searchAlbum = async function () {
     offset: searchStore.currentOffsetList[searchStore.active],
   }, true)
   if (searchStore.currentOffsetList[searchStore.active] === 0) {
-    searchStore.searchResultAlbum = res.value.result
+    searchStore.searchResultAlbum = res.result
   } else {
-    searchStore.searchResultAlbum.albums = searchStore.searchResultAlbum.albums.concat(res.value.result.albums)
+    searchStore.searchResultAlbum.albums = searchStore.searchResultAlbum.albums.concat(res.result.albums)
   }
   searchStore.loading = false
   showSearchResult.value = true
   if (searchStore.currentLimit * (
-    searchStore.currentOffsetList[searchStore.active] + 1) >= res.value.result.albumCount) {
+    searchStore.currentOffsetList[searchStore.active] + 1) >= res.result.albumCount) {
     searchStore.finished = true
   }
 }
@@ -208,14 +208,14 @@ const searchSinger = async function () {
     offset: searchStore.currentOffsetList[searchStore.active],
   }, true)
   if (searchStore.currentOffsetList[searchStore.active] === 0) {
-    searchStore.searchResultSinger = res.value.result
+    searchStore.searchResultSinger = res.result
   } else {
-    searchStore.searchResultSinger.artists = searchStore.searchResultSinger.artists.concat(res.value.result.artists)
+    searchStore.searchResultSinger.artists = searchStore.searchResultSinger.artists.concat(res.result.artists)
   }
   searchStore.loading = false
   showSearchResult.value = true
   if (searchStore.currentLimit * (
-    searchStore.currentOffsetList[searchStore.active] + 1) >= res.value.result.artistCount) {
+    searchStore.currentOffsetList[searchStore.active] + 1) >= res.result.artistCount) {
     searchStore.finished = true
   }
 }
@@ -229,14 +229,14 @@ const searchVideo = async function () {
     offset: searchStore.currentOffsetList[searchStore.active],
   }, true)
   if (searchStore.currentOffsetList[searchStore.active] === 0) {
-    searchStore.searchResultVideo = res.value.result
+    searchStore.searchResultVideo = res.result
   } else {
-    searchStore.searchResultVideo.videos = searchStore.searchResultVideo.videos.concat(res.value.result.videos)
+    searchStore.searchResultVideo.videos = searchStore.searchResultVideo.videos.concat(res.result.videos)
   }
   searchStore.loading = false
   showSearchResult.value = true
   if (searchStore.currentLimit * (
-    searchStore.currentOffsetList[searchStore.active] + 1) >= res.value.result.videoCount) {
+    searchStore.currentOffsetList[searchStore.active] + 1) >= res.result.videoCount) {
     searchStore.finished = true
   }
 }

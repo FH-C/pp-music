@@ -169,25 +169,25 @@ const mvDetail = async function () {
   const res = await getMVDetail({
     mvid: videoId.value,
   })
-  mv.value = res.value.data
+  mv.value = res.data
 }
 const mvUrl = async function () {
   const res = await getMVUrl({
     id: videoId.value,
   })
-  url.value = res.value.data.url
+  url.value = res.data.url
 }
 const videoDetail = async function () {
   const res = await getVideoDetail({
     id: videoId.value,
   })
-  video.value = res.value.data
+  video.value = res.data
 }
 const videoUrl = async function () {
   const res = await getVideoUrl({
     id: videoId.value,
   })
-  url.value = res.value.urls[0].url
+  url.value = res.urls[0].url
 }
 const relatedVideo = async function () {
   await getRelatedVideo({
@@ -198,7 +198,7 @@ const getVideoId = async function (mlogId: string) {
   const res = await mlogToVideo({
     id: mlogId,
   })
-  return res.value.data
+  return res.data
 }
 const follow = async function (artist: any) {
   const t = artist.followed ? '0' : '1'

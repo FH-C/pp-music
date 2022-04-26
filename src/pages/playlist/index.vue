@@ -51,13 +51,13 @@ const getData = async function () {
   const res = await getPlaylistDetail({
     id: route.query.id,
   })
-  playlist.value = res.value.playlist
+  playlist.value = res.playlist
   const traceIds = playlist.value.trackIds.map((x: any) => {return x.id}).join(',')
   const res2 = await getSongDetail({
     ids: traceIds,
   })
-  songList.value = res2.value.songs
-  privileges.value = res2.value.privileges
+  songList.value = res2.songs
+  privileges.value = res2.privileges
 }
 </script>
 
