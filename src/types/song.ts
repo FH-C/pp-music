@@ -176,3 +176,28 @@ export interface FreeTimeTrialPrivilege {
   type: number
   remainTime: number
 }
+
+export interface LyricsType {
+  sgc: boolean
+  sfy: boolean
+  qfy: boolean
+  lrc: Lrc
+  klyric: Klyric
+  tlyric: Tlyric
+  code: number
+}
+
+export interface Lrc {
+  version: number
+  lyric: string
+}
+
+export interface Klyric {
+  version: number
+  lyric: string
+}
+
+export interface Tlyric {
+  version: number
+  lyric: string
+}
