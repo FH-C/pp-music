@@ -74,7 +74,7 @@ import Banner from 'components/Banner.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { NavBar, Picker, Popup, Field, Button, Toast, Icon, Tabbar, TabbarItem, PullRefresh } from 'vant'
 import SvgIcon from 'components/SvgIcon.vue'
-import { computed, onMounted, ref, reactive } from 'vue'
+import { computed, onMounted, ref, reactive, Ref } from 'vue'
 import { onClickLeft } from '@/utils/router'
 import { loginStatus } from '@/api/login'
 import { blockPage } from '@/api/home'
@@ -94,6 +94,7 @@ import { getPlayingLocalStorage } from '@/utils/localStorage'
 import { useSongStore } from 'store/song'
 import { useUserStore } from 'store/user'
 import { StorageSerializers, useStorage } from '@vueuse/core'
+import { Block } from '@/types/homepage'
 
 const userStore = useUserStore()
 const songStore = useSongStore()
@@ -101,9 +102,9 @@ const router = useRouter()
 const bannerList = ref([])
 const recommendPlaylists = ref([])
 const recommendSonglist = ref([])
-const songObject = ref({} as songListHomepageType)
+const songObject = ref({} as Block)
 const homepageIconList = ref([] as homepageiConType[])
-const homepagePlaylists = ref([])
+const homepagePlaylists = ref({} as Block)
 const active = ref(0)
 const loading = ref(false)
 

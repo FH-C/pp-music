@@ -1,12 +1,13 @@
+import { CloudType } from '@/types/cloud'
 import { post } from './api'
 
-const getCloudData = (data: object, force = false) => post(
+const getCloudData = (data: object, force = false): Promise<CloudType> => post(
   '/user/cloud' + '?timestamp=' + new Date().getTime(), data, force)
-const getCloudDataDetail = (data: object, force = false) => post(
+const getCloudDataDetail = (data: object, force = false): Promise<CloudType> => post(
   '/user/cloud/detail' + '?timestamp=' + new Date().getTime(), data, force)
 const deleteCloudSongs = (data: object, force = false) => post(
-  '/login/cellphone' + '?timestamp=' + new Date().getTime(), data, force)
-const uploadCloudSong = (force = false) => post('/login/status' + '?timestamp=' + new Date().getTime(), {}, force)
+  '/user/cloud/del' + '?timestamp=' + new Date().getTime(), data, force)
+const uploadCloudSong = (force = false) => post('/cloud' + '?timestamp=' + new Date().getTime(), {}, force)
 
 export {
   getCloudData,

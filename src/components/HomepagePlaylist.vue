@@ -51,11 +51,12 @@ import { computed, onMounted, PropType, ref } from 'vue'
 import { Icon, Image, Button } from 'vant'
 import { numberConvert } from '@/utils/convert'
 import { useRouter } from 'vue-router'
+import { Block } from '@/types/homepage'
 const router = useRouter()
 const refs: any = ref([])
 const props = defineProps({
   homepagePlaylists: {
-    type: Object,
+    type: Object as PropType<Block>,
     default: () => {
       return {}
     },

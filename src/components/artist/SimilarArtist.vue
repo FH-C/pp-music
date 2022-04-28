@@ -50,7 +50,7 @@ import { computed } from 'vue'
 const emit = defineEmits(['follow'])
 const props = defineProps({
   info: {
-    type: Object,
+    type: Object as any,
     default: () => ({}),
   },
 })

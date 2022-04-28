@@ -33,14 +33,15 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, Ref, ref } from 'vue'
 import { getCloudData, getCloudDataDetail, deleteCloudSongs, uploadCloudSong } from '@/api/cloud'
 import { onClickLeft } from '@/utils/router'
 import { useSongStore } from '@/store/song'
 import SongList from '@/components/album/SongList.vue'
+import { SimpleSong } from '@/types/cloud'
 
 const songStore = useSongStore()
-const songList = ref([])
+const songList = ref([] as SimpleSong[])
 const songNum = ref(0)
 const currentPage = ref(0)
 const loading = ref(false)

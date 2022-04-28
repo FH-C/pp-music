@@ -51,7 +51,7 @@ import SimilarArtistsVue from './SimilarArtists.vue'
 const emit = defineEmits(['follow'])
 const props = defineProps({
   info: {
-    type: Object,
+    type: Object as any,
     default: () => ({}),
   },
   similarArtists: {

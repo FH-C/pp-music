@@ -37,12 +37,14 @@ import { getSongDetail } from '@/api/play'
 import PlaylistMeansVue from 'components/playlist/PlaylistMeans.vue'
 import SongListVue from 'components/playlist/SongList.vue'
 import { onClickLeft } from '@/utils/router'
+import { Playlist } from '@/types/playlist'
+import { Privilege, Song } from '@/types/song'
 
 const router = useRouter()
 const route = useRoute()
-const playlist = ref({}) as any
-const songList = ref([]) as any
-const privileges = ref([]) as any
+const playlist = ref({} as Playlist)
+const songList = ref([] as Song[])
+const privileges = ref([] as Privilege[])
 onMounted(async () => {
   await getData()
 })

@@ -80,12 +80,13 @@ import {
 import { useRouter } from 'vue-router'
 import { types, tabs } from '@/utils/search'
 import { getSearchHistoryLocalStorage, clearSearchHistoryLocalStorage } from '@/utils/localStorage'
+import { Daum } from '@/types/search'
 
 const router = useRouter()
 const showKeyword = ref('')
 const searchHotList = ref([])
-const searchHotDetailList = ref([])
-const keywordList = ref([])
+const searchHotDetailList = ref([] as Daum[])
+const keywordList = ref([] as Daum[])
 const showSearchResult = ref(false)
 const searchStore = useSearchStore()
 const searchHistory = ref([])

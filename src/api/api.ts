@@ -1,7 +1,5 @@
-import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
+import axios, { AxiosResponse, AxiosError } from 'axios'
 import { Toast } from 'vant'
-import { ref } from 'vue'
-import cacheUrl from './cache'
 
 const baseURL = import.meta.env.VITE_APP_BASE_API
 axios.defaults.withCredentials = true
@@ -26,7 +24,7 @@ axios.interceptors.response.use((res: AxiosResponse) => {
     return Toast(error.message)
   }
 })
-function axiosHttp (method: string, url: string, data: any, force: boolean) {
+function axiosHttp (method: string, url: string, data: any, force: boolean): Promise<any> {
   const config = {
     url,
     method,

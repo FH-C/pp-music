@@ -28,9 +28,7 @@
 
 <script setup lang="ts">
 import { PropType } from 'vue'
-import { homepageIcon } from '@/api/home'
 import { homepageiConType } from '@/types/types'
-import { Image } from 'vant'
 const props = defineProps({
   homepageIconList: {
     type: Array as PropType<homepageiConType[]>,

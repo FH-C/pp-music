@@ -41,12 +41,13 @@ import { getSongDetail } from '@/api/play'
 import AlbumMeansVue from 'components/album/AlbumMeans.vue'
 import SongListVue from 'components/album/SongList.vue'
 import { onClickLeft } from '@/utils/router'
+import { Album, AlbumDynamicType, Song } from '@/types/album'
 
 const router = useRouter()
 const route = useRoute()
-const album = ref({}) as any
-const songList = ref([]) as any
-const count = ref({}) as any
+const album = ref({} as Album)
+const songList = ref([] as Song[])
+const count = ref({} as AlbumDynamicType)
 const songNum = ref(0)
 onMounted(async () => {
   await getData()
