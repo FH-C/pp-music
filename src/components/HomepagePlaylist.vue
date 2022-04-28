@@ -6,7 +6,7 @@
     <div>
       <div class="flex-row space-between margin-row-4 padding-4">
         <span class="bold">
-          {{ homepagePlaylists.uiElement.subTitle.title }}
+          {{ homepagePlaylists?.uiElement?.subTitle?.title }}
         </span>
         <span>
           <Button
@@ -24,20 +24,20 @@
           v-for="(playlist, index) in props.homepagePlaylists.creatives"
           :key="playlist.creativeId"
           class="image"
-          @click="toPlaylist(playlist.creativeId)"
+          @click="toPlaylist(playlist.creativeId as string)"
         >
           <div class="flex-column flex-start">
             <van-image
-              :src="playlist.uiElement.image.imageUrl"
+              :src="playlist?.uiElement?.image?.imageUrl"
               radius="10"
             />
-            <span class="text1 text-line-two">{{ playlist.uiElement.mainTitle.title }}</span>
+            <span class="text1 text-line-two">{{ playlist?.uiElement?.mainTitle?.title }}</span>
             <div
               :ref="el => { refs[index] = el }"
               class="text2"
             >
               <van-icon name="play" />
-              {{ playCount(playlist.resources[0].resourceExtInfo.playCount) }}
+              {{ playCount(playlist?.resources[0]?.resourceExtInfo?.playCount as number) }}
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@ const playCount = computed(() => {
     return numberConvert(count)
   }
 })
-const toPlaylist = function (playlistId: number) {
+const toPlaylist = function (playlistId: number | string) {
   router.push({
     path: '/playlist',
     query: {
