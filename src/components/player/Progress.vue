@@ -29,8 +29,9 @@
 
 <script setup lang="ts">
 import { watch, ref } from 'vue'
-import { timeConvert } from '@/utils/convert'
 import ProgressVue from 'components/Progress.vue'
+import { timeConvert } from '@/utils/convert'
+
 const emit = defineEmits(['update:currentTime'])
 const props = defineProps({
   currentTime: {

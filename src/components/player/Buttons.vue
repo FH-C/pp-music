@@ -59,7 +59,8 @@
 
 <script setup lang="ts">
 import PlayingTypeVue from 'components/PlayingType.vue'
-import { useSongStore } from '@/store/song'
+import { useSongStore } from 'store/song'
+
 const emit = defineEmits(['next', 'prev', 'play', 'showList'])
 const songStore = useSongStore()
 const prev = function () {
