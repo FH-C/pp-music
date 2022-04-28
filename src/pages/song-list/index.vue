@@ -33,9 +33,10 @@ import { onMounted, ref } from 'vue'
 import { getArtistSongs } from '@/api/artist'
 import { getSongDetail } from '@/api/play'
 import { useSongStore } from '@/store/song'
+import { Song } from '@/types/artist'
 const songStore = useSongStore()
 const route = useRoute()
-const songList = ref([])
+const songList = ref([] as Song[])
 const songNum = ref(0)
 const order = ref('hot')
 const limit = ref(30)

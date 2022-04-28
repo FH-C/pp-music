@@ -45,12 +45,13 @@
 </template>
 
 <script setup lang="ts">
+import { Artist2 } from '@/types/artist';
 import { numberConvert } from '@/utils/convert'
-import { computed } from 'vue'
+import { computed, PropType } from 'vue'
 const emit = defineEmits(['follow'])
 const props = defineProps({
   info: {
-    type: Object as any,
+    type: Object as PropType<Artist2>,
     default: () => ({}),
   },
 })

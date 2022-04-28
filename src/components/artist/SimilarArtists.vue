@@ -10,11 +10,13 @@
 </template>
 
 <script setup lang="ts">
+import { Artist2 } from '@/types/artist';
+import { PropType } from 'vue';
 import SimilarArtistVue from './SimilarArtist.vue'
 const emit = defineEmits(['follow'])
 const props = defineProps({
   artists: {
-    type: Array as any,
+    type: Array as PropType<Artist2[]>,
     default: () => ([]),
   },
 })

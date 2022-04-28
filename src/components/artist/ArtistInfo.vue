@@ -45,17 +45,18 @@
 </template>
 
 <script setup lang="ts">
+import { Artist2, Data } from '@/types/artist';
 import { numberConvert } from '@/utils/convert'
-import { computed, ref } from 'vue'
+import { computed, PropType, ref } from 'vue'
 import SimilarArtistsVue from './SimilarArtists.vue'
 const emit = defineEmits(['follow'])
 const props = defineProps({
   info: {
-    type: Object as any,
+    type: Object as PropType<Data>,
     default: () => ({}),
   },
   similarArtists: {
-    type: Array as any,
+    type: Array as PropType<Artist2[]>,
     default: () => ([]),
   },
 })

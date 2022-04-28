@@ -85,21 +85,22 @@ import SongListVue from '@/components/album/SongList.vue'
 import ArtistAlbumsVue from '@/components/artist/ArtistAlbums.vue'
 import VideosVue from '@/components/Videos.vue'
 import { onClickLeft } from '@/utils/router'
+import { Artist2, HotSong, HotAlbum, Record } from '@/types/artist'
 
 const router = useRouter()
 const route = useRoute()
 const artistInfo: any = ref({})
 const imageURL = ref('')
 const active = ref(0)
-const similarArtists = ref([])
+const similarArtists = ref([] as Artist2[])
 const introduction = ref('暂无介绍')
-const songList = ref([])
-const videoList = ref([])
+const songList = ref([] as HotSong[])
+const videoList = ref([] as Record[])
 const songNum = ref(0)
 const currentAlbumPage = ref(0)
 const currentVideoPage = ref(0)
 const loading = ref(false)
-const albums: any = ref([])
+const albums: any = ref([] as HotAlbum[])
 const limit = ref(10)
 const finished = ref(false)
 onMounted(async () => {

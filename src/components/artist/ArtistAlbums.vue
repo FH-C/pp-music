@@ -46,11 +46,12 @@
 
 <script setup lang="ts">
 import { numberConvert } from '@/utils/convert'
-import { computed, ref, watch } from 'vue'
+import { computed, PropType, ref, watch } from 'vue'
 import { useSearchStore } from '@/store/search'
 import { useSongStore } from '@/store/song'
 import { useRouter, useRoute } from 'vue-router'
 import { dateConvert } from '@/utils/convert'
+import { HotAlbum } from '@/types/artist'
 const props = defineProps({
   loading: {
     type: Boolean,
@@ -61,7 +62,7 @@ const props = defineProps({
     default: false,
   },
   albums: {
-    type: Array as any,
+    type: Array as PropType<HotAlbum[]>,
     default: () => ([]),
   },
 })
