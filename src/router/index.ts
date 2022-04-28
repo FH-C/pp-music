@@ -19,88 +19,88 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'index',
-    component: Home,
+    component: Home
   },
   {
     path: '/login',
     name: 'login',
-    component: Login,
+    component: Login
   },
   {
     path: '/mobile',
     name: 'MobileLogin',
-    component: MobileLogin,
+    component: MobileLogin
   },
   {
     path: '/verify_login',
     name: 'VerifyLogin',
-    component: VerifyLogin,
+    component: VerifyLogin
   },
   {
     path: '/password_login',
     name: 'PasswordLogin',
-    component: PasswordLogin,
+    component: PasswordLogin
   },
   {
     path: '/user',
     name: 'UserInfo',
-    component: UserInfo,
+    component: UserInfo
   },
   {
     path: '/search',
     name: 'Search',
-    component: Search,
+    component: Search
   },
   {
     path: '/search-result',
     name: 'SearchResult',
-    component: SearchResult,
+    component: SearchResult
   },
   {
     path: '/home',
     name: 'Home',
-    component: Home,
+    component: Home
   },
   {
     path: '/playlist',
     name: 'Playlist',
-    component: Playlist,
+    component: Playlist
   },
   {
     path: '/player',
     name: 'Player',
-    component: Player,
+    component: Player
   },
   {
     path: '/album',
     name: 'Album',
-    component: Album,
+    component: Album
   },
   {
     path: '/artist',
     name: 'Artist',
-    component: Artist,
+    component: Artist
   },
   {
     path: '/song-list',
     name: 'SongList',
-    component: SongList,
+    component: SongList
   },
   {
     path: '/video',
     name: 'Video',
-    component: Video,
+    component: Video
   },
   {
     path: '/cloud',
     name: 'Cloud',
-    component: Cloud,
-  },
+    component: Cloud
+  }
 ]
 
 const router = createRouter({
   history: createWebHistory(),
-  routes: routes,
+  routes: routes
 })
 
 export default router

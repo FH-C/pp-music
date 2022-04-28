@@ -77,30 +77,32 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { getArtistDetail, getArtistDesc, getArtistFollowCount, getSimilarArtists, subscribeArtist,
-  getArtistHotSongs, getArtistAlbum, getArtistVideos } from '@/api/artist'
+import {
+  getArtistDetail, getArtistDesc, getArtistFollowCount, getSimilarArtists, subscribeArtist,
+  getArtistHotSongs, getArtistAlbum, getArtistVideos
+} from '@/api/artist'
 import ArtistInfo from 'components/artist/ArtistInfo.vue'
 import ArtistWikiVue from '@/components/artist/ArtistWiki.vue'
 import SongListVue from '@/components/album/SongList.vue'
 import ArtistAlbumsVue from '@/components/artist/ArtistAlbums.vue'
 import VideosVue from '@/components/Videos.vue'
 import { onClickLeft } from '@/utils/router'
-import { Artist2, HotSong, HotAlbum, Record } from '@/types/artist'
+import { ArtistFollowType, ArtistDetailType, SimilarArtistsType, ArtistHotSongsType, ArtistVideosType, SubArtistType, ArtistHotAlbumsType } from '@/types/artist'
 
 const router = useRouter()
 const route = useRoute()
 const artistInfo: any = ref({})
 const imageURL = ref('')
 const active = ref(0)
-const similarArtists = ref([] as Artist2[])
+const similarArtists = ref([] as SimilarArtistsType.Artist[])
 const introduction = ref('暂无介绍')
-const songList = ref([] as HotSong[])
-const videoList = ref([] as Record[])
+const songList = ref([] as ArtistHotSongsType.HotSong[])
+const videoList = ref([] as ArtistVideosType.Record[])
 const songNum = ref(0)
 const currentAlbumPage = ref(0)
 const currentVideoPage = ref(0)
 const loading = ref(false)
-const albums: any = ref([] as HotAlbum[])
+const albums: any = ref([] as ArtistHotAlbumsType.HotAlbum[])
 const limit = ref(10)
 const finished = ref(false)
 onMounted(async () => {
@@ -111,7 +113,7 @@ const getData = async function () {
   await getCount()
   await getInfo()
   await getArtistDesc({
-    id: route.query.id,
+    id: route.query.id
   })
   await getSimilar()
   await getSongs()
@@ -120,7 +122,7 @@ const getData = async function () {
 
 const getCount = async function () {
   const res = await getArtistFollowCount({
-    id: route.query.id,
+    id: route.query.id
   })
   artistInfo.value.followCount = res.data.fansCnt
   artistInfo.value.isFollowed = res.data.isFollow
@@ -128,7 +130,7 @@ const getCount = async function () {
 }
 const getInfo = async function () {
   const res = await getArtistDetail({
-    id: route.query.id,
+    id: route.query.id
   })
   artistInfo.value.name = res.data.artist.name
   artistInfo.value.identity = res.data.identify.imageDesc
@@ -139,26 +141,26 @@ const getInfo = async function () {
 
 const getSimilar = async function () {
   const res = await getSimilarArtists({
-    id: route.query.id,
+    id: route.query.id
   })
   similarArtists.value = res.artists
 }
 const getSongs = async function () {
   const res = await getArtistHotSongs({
-    id: route.query.id,
+    id: route.query.id
   })
   songList.value = res.hotSongs
 }
 const getVideos = async function () {
   const res = await getArtistVideos({
-    id: route.query.id,
+    id: route.query.id
   })
   videoList.value = res.data.records
 }
 const follow = async function (info: any) {
   const res = await subscribeArtist({
     id: info.id,
-    t: info.follow ? '1' : '0',
+    t: info.follow ? '1' : '0'
   })
   if (info.type) {
     (similarArtists as any).value = similarArtists.value.map((x: any) => {
@@ -176,7 +178,7 @@ const loadAlbums = async function () {
   const res = await getArtistAlbum({
     id: route.query.id,
     limit: limit.value,
-    offset: currentAlbumPage.value * limit.value,
+    offset: currentAlbumPage.value * limit.value
   })
   if (currentAlbumPage.value === 0) {
     albums.value = res.hotAlbums
@@ -185,7 +187,7 @@ const loadAlbums = async function () {
   }
   loading.value = false
   finished.value = !res.more
-  currentAlbumPage.value ++
+  currentAlbumPage.value++
 }
 const loadVideos = async function () {
   loading.value = true
@@ -193,7 +195,7 @@ const loadVideos = async function () {
     id: route.query.id,
     size: limit.value,
     cursor: currentVideoPage.value * limit.value,
-    order: 0,
+    order: 0
   })
   if (currentVideoPage.value === 0) {
     videoList.value = res.data.records
@@ -202,14 +204,14 @@ const loadVideos = async function () {
   }
   loading.value = false
   finished.value = !res.data.page.more
-  currentVideoPage.value ++
+  currentVideoPage.value++
 }
 const showAllSongs = function () {
   router.push({
     path: '/song-list',
     query: {
-      id: route.query.id,
-    },
+      id: route.query.id
+    }
   })
 }
 </script>

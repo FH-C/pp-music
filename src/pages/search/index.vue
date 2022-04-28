@@ -75,18 +75,18 @@ import {
   searchHot,
   searchHotDetail,
   searchSuggest,
-  searchMultimatch,
+  searchMultimatch
 } from '@/api/search'
 import { useRouter } from 'vue-router'
 import { types, tabs } from '@/utils/search'
 import { getSearchHistoryLocalStorage, clearSearchHistoryLocalStorage } from '@/utils/localStorage'
-import { Daum } from '@/types/search'
+import { SearchHotDetailType } from '@/types/search'
 
 const router = useRouter()
 const showKeyword = ref('')
 const searchHotList = ref([])
-const searchHotDetailList = ref([] as Daum[])
-const keywordList = ref([] as Daum[])
+const searchHotDetailList = ref([] as SearchHotDetailType.Daum[])
+const keywordList = ref([] as SearchHotDetailType.Daum[])
 const showSearchResult = ref(false)
 const searchStore = useSearchStore()
 const searchHistory = ref([])
@@ -120,11 +120,11 @@ const onUpdate = async function (value: string) {
   }
   const res = await searchSuggest({
     keywords: value,
-    type: 'mobile',
+    type: 'mobile'
   }, true)
   searchStore.searchSuggestList = res.result.allMatch
 }
-onUnmounted (() => {
+onUnmounted(() => {
   searchStore.searchKeyword = ''
   searchStore.searchSuggestList = []
 })
@@ -141,8 +141,8 @@ const search = async function (keyword?: string) {
   router.push({
     path: 'search-result',
     query: {
-      key: searchStore.searchKeyword,
-    },
+      key: searchStore.searchKeyword
+    }
   })
 }
 

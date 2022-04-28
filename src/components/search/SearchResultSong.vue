@@ -133,7 +133,7 @@ const play = function (index: number) {
   songStore.playingIndex = 0
   if (index !== -1) {
     songStore.playingIndex = index
-    if (songStore.playStatus && songStore.playingId == songStore.playingSongList[songStore.playingIndex].id) {
+    if (songStore.playStatus && songStore.playingId === songStore.playingSongList[songStore.playingIndex].id) {
       router.push({ path: '/player', query: { id: songStore.playingId } })
     }
   }

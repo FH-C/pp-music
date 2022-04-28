@@ -14,19 +14,19 @@ import { computed } from 'vue'
 const props = defineProps({
   name: {
     type: String,
-    required: true,
+    required: true
   },
   color: {
     type: String,
-    default: '',
-  },
+    default: ''
+  }
 })
 const iconName = computed(() => {
-  return `#icon-${ props.name }`
+  return `#icon-${props.name}`
 })
 const svgClass = computed(() => {
   if (props.name) {
-    return `svg-icon icon-${ props.name }`
+    return `svg-icon icon-${props.name}`
   } else {
     return 'svg-icon'
   }

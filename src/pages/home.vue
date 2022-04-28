@@ -77,10 +77,9 @@ import SvgIcon from 'components/SvgIcon.vue'
 import { computed, onMounted, ref, reactive, Ref } from 'vue'
 import { onClickLeft } from '@/utils/router'
 import { loginStatus } from '@/api/login'
-import { blockPage } from '@/api/home'
-import { recommendResource, personalized, recommendSongs, personalizedNewsong, recommendVideo, personalizedMV,
-} from '@/api/recommend'
-import { homepageIcon } from '@/api/home'
+import { blockPage, homepageIcon } from '@/api/home'
+import { recommendResource, personalized, recommendSongs, personalizedNewsong, recommendVideo, personalizedMV } from '@/api/recommend'
+
 import RecommendedPlaylistVue from 'components/RecommendedPlaylist.vue'
 import HomepageHeaderVue from 'components/HomepageHeader.vue'
 import RecommendedSongListVue from 'components/RecommendedSongList.vue'
@@ -94,7 +93,7 @@ import { getPlayingLocalStorage } from '@/utils/localStorage'
 import { useSongStore } from 'store/song'
 import { useUserStore } from 'store/user'
 import { StorageSerializers, useStorage } from '@vueuse/core'
-import { Block } from '@/types/homepage'
+import { HomepageType } from '@/types/homepage'
 
 const userStore = useUserStore()
 const songStore = useSongStore()
@@ -102,9 +101,9 @@ const router = useRouter()
 const bannerList = ref([])
 const recommendPlaylists = ref([])
 const recommendSonglist = ref([])
-const songObject = ref({} as Block)
+const songObject = ref({} as HomepageType.Block)
 const homepageIconList = ref([] as homepageiConType[])
-const homepagePlaylists = ref({} as Block)
+const homepagePlaylists = ref({} as HomepageType.Block)
 const active = ref(0)
 const loading = ref(false)
 
@@ -119,7 +118,7 @@ const getBlockPage = async function (force = false) {
   bannerList.value = res.data.blocks[0].extInfo.banners
 }
 
-const getLoginStatus =  async function (force = false) {
+const getLoginStatus = async function (force = false) {
   const res = await loginStatus(force)
   userStore.account = res.data.account
   userStore.profile = res.data.profile
@@ -147,7 +146,7 @@ const onRefresh = async function () {
   loading.value = false
 }
 
-onMounted (async () => {
+onMounted(async () => {
   getData()
   // const playing = getPlayingLocalStorage()
   const playingObject = useStorage('playing', null, undefined, { serializer: StorageSerializers.object })
@@ -158,7 +157,6 @@ onMounted (async () => {
     songStore.playingType = playingObject.value.playingType
     songStore.showPlayer = true
   }
-  return
 })
 </script>
 

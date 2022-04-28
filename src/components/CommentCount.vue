@@ -62,16 +62,16 @@
 const props = defineProps({
   subscribedCount: {
     type: Number,
-    default: 0,
+    default: 0
   },
   commentCount: {
     type: Number,
-    default: 0,
+    default: 0
   },
   shareCount: {
     type: Number,
-    default: 0,
-  },
+    default: 0
+  }
 })
 </script>
 

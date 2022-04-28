@@ -132,7 +132,7 @@ const removeSong = function (index: number) {
       songStore.playStatus = true
     }, 200)
   } else if (index <= songStore.playingIndex) {
-    songStore.playingIndex --
+    songStore.playingIndex--
   }
 }
 const removeAllSong = function () {

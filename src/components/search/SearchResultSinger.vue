@@ -102,15 +102,15 @@ const toArtistDetail = function (artistId: number) {
   router.push({
     path: '/artist',
     query: {
-      id: artistId,
-    },
+      id: artistId
+    }
   })
 }
 const follow = async function (artist: any) {
   const t = artist.followed ? '0' : '1'
   await subscribeArtist({
     id: artist.id,
-    t: t,
+    t: t
   })
   artist.followed = !artist.followed
 }

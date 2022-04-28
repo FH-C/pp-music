@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { useSongStore } from 'store/song'
 import { getPlayingLocalStorage } from './utils/localStorage'
+
 const songStore = useSongStore()
 const playerRef = ref(null)
 onMounted(() => {
@@ -21,18 +22,19 @@ const getNextSong = function () {
       if (songStore.playingSongList.length <= songStore.playingIndex + 1) {
         songStore.playingIndex = 0
       } else {
-        songStore.playingIndex++
+        songStore.playingIndex += 1
       }
       songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
       break
     case 1:
       // 随机播放
-      const randomInt = Math.floor(Math.random() * (songStore.playingSongList.length + 1))
-      songStore.playingIndex = randomInt
+      songStore.playingIndex = Math.floor(Math.random() * (songStore.playingSongList.length + 1))
       songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
       break
     case 2:
       // 单曲循环
+      break
+    default:
       break
   }
   setTimeout(() => songStore.playerRef.play(), 50)

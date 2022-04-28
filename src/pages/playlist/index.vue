@@ -2,7 +2,7 @@
   <div class="content">
     <van-nav-bar
       left-arrow
-      left-text="歌单" 
+      left-text="歌单"
       safe-area-inset-top
       fixed
       placeholder
@@ -37,26 +37,26 @@ import { getSongDetail } from '@/api/play'
 import PlaylistMeansVue from 'components/playlist/PlaylistMeans.vue'
 import SongListVue from 'components/playlist/SongList.vue'
 import { onClickLeft } from '@/utils/router'
-import { Playlist } from '@/types/playlist'
-import { Privilege, Song } from '@/types/song'
+import { PlaylistDetailType } from '@/types/playlist'
+import { SongDetailType } from '@/types/song'
 
 const router = useRouter()
 const route = useRoute()
-const playlist = ref({} as Playlist)
-const songList = ref([] as Song[])
-const privileges = ref([] as Privilege[])
+const playlist = ref({} as PlaylistDetailType.Playlist)
+const songList = ref([] as SongDetailType.Song[])
+const privileges = ref([] as SongDetailType.Privilege[])
 onMounted(async () => {
   await getData()
 })
 
 const getData = async function () {
   const res = await getPlaylistDetail({
-    id: route.query.id,
+    id: route.query.id
   })
   playlist.value = res.playlist
-  const traceIds = playlist.value.trackIds.map((x: any) => {return x.id}).join(',')
+  const traceIds = playlist.value.trackIds.map((x: any) => { return x.id }).join(',')
   const res2 = await getSongDetail({
-    ids: traceIds,
+    ids: traceIds
   })
   songList.value = res2.songs
   privileges.value = res2.privileges

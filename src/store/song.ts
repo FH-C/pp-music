@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 export const useSongStore = defineStore('song', {
   state: () => {
-    return { 
+    return {
       showPlayer: false,
       playStatus: false,
       currentPlayTime: 0,
@@ -16,10 +16,10 @@ export const useSongStore = defineStore('song', {
       playingSongList: [] as any,
       lyrics: [] as any,
       playerRef: null as any,
-      showPopup: false,
+      showPopup: false
     }
   },
   actions: {
-    
-  },
+
+  }
 })

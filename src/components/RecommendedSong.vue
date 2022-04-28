@@ -54,8 +54,8 @@ const props = defineProps({
     type: Object,
     default: () => {
       return {}
-    },
-  },
+    }
+  }
 })
 </script>
 

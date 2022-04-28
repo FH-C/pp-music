@@ -36,8 +36,8 @@ const props = defineProps({
     type: Array as PropType<bannerListType[]>,
     default: () => {
       return []
-    },
-  },
+    }
+  }
 })
 const songStore = useSongStore()
 const router = useRouter()
@@ -48,7 +48,7 @@ const getColor = function (color: string) {
   } else if (color === 'blue') {
     bgColor = '#3489cc'
   }
-  return `background-color: ${ bgColor };`
+  return `background-color: ${bgColor};`
 }
 
 const onClickBanner = function (index: number) {
@@ -67,8 +67,15 @@ const onClickBanner = function (index: number) {
     router.push({
       path: 'album',
       query: {
-        id: props.bannerList[index].targetId,
-      },
+        id: props.bannerList[index].targetId
+      }
+    })
+  } else if (props.bannerList[index].targetType === 1000) {
+    router.push({
+      path: 'playlist',
+      query: {
+        id: props.bannerList[index].targetId
+      }
     })
   } else if (props.bannerList[index].targetType === 3000) {
     location.href = props.bannerList[index].url

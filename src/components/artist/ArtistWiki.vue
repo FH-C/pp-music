@@ -9,8 +9,8 @@
 const props = defineProps({
   introduction: {
     type: String,
-    default: '',
-  },
+    default: ''
+  }
 })
 </script>
 

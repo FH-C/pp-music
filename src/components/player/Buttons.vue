@@ -1,6 +1,6 @@
 <template>
   <div class="flex-row align-items-center space-between">
-    <PlayingTypeVue></PlayingTypeVue>
+    <PlayingTypeVue class="playing-type"></PlayingTypeVue>
     <svg
       t="1647683608918"
       class="micro-icon"
@@ -79,5 +79,8 @@ const showList = function () {
 
 <style scoped lang="scss">
 @import url('@/style/common.scss');
+.playing-type {
+  position: relative;
+  top: 2px;
+}
 </style>
-

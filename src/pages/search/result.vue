@@ -75,19 +75,19 @@ import {
   searchHot,
   searchHotDetail,
   searchSuggest,
-  searchMultimatch,
+  searchMultimatch
 } from '@/api/search'
 import { useRoute } from 'vue-router'
 import { types, tabs, components } from '@/utils/search'
 import { updateSearchHistoryLocalStorage } from '@/utils/localStorage'
 import router from '@/router'
-import { Daum } from '@/types/search'
+import { SearchHotDetailType } from '@/types/search'
 
 const route = useRoute()
 const showKeyword = ref('')
 const searchHotList = ref([])
-const searchHotDetailList = ref([] as Daum[])
-const keywordList = ref([] as Daum[])
+const searchHotDetailList = ref([] as SearchHotDetailType.Daum[])
+const keywordList = ref([] as SearchHotDetailType.Daum[])
 const searchSuggestList = ref([])
 const showSearchResult = ref(false)
 const searchStore = useSearchStore()
@@ -98,13 +98,13 @@ onMounted(async () => {
   searchStore.searchKeyword = route.query.key as string
   // await search()
 })
-watch(() => searchStore.active, async () =>{
+watch(() => searchStore.active, async () => {
   await search()
 })
 const onClickField = async function () {
   await onUpdate(searchStore.searchKeyword)
   router.replace({
-    path: '/search',
+    path: '/search'
   })
 }
 const getDefaultKey = async function() {
@@ -127,20 +127,19 @@ const onUpdate = async function (value: string) {
   }
   const res = await searchSuggest({
     keywords: value,
-    type: 'mobile',
+    type: 'mobile'
   }, true)
   searchStore.searchSuggestList = res.result.allMatch
 }
-onUnmounted (() => {
+onUnmounted(() => {
 })
 const searchSong = async function () {
-  let res = undefined
   searchStore.loading = true
-  res = await cloudsearch({
+  const res = await cloudsearch({
     keywords: searchStore.searchKeyword,
     type: types[searchStore.active],
     limit: searchStore.currentLimit,
-    offset: searchStore.currentOffsetList[searchStore.active],
+    offset: searchStore.currentOffsetList[searchStore.active]
   }, true)
   console.log(searchStore.currentOffsetList[searchStore.active])
   if (searchStore.currentOffsetList[searchStore.active] === 0) {
@@ -157,13 +156,12 @@ const searchSong = async function () {
 }
 
 const searchPlaylist = async function () {
-  let res = undefined
   searchStore.loading = true
-  res = await cloudsearch({
+  const res = await cloudsearch({
     keywords: searchStore.searchKeyword,
     type: types[searchStore.active],
     limit: searchStore.currentLimit,
-    offset: searchStore.currentOffsetList[searchStore.active],
+    offset: searchStore.currentOffsetList[searchStore.active]
   }, true)
   if (searchStore.currentOffsetList[searchStore.active] === 0) {
     searchStore.searchResultPlaylist = res.result
@@ -179,13 +177,12 @@ const searchPlaylist = async function () {
   }
 }
 const searchAlbum = async function () {
-  let res = undefined
   searchStore.loading = true
-  res = await cloudsearch({
+  const res = await cloudsearch({
     keywords: searchStore.searchKeyword,
     type: types[searchStore.active],
     limit: searchStore.currentLimit,
-    offset: searchStore.currentOffsetList[searchStore.active],
+    offset: searchStore.currentOffsetList[searchStore.active]
   }, true)
   if (searchStore.currentOffsetList[searchStore.active] === 0) {
     searchStore.searchResultAlbum = res.result
@@ -200,13 +197,12 @@ const searchAlbum = async function () {
   }
 }
 const searchSinger = async function () {
-  let res = undefined
   searchStore.loading = true
-  res = await cloudsearch({
+  const res = await cloudsearch({
     keywords: searchStore.searchKeyword,
     type: types[searchStore.active],
     limit: searchStore.currentLimit,
-    offset: searchStore.currentOffsetList[searchStore.active],
+    offset: searchStore.currentOffsetList[searchStore.active]
   }, true)
   if (searchStore.currentOffsetList[searchStore.active] === 0) {
     searchStore.searchResultSinger = res.result
@@ -221,13 +217,12 @@ const searchSinger = async function () {
   }
 }
 const searchVideo = async function () {
-  let res = undefined
   searchStore.loading = true
-  res = await cloudsearch({
+  const res = await cloudsearch({
     keywords: searchStore.searchKeyword,
     type: types[searchStore.active],
     limit: searchStore.currentLimit,
-    offset: searchStore.currentOffsetList[searchStore.active],
+    offset: searchStore.currentOffsetList[searchStore.active]
   }, true)
   if (searchStore.currentOffsetList[searchStore.active] === 0) {
     searchStore.searchResultVideo = res.result
@@ -263,7 +258,7 @@ const search = async function (keyword?: string) {
   } else if (searchStore.active === 6) {
     await searchAlbum()
   }
-  searchStore.currentOffsetList[searchStore.active] ++
+  searchStore.currentOffsetList[searchStore.active]++
 }
 
 </script>

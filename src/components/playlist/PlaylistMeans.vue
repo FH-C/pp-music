@@ -49,15 +49,15 @@
 import { computed, PropType } from 'vue'
 import { numberConvert } from '@/utils/convert'
 import CommentCountVue from 'components/CommentCount.vue'
-import { Playlist } from '@/types/playlist'
+import { PlaylistDetailType } from '@/types/playlist'
 
 const props = defineProps({
   playlist: {
-    type: Object as PropType<Playlist>,
+    type: Object as PropType<PlaylistDetailType.Playlist>,
     default: () => {
       return {}
-    },
-  },
+    }
+  }
 })
 const playCount = computed(() => {
   return function(count: number) {

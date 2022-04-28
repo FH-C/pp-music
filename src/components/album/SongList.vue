@@ -113,28 +113,28 @@ const props = defineProps({
     type: Array as any,
     default: () => {
       return []
-    },
+    }
   },
   title: {
     type: String,
-    default: '',
+    default: ''
   },
   num: {
     type: Number,
-    default: 0,
+    default: 0
   },
   loading: {
     type: Boolean,
-    default: false,
+    default: false
   },
   finished: {
     type: Boolean,
-    default: false,
+    default: false
   },
   finishedText: {
     type: String,
-    default: '到底啦~',
-  },
+    default: '到底啦~'
+  }
 })
 const emit = defineEmits(['load', 'playAll'])
 const router = useRouter()
@@ -156,7 +156,7 @@ const play = function (index: number) {
   songStore.playingIndex = 0
   if (index !== -1) {
     songStore.playingIndex = index
-    if (songStore.playStatus && songStore.playingId == songStore.playingSongList[songStore.playingIndex].id) {
+    if (songStore.playStatus && songStore.playingId === songStore.playingSongList[songStore.playingIndex].id) {
       router.push({ path: '/player', query: { id: songStore.playingId } })
     }
   }

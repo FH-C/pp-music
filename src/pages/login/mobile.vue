@@ -75,14 +75,14 @@ const nextStep = function () {
     return Toast('请输入11位数字的手机号')
   }
   Toast.loading({
-    forbidClick: true,
+    forbidClick: true
   })
   router.push({
     name: 'VerifyLogin',
     query: {
       countryCode: countryCode.value,
-      phone: phone.value,
-    },
+      phone: phone.value
+    }
   })
 }
 </script>

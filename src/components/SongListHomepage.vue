@@ -118,8 +118,8 @@ const props = defineProps({
     type: Object as PropType<songListHomepageType> | any,
     default: () => {
       return {}
-    },
-  },
+    }
+  }
 })
 const songStore = useSongStore()
 
@@ -133,7 +133,7 @@ const getPlayingSongList = function () {
   return playingList
 }
 const playSong = function (song: any) {
-  if (songStore.playStatus && songStore.playingId == song.resourceId) {
+  if (songStore.playStatus && songStore.playingId === song.resourceId) {
     router.push({ path: '/player', query: { id: song.resourceId } })
   } else {
     songStore.playingId = song.resourceId

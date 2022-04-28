@@ -5,7 +5,7 @@ const components = [
   'SearchResultSongVue',
   'SearchResultPlaylistVue',
   'SearchResultVideoVue',
-  'SearchResultSingerVue', 
+  'SearchResultSingerVue',
   'SearchResultLyricsVue',
   'SearchResultAlbumVue',
   'SearchResultSoundVue',

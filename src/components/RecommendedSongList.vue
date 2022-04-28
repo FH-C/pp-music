@@ -47,8 +47,8 @@ const props = defineProps({
     type: Array as PropType<recommendedSongsType[]>,
     default: () => {
       return []
-    },
-  },
+    }
+  }
 })
 </script>
 

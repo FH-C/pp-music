@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 export const useSearchStore = defineStore('search', {
   state: () => {
-    return { 
+    return {
       searchKeyword: '',
       searchResultSong: {} as any,
       searchResultPlaylist: {} as any,
@@ -14,10 +14,10 @@ export const useSearchStore = defineStore('search', {
       currentLimit: 30,
       loading: false,
       finished: false,
-      active: 1,
+      active: 1
     }
   },
   actions: {
-    
-  },
+
+  }
 })

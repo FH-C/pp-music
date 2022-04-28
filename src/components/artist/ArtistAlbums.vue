@@ -45,26 +45,26 @@
 </template>
 
 <script setup lang="ts">
-import { numberConvert } from '@/utils/convert'
+import { numberConvert, dateConvert } from '@/utils/convert'
 import { computed, PropType, ref, watch } from 'vue'
 import { useSearchStore } from '@/store/search'
 import { useSongStore } from '@/store/song'
 import { useRouter, useRoute } from 'vue-router'
-import { dateConvert } from '@/utils/convert'
-import { HotAlbum } from '@/types/artist'
+
+import { ArtistHotAlbumsType } from '@/types/artist'
 const props = defineProps({
   loading: {
     type: Boolean,
-    default: false,
+    default: false
   },
   finished: {
     type: Boolean,
-    default: false,
+    default: false
   },
   albums: {
-    type: Array as PropType<HotAlbum[]>,
-    default: () => ([]),
-  },
+    type: Array as PropType<ArtistHotAlbumsType.HotAlbum[]>,
+    default: () => ([])
+  }
 })
 const emit = defineEmits(['load'])
 const router = useRouter()
@@ -85,8 +85,8 @@ const toAlbumDetail = function (albumId: number) {
   router.push({
     path: '/album',
     query: {
-      id: albumId,
-    },
+      id: albumId
+    }
   })
 }
 </script>

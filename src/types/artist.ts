@@ -4,7 +4,7 @@ export namespace ArtistFollowType {
     message: string
     data: Data
   }
-  
+
   export interface Data {
     isFollow: boolean
     fansCnt: number
@@ -25,7 +25,7 @@ export namespace ArtistDetailType {
     message: string
     data: Data
   }
-  
+
   export interface Data {
     videoCount: number
     identify: Identify
@@ -36,13 +36,13 @@ export namespace ArtistDetailType {
     secondaryExpertIdentiy: SecondaryExpertIdentiy[]
     user?: any
   }
-  
+
   export interface Identify {
     imageUrl: any
     imageDesc: string
     actionUrl: string
   }
-  
+
   export interface Artist {
     id: number
     cover: string
@@ -56,12 +56,12 @@ export namespace ArtistDetailType {
     musicSize: number
     mvSize: number
   }
-  
+
   export interface Rank {
     rank: number
     type: number
   }
-  
+
   export interface SecondaryExpertIdentiy {
     expertIdentiyId: number
     expertIdentiyName: string
@@ -77,12 +77,12 @@ export namespace ArtistDescType {
     topicData: TopicDaum[]
     code: number
   }
-  
+
   export interface Introduction {
     ti: string
     txt: string
   }
-  
+
   export interface TopicDaum {
     topic: Topic
     creator: Creator
@@ -117,7 +117,7 @@ export namespace ArtistDescType {
     id: number
     number: number
   }
-  
+
   export interface Topic {
     id: number
     addTime: number
@@ -155,13 +155,13 @@ export namespace ArtistDescType {
     recomdContent: string
     number: number
   }
-  
+
   export interface Content {
     type: number
     id: number
     content?: string
   }
-  
+
   export interface Creator {
     userId: number
     userType: number
@@ -201,9 +201,9 @@ export namespace ArtistDescType {
     avatarDetail: any
     anchor: boolean
   }
-  
+
   export interface Experts {
-    "1": string
+    '1': string
   }
 }
 
@@ -212,7 +212,7 @@ export namespace SimilarArtistsType {
     artists: Artist[]
     code: number
   }
-  
+
   export interface Artist {
     name: string
     id: number
@@ -248,7 +248,7 @@ export namespace ArtistHotSongsType {
     more: boolean
     code: number
   }
-  
+
   export interface Artist {
     img1v1Id: number
     topicPerson: number
@@ -268,7 +268,7 @@ export namespace ArtistHotSongsType {
     img1v1Id_str: string
     mvSize: number
   }
-  
+
   export interface HotSong {
     rtUrls: any[]
     ar: Ar[]
@@ -308,13 +308,13 @@ export namespace ArtistHotSongsType {
     eq?: string
     tns?: string[]
   }
-  
+
   export interface Ar {
     id: number
     name: string
     alia?: string[]
   }
-  
+
   export interface Al {
     id: number
     name: string
@@ -324,7 +324,7 @@ export namespace ArtistHotSongsType {
     alia?: string[]
     tns?: string[]
   }
-  
+
   export interface H {
     br: number
     fid: number
@@ -332,7 +332,7 @@ export namespace ArtistHotSongsType {
     vd: number
     sr: number
   }
-  
+
   export interface L {
     br: number
     fid: number
@@ -340,7 +340,7 @@ export namespace ArtistHotSongsType {
     vd: number
     sr: number
   }
-  
+
   export interface Sq {
     br: number
     fid: number
@@ -348,7 +348,7 @@ export namespace ArtistHotSongsType {
     vd: number
     sr: number
   }
-  
+
   export interface Hr {
     br: number
     fid: number
@@ -356,7 +356,7 @@ export namespace ArtistHotSongsType {
     vd: number
     sr: number
   }
-  
+
   export interface M {
     br: number
     fid: number
@@ -364,7 +364,7 @@ export namespace ArtistHotSongsType {
     vd: number
     sr: number
   }
-  
+
   export interface Privilege {
     id: number
     fee: number
@@ -393,13 +393,13 @@ export namespace ArtistHotSongsType {
     freeTrialPrivilege: FreeTrialPrivilege
     chargeInfoList: ChargeInfoList[]
   }
-  
+
   export interface FreeTrialPrivilege {
     resConsumable: boolean
     userConsumable: boolean
     listenType: any
   }
-  
+
   export interface ChargeInfoList {
     rate: number
     chargeUrl: any
@@ -415,7 +415,7 @@ export namespace ArtistHotAlbumsType {
     more: boolean
     code: number
   }
-  
+
   export interface Artist {
     img1v1Id: number
     topicPerson: number
@@ -433,7 +433,7 @@ export namespace ArtistHotAlbumsType {
     picId_str: string
     img1v1Id_str: string
   }
-  
+
   export interface HotAlbum {
     songs: any[]
     paid: boolean
@@ -463,7 +463,7 @@ export namespace ArtistHotAlbumsType {
     picId_str: string
     isSub: boolean
   }
-  
+
   export interface Artist2 {
     img1v1Id: number
     topicPerson: number
@@ -480,7 +480,7 @@ export namespace ArtistHotAlbumsType {
     id: number
     img1v1Id_str: string
   }
-  
+
   export interface Artist3 {
     img1v1Id: number
     topicPerson: number
@@ -507,7 +507,7 @@ export namespace ArtistSongsType {
     total: number
     code: number
   }
-  
+
   export interface Song {
     rtUrls: any[]
     ar: Ar[]
@@ -547,12 +547,12 @@ export namespace ArtistSongsType {
     eq?: string
     tns?: string[]
   }
-  
+
   export interface Ar {
     id: number
     name: string
   }
-  
+
   export interface Al {
     id: number
     name: string
@@ -560,8 +560,9 @@ export namespace ArtistSongsType {
     pic: number
     alia?: string[]
     tns?: string[]
+    picUrl: string
   }
-  
+
   export interface H {
     br: number
     fid: number
@@ -569,7 +570,7 @@ export namespace ArtistSongsType {
     vd: number
     sr: number
   }
-  
+
   export interface L {
     br: number
     fid: number
@@ -577,7 +578,7 @@ export namespace ArtistSongsType {
     vd: number
     sr: number
   }
-  
+
   export interface Sq {
     br: number
     fid: number
@@ -585,7 +586,7 @@ export namespace ArtistSongsType {
     vd: number
     sr: number
   }
-  
+
   export interface Hr {
     br: number
     fid: number
@@ -593,7 +594,7 @@ export namespace ArtistSongsType {
     vd: number
     sr: number
   }
-  
+
   export interface M {
     br: number
     fid: number
@@ -601,7 +602,7 @@ export namespace ArtistSongsType {
     vd: number
     sr: number
   }
-  
+
   export interface Privilege {
     id: number
     fee: number
@@ -630,19 +631,19 @@ export namespace ArtistSongsType {
     freeTrialPrivilege: FreeTrialPrivilege
     chargeInfoList: ChargeInfoList[]
   }
-  
+
   export interface FreeTrialPrivilege {
     resConsumable: boolean
     userConsumable: boolean
     listenType: any
   }
-  
+
   export interface ChargeInfoList {
     rate: number
     chargeUrl: any
     chargeMessage: any
     chargeType: number
-  }  
+  }
 }
 
 export namespace ArtistVideosType {
@@ -651,12 +652,12 @@ export namespace ArtistVideosType {
     message: string
     data: Data
   }
-  
+
   export interface Data {
     records: Record[]
     page: Page
   }
-  
+
   export interface Record {
     id: string
     type: number
@@ -674,7 +675,7 @@ export namespace ArtistVideosType {
     sameCity: boolean
     followedShowReason: any
   }
-  
+
   export interface Resource {
     mlogBaseData: MlogBaseData
     mlogExtVO: MlogExtVo
@@ -685,7 +686,7 @@ export namespace ArtistVideosType {
     source: any
     mlogPlaylists: any
   }
-  
+
   export interface MlogBaseData {
     id: string
     type: number
@@ -712,7 +713,7 @@ export namespace ArtistVideosType {
     relatedPubUsers: any
     mixInfo: any
   }
-  
+
   export interface Video {
     tagSign: TagSign
     tag: string
@@ -725,13 +726,13 @@ export namespace ArtistVideosType {
     md5: string
     check: boolean
   }
-  
+
   export interface TagSign {
     br: number
     type: string
     tagSign: string
   }
-  
+
   export interface MlogExtVo {
     likedCount: number
     commentCount: number
@@ -746,7 +747,7 @@ export namespace ArtistVideosType {
     specialTag: any
     channelTag: any
   }
-  
+
   export interface Song {
     id: number
     name: string
@@ -795,32 +796,32 @@ export namespace ArtistVideosType {
     userConsumable: boolean
     listenType: any
   }
-  
+
   export interface ChargeInfoList {
     rate: number
     chargeUrl: any
     chargeMessage: any
     chargeType: number
   }
-}
 
-export interface Artist {
-  artistId: number
-  artistName: string
-}
+  export interface Artist {
+    artistId: number
+    artistName: string
+  }
 
-export interface Artist2 {
-  id: number
-  name: string
-  img1v1Url: string
-  followed: boolean
-  mlogUser: any
-}
+  export interface Artist2 {
+    id: number
+    name: string
+    img1v1Url: string
+    followed: boolean
+    mlogUser: any
+  }
 
-export interface Page {
-  size: number
-  cursor: string
-  more: boolean
+  export interface Page {
+    size: number
+    cursor: string
+    more: boolean
+  }
 }
 
 export namespace SubArtistType {

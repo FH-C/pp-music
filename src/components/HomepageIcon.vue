@@ -34,8 +34,8 @@ const props = defineProps({
     type: Array as PropType<homepageiConType[]>,
     default: () => {
       return []
-    },
-  },
+    }
+  }
 })
 </script>
 

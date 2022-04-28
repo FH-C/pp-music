@@ -39,24 +39,20 @@
 
 <script setup lang="ts">
 import { computed, PropType } from 'vue'
-import { numberConvert } from '@/utils/convert'
+import { numberConvert, dateConvert } from '@/utils/convert'
 import CommentCountVue from 'components/CommentCount.vue'
-import { dateConvert } from '@/utils/convert'
-import { Album, AlbumDynamicType } from '@/types/album'
+
+import { AlbumType, AlbumDynamicType } from '@/types/album'
 
 const props = defineProps({
   album: {
-    type: Object as PropType<Album>,
-    default: () => {
-      return {}
-    },
+    type: Object as PropType<AlbumType.Album>,
+    default: () => ({})
   },
   count: {
-    type: Object as PropType<AlbumDynamicType>,
-    default: () => {
-      return {}
-    },
-  },
+    type: Object as PropType<AlbumDynamicType.Root>,
+    default: () => ({})
+  }
 })
 </script>
 

@@ -91,7 +91,7 @@ const songStore = useSongStore()
 
 watch(() => songStore.playingId, async (songId) => {
   const res = await getSongDetail({
-    ids: songId.toString(),
+    ids: songId.toString()
   })
   songStore.playingSongDetail = res.songs[0]
   if (songStore.playingSongList.length === 0) {
@@ -102,7 +102,7 @@ watch(() => songStore.playingId, async (songId) => {
   // play(true)
 })
 
-watch(() => songStore.playStatus, async (newValue) =>{
+watch(() => songStore.playStatus, async (newValue) => {
   if (newValue) {
     // const res = await getSongDetail({
     //   ids: songStore.playingId.toString(),
@@ -117,7 +117,7 @@ watch(() => songStore.playStatus, async (newValue) =>{
   }
 })
 
-watch(() => songStore.playingIndex, async (newValue) =>{
+watch(() => songStore.playingIndex, async (newValue) => {
 })
 
 watch(() => songStore.playingSongList, async () => {
@@ -133,7 +133,7 @@ watch(() => songStore.playingSongList, async () => {
 
 const getLyricsById = async function (songId: number) {
   const res = await getLyrics({
-    id: songId.toString(),
+    id: songId.toString()
   })
   songStore.lyrics = lyricsConvert(res.lrc?.lyric || '[99:99.999]暂时没有歌词')
 }
@@ -143,7 +143,7 @@ const setPlayingLocalStorage = function () {
     playingId: songStore.playingId,
     playingIndex: songStore.playingIndex,
     playingSongList: songStore.playingSongList,
-    playingType: songStore.playingType,
+    playingType: songStore.playingType
   }
   localStorage.setItem('playing', JSON.stringify(playing))
 }
@@ -151,9 +151,9 @@ const setPlayingLocalStorage = function () {
 const getSongUrlList = async function () {
   const ids = songStore.playingSongList.map((song: any) => song.id)
   const res = await getSongURL({
-    id: ids.join(','),
+    id: ids.join(',')
   })
-  songStore.musicUrlList = res.data.sort((a: any,b: any)=>{
+  songStore.musicUrlList = res.data.sort((a: any, b: any) => {
     return ids.indexOf(a.id) - ids.indexOf(b.id)
   }).map((song: any) => song.url)
 }
@@ -165,7 +165,7 @@ const getNextSong = function () {
       if (songStore.playingSongList.length <= songStore.playingIndex + 1) {
         songStore.playingIndex = 0
       } else {
-        songStore.playingIndex ++
+        songStore.playingIndex++
       }
       songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
       console.log(songStore.playingIndex)
@@ -173,8 +173,7 @@ const getNextSong = function () {
       break
     case 1:
       // 随机播放
-      const randomInt = Math.floor(Math.random() * (songStore.playingSongList.length + 1))
-      songStore.playingIndex = randomInt
+      songStore.playingIndex = Math.floor(Math.random() * (songStore.playingSongList.length + 1))
       songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
       break
     case 2:
@@ -191,14 +190,13 @@ const getPrevSong = function () {
       if (songStore.playingIndex - 1 < 0) {
         songStore.playingIndex = songStore.playingSongList.length - 1
       } else {
-        songStore.playingIndex --
+        songStore.playingIndex--
       }
       songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
       break
     case 1:
       // 随机播放
-      const randomInt = Math.floor(Math.random() * (songStore.playingSongList.length + 1))
-      songStore.playingIndex = randomInt
+      songStore.playingIndex = Math.floor(Math.random() * (songStore.playingSongList.length + 1))
       songStore.playingId = songStore.playingSongList[songStore.playingIndex].id
       // songStore.playerRef.play()
       break
@@ -234,7 +232,7 @@ defineExpose({
   getNextSong,
   getPrevSong,
   play,
-  playByIndex,
+  playByIndex
 })
 
 </script>

@@ -93,8 +93,8 @@ const userStore = useUserStore()
 const props = defineProps({
   show: {
     type: Boolean,
-    default: false,
-  },
+    default: false
+  }
 })
 
 const router = useRouter()

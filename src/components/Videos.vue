@@ -46,16 +46,16 @@ const props = defineProps({
     type: Array as any,
     default: () => {
       return []
-    },
+    }
   },
   loading: {
     type: Boolean,
-    default: false,
+    default: false
   },
   finished: {
     type: Boolean,
-    default: false,
-  },
+    default: false
+  }
 })
 const emit = defineEmits(['load'])
 const loading = ref(props.loading)
@@ -88,8 +88,8 @@ const toVideo = function (id: string, item: any) {
     path: 'video',
     query: {
       id: id,
-      type: typeName,
-    },
+      type: typeName
+    }
   })
 }
 </script>

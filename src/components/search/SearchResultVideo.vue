@@ -16,16 +16,16 @@ const props = defineProps({
     type: Array as any,
     default: () => {
       return []
-    },
+    }
   },
   loading: {
     type: Boolean,
-    default: false,
+    default: false
   },
   finished: {
     type: Boolean,
-    default: false,
-  },
+    default: false
+  }
 })
 const emit = defineEmits(['load'])
 const load = function () {

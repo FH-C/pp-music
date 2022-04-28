@@ -38,8 +38,8 @@ const props = defineProps({
     type: Array,
     default: () => {
       return []
-    },
-  },
+    }
+  }
 })
 const showLength = ref(10)
 const getRankClass = computed(() => {

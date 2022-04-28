@@ -59,5 +59,5 @@ export {
   bannerListType,
   songListHomepageType,
   homepageiConType,
-  lyricsType,
+  lyricsType
 }

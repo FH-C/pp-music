@@ -57,37 +57,37 @@ const router = useRouter()
 const time = ref(60)
 const verifyCode = reactive([''])
 const refs: any = ref([])
-let countdown: NodeJS.Timeout | null = null
+let countdown: any = null
 const onClickRight = function () {
   router.push({
     name: 'PasswordLogin',
     query: {
       countryCode: route.query.countryCode,
-      phone: route.query.phone,
-    },
+      phone: route.query.phone
+    }
   })
 }
 const resend = async function () {
   const result = await sendCaptcha({
     phone: route.query.phone,
-    ctcode: route.query.countryCode?.slice(1),
+    ctcode: route.query.countryCode?.slice(1)
   }, true)
   time.value = 60
   countdown = setInterval(() => {
-    time.value --
+    time.value--
   }, 1000)
 }
 const next = async function () {
   const res = await verifyCaptcha({
     phone: route.query.phone,
     ctcode: route.query.countryCode?.slice(1),
-    captcha: verifyCode.join(''),
+    captcha: verifyCode.join('')
   }, true)
   if (res.data) {
     const res = await phoneLogin({
       phone: route.query.phone,
       captcha: verifyCode.join(''),
-      countrycode: route.query.countryCode?.slice(1),
+      countrycode: route.query.countryCode?.slice(1)
     }, true)
     Toast('登录成功')
     // const res2 = await loginStatus()
@@ -103,7 +103,7 @@ const reset = function () {
   }
 }
 const onInput = function (event: any, index: number) {
-  if (index == 3) {
+  if (index === 3) {
     return next()
   }
   refs.value[index + 1].focus()
@@ -127,28 +127,27 @@ const openDialog = function () {
     message: '验证成功后，可进行下一步操作哦~',
     confirmButtonText: '去验证',
     confirmButtonColor: '#ff4d4d',
-    cancelButtonColor: '#ff4d4d',
+    cancelButtonColor: '#ff4d4d'
   })
-  .then(() => {
-    router.push('')
-  })
+    .then(() => {
+      router.push('')
+    })
 }
 const clearCountdown = function () {
   if (countdown) {
     clearInterval(countdown)
   }
 }
-watch (time, (newValue, oldValue) => {
+watch(time, (newValue, oldValue) => {
   if (newValue === 0) {
     clearCountdown()
   }
 })
-onMounted (() => {
+onMounted(() => {
   Toast('验证码已发送，请查收')
   resend()
-  return
 })
-onUnmounted (() => {
+onUnmounted(() => {
   clearCountdown()
 })
 onBeforeUpdate(() => {

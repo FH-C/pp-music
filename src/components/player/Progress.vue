@@ -36,12 +36,12 @@ const emit = defineEmits(['update:currentTime'])
 const props = defineProps({
   currentTime: {
     type: Number,
-    default: 0,
+    default: 0
   },
   duration: {
     type: Number,
-    default: 0,
-  },
+    default: 0
+  }
 })
 
 const showCurrentTime = ref(0)

@@ -1,4 +1,5 @@
 import _ from 'lodash'
+
 const getPlayingLocalStorage = function () {
   return localStorage.getItem('playing')
 }

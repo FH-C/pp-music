@@ -2,7 +2,7 @@
   <div class="content">
     <van-nav-bar
       left-arrow
-      left-text="音乐云盘" 
+      left-text="音乐云盘"
       safe-area-inset-top
       fixed
       placeholder
@@ -38,10 +38,10 @@ import { getCloudData, getCloudDataDetail, deleteCloudSongs, uploadCloudSong } f
 import { onClickLeft } from '@/utils/router'
 import { useSongStore } from '@/store/song'
 import SongList from '@/components/album/SongList.vue'
-import { SimpleSong } from '@/types/cloud'
+import { CloudType } from '@/types/cloud'
 
 const songStore = useSongStore()
-const songList = ref([] as SimpleSong[])
+const songList = ref([] as CloudType.SimpleSong[])
 const songNum = ref(0)
 const currentPage = ref(0)
 const loading = ref(false)
@@ -55,11 +55,12 @@ const load = async () => {
   loading.value = true
   const res = await getCloudData({
     limit: limit.value,
-    offset: currentPage.value++ * limit.value,
+    offset: currentPage.value++ * limit.value
   })
   if (!res) {
     finished.value = true
-    return loading.value = false
+    loading.value = false
+    return
   }
   if (songList.value.length === 0) {
     songList.value = res.data.map((item: any) => {
@@ -88,11 +89,11 @@ const load = async () => {
 
 const playAll = async function () {
   songStore.playingSongList = []
-  for (let i=0; i < songNum.value / 200; i++) {
+  for (let i = 0; i < songNum.value / 200; i++) {
     console.log(songNum.value / 200)
     const res = await getCloudData({
       limit: 200,
-      offset: i * 200,
+      offset: i * 200
     })
     songStore.playingSongList = songStore.playingSongList.concat(res.data.map((item: any) => {
       if (!item.simpleSong.al.name) {

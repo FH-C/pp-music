@@ -2,7 +2,7 @@
   <div class="content">
     <van-nav-bar
       left-arrow
-      left-text="专辑" 
+      left-text="专辑"
       safe-area-inset-top
       fixed
       placeholder
@@ -41,13 +41,13 @@ import { getSongDetail } from '@/api/play'
 import AlbumMeansVue from 'components/album/AlbumMeans.vue'
 import SongListVue from 'components/album/SongList.vue'
 import { onClickLeft } from '@/utils/router'
-import { Album, AlbumDynamicType, Song } from '@/types/album'
+import { AlbumDynamicType, AlbumType } from '@/types/album'
 
 const router = useRouter()
 const route = useRoute()
-const album = ref({} as Album)
-const songList = ref([] as Song[])
-const count = ref({} as AlbumDynamicType)
+const album = ref({} as AlbumType.Album)
+const songList = ref([] as AlbumType.Song[])
+const count = ref({} as AlbumDynamicType.Root)
 const songNum = ref(0)
 onMounted(async () => {
   await getData()
@@ -55,12 +55,12 @@ onMounted(async () => {
 
 const getData = async function () {
   const res = await getAlbum({
-    id: route.query.id,
+    id: route.query.id
   })
   album.value = res.album
   songList.value = res.songs
   const res2 = await getAlbumDynamic({
-    id: route.query.id,
+    id: route.query.id
   })
   count.value = res2
   songNum.value = res.album.size

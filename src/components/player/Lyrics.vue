@@ -34,16 +34,16 @@ const emit = defineEmits(['update:line'])
 const props = defineProps({
   height: {
     type: String,
-    default: '70vh',
+    default: '70vh'
   },
   lyrics: {
     type: Array as PropType<lyricsType[]>,
-    default: () => ([]),
+    default: () => ([])
   },
   currentLine: {
     type: Number,
-    default: 0,
-  },
+    default: 0
+  }
 })
 
 const refs: any = ref([])
@@ -65,7 +65,7 @@ const getTextColor = computed(() => {
         if (props.lyrics[line].content && refs.value[line]) {
           refs.value[line].scrollIntoView({
             behavior: 'smooth',
-            block: 'center',
+            block: 'center'
           })
         }
         return '#fff'

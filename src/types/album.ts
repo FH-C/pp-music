@@ -5,7 +5,7 @@ export namespace AlbumType {
     code: number
     album: Album
   }
-  
+
   export interface Song {
     rtUrls: any[]
     ar: Ar[]
@@ -44,13 +44,13 @@ export namespace AlbumType {
     tns?: string[]
     privilege: Privilege
   }
-  
+
   export interface Ar {
     id: number
     name: string
     alia: string[]
   }
-  
+
   export interface Al {
     id: number
     name: string
@@ -58,7 +58,7 @@ export namespace AlbumType {
     pic_str: string
     pic: number
   }
-  
+
   export interface H {
     br: number
     fid: number
@@ -66,7 +66,7 @@ export namespace AlbumType {
     vd: number
     sr: number
   }
-  
+
   export interface L {
     br: number
     fid: number
@@ -74,7 +74,7 @@ export namespace AlbumType {
     vd: number
     sr: number
   }
-  
+
   export interface Sq {
     br: number
     fid: number
@@ -82,7 +82,7 @@ export namespace AlbumType {
     vd: number
     sr: number
   }
-  
+
   export interface Hr {
     br: number
     fid: number
@@ -90,7 +90,7 @@ export namespace AlbumType {
     vd: number
     sr: number
   }
-  
+
   export interface M {
     br: number
     fid: number
@@ -98,7 +98,7 @@ export namespace AlbumType {
     vd: number
     sr: number
   }
-  
+
   export interface Privilege {
     id: number
     fee: number
@@ -127,20 +127,20 @@ export namespace AlbumType {
     freeTrialPrivilege: FreeTrialPrivilege
     chargeInfoList: ChargeInfoList[]
   }
-  
+
   export interface FreeTrialPrivilege {
     resConsumable: boolean
     userConsumable: boolean
     listenType: any
   }
-  
+
   export interface ChargeInfoList {
     rate: number
     chargeUrl: any
     chargeMessage: any
     chargeType: number
   }
-  
+
   export interface Album {
     songs: any[]
     paid: boolean
@@ -170,7 +170,7 @@ export namespace AlbumType {
     picId_str: string
     info: Info
   }
-  
+
   export interface Artist {
     img1v1Id: number
     topicPerson: number
@@ -187,7 +187,7 @@ export namespace AlbumType {
     id: number
     img1v1Id_str: string
   }
-  
+
   export interface Artist2 {
     img1v1Id: number
     topicPerson: number
@@ -205,7 +205,7 @@ export namespace AlbumType {
     picId_str: string
     img1v1Id_str: string
   }
-  
+
   export interface Info {
     commentThread: CommentThread
     latestLikedUsers: any
@@ -218,7 +218,7 @@ export namespace AlbumType {
     shareCount: number
     threadId: string
   }
-  
+
   export interface CommentThread {
     id: string
     resourceInfo: ResourceInfo
@@ -232,7 +232,7 @@ export namespace AlbumType {
     resourceOwnerId: number
     resourceTitle: string
   }
-  
+
   export interface ResourceInfo {
     id: number
     userId: number

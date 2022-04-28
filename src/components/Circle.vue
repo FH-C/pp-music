@@ -32,8 +32,8 @@ import { useSongStore } from 'store/song'
 const props = defineProps({
   radius: {
     type: String,
-    default: '30px',
-  },
+    default: '30px'
+  }
 })
 const songStore = useSongStore()
 const dashArray = Math.PI * 100

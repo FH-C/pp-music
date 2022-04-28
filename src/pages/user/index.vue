@@ -10,8 +10,8 @@ import { computed, onMounted, ref } from 'vue'
 import { onClickLeft } from '@/utils/router'
 import { loginStatus } from '@/api/login'
 import { blockPage } from '@/api/home'
-onMounted (async () => {
-  return
+onMounted(async () => {
+
 })
 
 </script>

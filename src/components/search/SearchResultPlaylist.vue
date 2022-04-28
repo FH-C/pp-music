@@ -72,8 +72,8 @@ const toPlaylistDetail = function (playlistId: number) {
   router.push({
     path: '/playlist',
     query: {
-      id: playlistId,
-    },
+      id: playlistId
+    }
   })
 }
 </script>

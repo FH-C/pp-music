@@ -32,28 +32,28 @@ const emit = defineEmits(['update:percentage', 'update:percentageDelay'])
 const props = defineProps({
   percentage: {
     type: Number,
-    default: 0,
+    default: 0
   },
   strokeWidth: {
     type: String,
-    default: '.2vh',
+    default: '.2vh'
   },
   color: {
     type: String,
-    default: 'red',
+    default: 'red'
   },
   trackColor: {
     type: String,
-    default: 'black',
+    default: 'black'
   },
   pivotColor: {
     type: String,
-    default: '#fff',
+    default: '#fff'
   },
   pivotSize: {
     type: String,
-    default: '.8vh',
-  },
+    default: '.8vh'
+  }
 })
 
 const isMoving = ref(false)
@@ -63,40 +63,40 @@ const transparent: any = ref(null)
 const percentage = ref(props.percentage)
 const pivotSizeVar = ref(props.pivotSize)
 const strokeWidth = computed(() => {
-  return `height:${ props.strokeWidth };`
+  return `height:${props.strokeWidth};`
 })
 const color = computed(() => {
-  return `background-color:${ props.color };`
+  return `background-color:${props.color};`
 })
 const trackColor = computed(() => {
-  return `background-color:${ props.trackColor };`
+  return `background-color:${props.trackColor};`
 })
 const pivotColor = computed(() => {
-  return `background-color:${ props.pivotColor };`
+  return `background-color:${props.pivotColor};`
 })
 const pivotSize = computed(() => {
-  return `width:${ pivotSizeVar.value };height:${ pivotSizeVar.value };`
+  return `width:${pivotSizeVar.value};height:${pivotSizeVar.value};`
 })
 // const pivotLeft = computed(() => {
 //   return `left:${ props.percentage }%;`
 // })
 const trackStyle = computed(() => {
-  return `${ strokeWidth.value }${ trackColor.value }`
+  return `${strokeWidth.value}${trackColor.value}`
 })
 const strokeStyle = computed(() => {
-  return `${ strokeWidth.value }${ color.value }width:${ percentage.value }%;`
+  return `${strokeWidth.value}${color.value}width:${percentage.value}%;`
 })
 const pivotStyle = computed(() => {
-  return `${ pivotSize.value }${ pivotColor.value }bottom:calc(${ pivotSizeVar.value }/3);left:calc(100%);`
+  return `${pivotSize.value}${pivotColor.value}bottom:calc(${pivotSizeVar.value}/3);left:calc(100%);`
 })
 
 const transparentStyle = computed(() => {
-  return `height:calc(${ props.strokeWidth } * 11);bottom:calc(${ props.strokeWidth } * 5);`
+  return `height:calc(${props.strokeWidth} * 11);bottom:calc(${props.strokeWidth} * 5);`
 })
 
 const touchstart = function () {
   isMoving.value = true
-  pivotSizeVar.value = `calc(${ props.pivotSize }*2)`
+  pivotSizeVar.value = `calc(${props.pivotSize}*2)`
 }
 const touchmove = function (e: any) {
   const { clientX } = e.touches[0]

@@ -56,16 +56,16 @@ const props = defineProps({
     type: Array as PropType<string[]>,
     default: () => {
       return []
-    },
+    }
   },
   rotate: {
     type: Boolean,
-    default: false,
+    default: false
   },
   initialSwipe: {
     type: Number,
-    default: 0,
-  },
+    default: 0
+  }
 })
 
 const next = function () {
@@ -87,7 +87,7 @@ const onChange = function (index: number) {
 defineExpose({
   next,
   prev,
-  swipeTo,
+  swipeTo
 })
 </script>
 
@@ -142,4 +142,3 @@ defineExpose({
   height: 41vh;
 }
 </style>
-

@@ -52,8 +52,8 @@ const props = defineProps({
     type: Array as PropType<recommendedPlaylistsType[]>,
     default: () => {
       return []
-    },
-  },
+    }
+  }
 })
 const playCount = computed(() => {
   return function(count: number) {
@@ -64,8 +64,8 @@ const toPlaylist = function (playlistId: number) {
   router.push({
     path: '/playlist',
     query: {
-      id: playlistId,
-    },
+      id: playlistId
+    }
   })
 }
 </script>

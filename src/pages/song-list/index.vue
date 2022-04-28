@@ -2,7 +2,7 @@
   <div class="content">
     <van-nav-bar
       left-arrow
-      left-text="全部演唱" 
+      left-text="全部演唱"
       safe-area-inset-top
       fixed
       placeholder
@@ -33,10 +33,10 @@ import { onMounted, ref } from 'vue'
 import { getArtistSongs } from '@/api/artist'
 import { getSongDetail } from '@/api/play'
 import { useSongStore } from '@/store/song'
-import { Song } from '@/types/artist'
+import { ArtistSongsType } from '@/types/artist'
 const songStore = useSongStore()
 const route = useRoute()
-const songList = ref([] as Song[])
+const songList = ref([] as ArtistSongsType.Song[])
 const songNum = ref(0)
 const order = ref('hot')
 const limit = ref(30)
@@ -49,10 +49,10 @@ const load = async function () {
     id: route.query.id,
     limit: limit.value,
     offset: currentPage.value * limit.value,
-    order: order.value,
+    order: order.value
   })
   const res2 = await getSongDetail({
-    ids: res.songs.map((song: any) => song.id).join(','),
+    ids: res.songs.map((song: any) => song.id).join(',')
   })
   for (let i = 0; i < res.songs.length; i++) {
     for (let j = 0; j < res2.songs.length; j++) {
@@ -70,19 +70,19 @@ const load = async function () {
   }
   loading.value = false
   finished.value = !res.more
-  currentPage.value ++
+  currentPage.value++
 }
 const playAll = async function () {
   songStore.playingSongList = []
-  for (let i=0; i < songNum.value / 200; i++) {
+  for (let i = 0; i < songNum.value / 200; i++) {
     const res = await getArtistSongs({
       id: route.query.id,
       limit: 200,
       offset: i * 200,
-      order: order.value,
+      order: order.value
     })
     const res2 = await getSongDetail({
-      ids: res.songs.map((song: any) => song.id).join(','),
+      ids: res.songs.map((song: any) => song.id).join(',')
     })
     for (let i = 0; i < res.songs.length; i++) {
       for (let j = 0; j < res2.songs.length; j++) {

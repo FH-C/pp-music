@@ -109,7 +109,7 @@ const refPlayer: any = ref(null)
 const refRecord: any = ref(null)
 const showLyrics = ref(false)
 const currentLine = ref(0)
-onMounted (() => {
+onMounted(() => {
   if (!songStore.playingSongDetail.al) {
     router.push('home')
   }
@@ -120,7 +120,7 @@ const getPicURL = computed(() => {
 })
 
 watch(() => songStore.currentPlayTime, async (newValue) => {
-  for (let i = songStore.lyrics.length-1; i >= 0; i--) {
+  for (let i = songStore.lyrics.length - 1; i >= 0; i--) {
     if (newValue > songStore.lyrics[i].time) {
       if (songStore.lyrics[i].content) {
         currentLine.value = i
@@ -155,7 +155,7 @@ const swipeTo = function (index: number) {
 }
 
 const onChange = function (index: number) {
-  setTimeout(() =>{
+  setTimeout(() => {
     refPlayer.value.playByIndex(index)
   }, 500)
 }

@@ -45,15 +45,15 @@
 </template>
 
 <script setup lang="ts">
-import { Artist2 } from '@/types/artist';
+import { SimilarArtistsType } from '@/types/artist'
 import { numberConvert } from '@/utils/convert'
 import { computed, PropType } from 'vue'
 const emit = defineEmits(['follow'])
 const props = defineProps({
   info: {
-    type: Object as PropType<Artist2>,
-    default: () => ({}),
-  },
+    type: Object as PropType<SimilarArtistsType.Artist>,
+    default: () => ({})
+  }
 })
 const followCount = computed(() => {
   return function(count: number) {
