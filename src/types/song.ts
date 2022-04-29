@@ -1,5 +1,3 @@
-import { type } from 'os'
-
 export namespace SongDetailType {
   export interface Root {
     songs: Song[]
@@ -52,7 +50,8 @@ export namespace SongDetailType {
     mst: number
     cp: number
     mv: number
-    publishTime: number
+    publishTime: number,
+    artists?: Ar[]
   }
 
   export interface Ar {
@@ -207,6 +206,11 @@ export namespace LyricType {
   export interface Tlyric {
     version: number
     lyric: string
+  }
+
+  export interface Lyrics {
+    time: number
+    content: string
   }
 }
 

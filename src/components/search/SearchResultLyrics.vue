@@ -24,7 +24,7 @@
         </template>
       </van-cell>
       <van-cell
-        v-for="(item, index) in searchStore.searchResultSong.songs"
+        v-for="(item, index) in searchStore.searchResultLyrics.songs"
         :key="item.id"
         style="text-align: left;"
         center
@@ -130,7 +130,7 @@ const getIndex = computed(() => {
   }
 })
 const play = function (index: number) {
-  songStore.playingSongList = searchStore.searchResultSong.songs as SongDetailType.Song[]
+  songStore.playingSongList = searchStore.searchResultLyrics.songs as SongDetailType.Song[]
   songStore.playingIndex = 0
   if (index !== -1) {
     songStore.playingIndex = index

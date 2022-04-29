@@ -1,3 +1,4 @@
+import { LyricType } from '@/types/song'
 import { computed } from 'vue'
 
 const numberConvert = function (num: number) {
@@ -17,8 +18,10 @@ const timeConvert = function (second: number) {
   const hour = Math.floor(second / 3600) || 0
   const minute = Math.floor((second - hour * 3600) / 60) || 0
   const second1 = second - hour * 3600 - minute * 60 || 0
-  return `${hour ? ':' : ''}${minute.toString().length > 1 ? minute : `0${minute}`}:${second1.toString().length
-    > 1 ? second1 : `0${second1}`}`
+  return `${hour ? ':' : ''}${minute.toString().length > 1 ? minute : `0${minute}`}:${second1.toString().length >
+    1
+? second1
+: `0${second1}`}`
 }
 
 const dateConvert = function (timestamp: number, format: string) {
@@ -35,7 +38,7 @@ const dateConvert = function (timestamp: number, format: string) {
     'm+': date.getMinutes(),
     's+': date.getSeconds(),
     'q+': Math.floor((date.getMonth() + 3) / 3),
-    S: date.getMilliseconds(),
+    S: date.getMilliseconds()
   }
   if (/(y+)/.test(format)) {
     format = format.replace(RegExp.$1, (`${date.getFullYear()}`).substr(4 - RegExp.$1.length))
@@ -48,20 +51,20 @@ const dateConvert = function (timestamp: number, format: string) {
   return format
 }
 
-const lyricsConvert = function (lyrics: string) {
+const lyricsConvert = function (lyrics: string): LyricType.Lyrics[] {
   const lines = lyrics.split('\n')
-  const result: Array<object> = []
+  const result: LyricType.Lyrics[] = []
   lines.forEach((line) => {
     if (!line) return
     const time = line.match(/\d{2}:\d{2}\.\d{2,3}/g)
     const content = line.replace(/\[.*\]/g, '')
     if (time) {
       time.forEach((t) => {
-        const timeArr = t.split(/[:\.]/)
+        const timeArr = t.split(/[:.]/)
         const timeNum = parseInt(timeArr[0], 10) * 60 + parseInt(timeArr[1], 10) + parseFloat(timeArr[2]) / 1000
         result.push({
           time: timeNum,
-          content,
+          content
         })
       })
     }
@@ -74,5 +77,5 @@ export {
   playCount,
   timeConvert,
   dateConvert,
-  lyricsConvert,
+  lyricsConvert
 }

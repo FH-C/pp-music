@@ -12,6 +12,7 @@ import SearchResultSongVue from 'components/search/SearchResultSong.vue'
 import SearchResultPlaylistVue from 'components/search/SearchResultPlaylist.vue'
 import SearchResultAlbumVue from 'components/search/SearchResultAlbum.vue'
 import SearchResultSingerVue from 'components/search/SearchResultSinger.vue'
+import SearchResultLyricsVue from './components/search/SearchResultLyrics.vue'
 import SearchResultVideoVue from 'components/search/SearchResultVideo.vue'
 import store from '@/store'
 import App from './App.vue'
@@ -53,7 +54,7 @@ app.use(Button)
   .component('SearchResultPlaylistVue', SearchResultPlaylistVue)
   .component('SearchResultVideoVue', SearchResultVideoVue)
   .component('SearchResultSingerVue', SearchResultSingerVue)
-  // .component('SearchResultLyricsVue', SearchResultLyricsVue)
+  .component('SearchResultLyricsVue', SearchResultLyricsVue)
   .component('SearchResultAlbumVue', SearchResultAlbumVue)
   // .component('SearchResultSoundVue', SearchResultSoundVue)
   // .component('SearchResultUserVue', SearchResultUserVue)

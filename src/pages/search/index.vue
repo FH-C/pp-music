@@ -96,7 +96,7 @@ onMounted(async () => {
   // getSearchHot()
   getsearchHotDetail()
   searchHistory.value = getSearchHistoryLocalStorage()
-  if (searchStore.searchSuggestList.length !== 0) {
+  if (searchStore.searchSuggestList && searchStore.searchSuggestList.length !== 0) {
     refInput.value.focus()
   }
 })

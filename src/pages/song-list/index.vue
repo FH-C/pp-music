@@ -34,6 +34,7 @@ import { getArtistSongs } from '@/api/artist'
 import { getSongDetail } from '@/api/play'
 import { useSongStore } from '@/store/song'
 import { ArtistSongsType } from '@/types/artist'
+import { SongDetailType } from '@/types/song'
 const songStore = useSongStore()
 const route = useRoute()
 const songList = ref([] as ArtistSongsType.Song[])
@@ -92,7 +93,7 @@ const playAll = async function () {
         }
       }
     }
-    songStore.playingSongList = songStore.playingSongList.concat(res.songs)
+    songStore.playingSongList = songStore.playingSongList.concat(res.songs as unknown as SongDetailType.Song[])
     if (i === 0) {
       songStore.playingIndex = 0
       songStore.playingId = songStore.playingSongList[songStore.playingIndex].id

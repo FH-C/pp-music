@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { LyricType, SongDetailType } from '@/types/song'
 
 export const useSongStore = defineStore('song', {
   state: () => {
@@ -12,9 +13,9 @@ export const useSongStore = defineStore('song', {
       musicUrl: '',
       musicUrlList: [''],
       misicPicList: [''],
-      playingSongDetail: {} as any,
-      playingSongList: [] as any,
-      lyrics: [] as any,
+      playingSongDetail: {} as SongDetailType.Song,
+      playingSongList: [] as SongDetailType.Song[],
+      lyrics: [] as LyricType.Lyrics[],
       playerRef: null as any,
       showPopup: false
     }

@@ -26,7 +26,7 @@
           v-for="(item, index) in tabs"
           :key="item"
           :title="item"
-          :disabled="[1, 2, 3, 4, 6].indexOf(index) === -1"
+          :disabled="[1, 2, 3, 4, 5, 6].indexOf(index) === -1"
         >
           <keep-alive>
             <component
@@ -81,7 +81,8 @@ import { useRoute } from 'vue-router'
 import { types, tabs, components } from '@/utils/search'
 import { updateSearchHistoryLocalStorage } from '@/utils/localStorage'
 import router from '@/router'
-import { SearchHotDetailType } from '@/types/search'
+import { CloudSearchType, SearchHotDetailType, SearchResultType } from '@/types/search'
+import { CloudType } from '@/types/cloud'
 
 const route = useRoute()
 const showKeyword = ref('')
@@ -97,6 +98,14 @@ onMounted(async () => {
   getsearchHotDetail()
   searchStore.searchKeyword = route.query.key as string
   // await search()
+})
+onUnmounted(() => {
+  searchStore.searchResultSong = [] as unknown as SearchResultType.SearchResultSongType.Root
+  searchStore.searchResultSinger = [] as unknown as SearchResultType.SearchResultArtistType.Root
+  searchStore.searchResultAlbum = [] as unknown as SearchResultType.SearchResultAlbumType.Root
+  searchStore.searchResultLyrics = [] as unknown as SearchResultType.SearchResultLyricsType.Root
+  searchStore.searchResultPlaylist = [] as unknown as SearchResultType.SearchResultPlaylistType.Root
+  searchStore.searchResultVideo = [] as unknown as SearchResultType.SearchResultVideoType.Root
 })
 watch(() => searchStore.active, async () => {
   await search()
@@ -135,13 +144,12 @@ onUnmounted(() => {
 })
 const searchSong = async function () {
   searchStore.loading = true
-  const res = await cloudsearch({
+  const res: CloudSearchType.Root<SearchResultType.SearchResultSongType.Root> = await cloudsearch({
     keywords: searchStore.searchKeyword,
     type: types[searchStore.active],
     limit: searchStore.currentLimit,
     offset: searchStore.currentOffsetList[searchStore.active]
   }, true)
-  console.log(searchStore.currentOffsetList[searchStore.active])
   if (searchStore.currentOffsetList[searchStore.active] === 0) {
     searchStore.searchResultSong = res.result
   } else {
@@ -157,7 +165,7 @@ const searchSong = async function () {
 
 const searchPlaylist = async function () {
   searchStore.loading = true
-  const res = await cloudsearch({
+  const res: CloudSearchType.Root<SearchResultType.SearchResultPlaylistType.Root> = await cloudsearch({
     keywords: searchStore.searchKeyword,
     type: types[searchStore.active],
     limit: searchStore.currentLimit,
@@ -178,7 +186,7 @@ const searchPlaylist = async function () {
 }
 const searchAlbum = async function () {
   searchStore.loading = true
-  const res = await cloudsearch({
+  const res: CloudSearchType.Root<SearchResultType.SearchResultAlbumType.Root> = await cloudsearch({
     keywords: searchStore.searchKeyword,
     type: types[searchStore.active],
     limit: searchStore.currentLimit,
@@ -198,7 +206,7 @@ const searchAlbum = async function () {
 }
 const searchSinger = async function () {
   searchStore.loading = true
-  const res = await cloudsearch({
+  const res: CloudSearchType.Root<SearchResultType.SearchResultArtistType.Root> = await cloudsearch({
     keywords: searchStore.searchKeyword,
     type: types[searchStore.active],
     limit: searchStore.currentLimit,
@@ -216,9 +224,29 @@ const searchSinger = async function () {
     searchStore.finished = true
   }
 }
+const searchLyrics = async function () {
+  searchStore.loading = true
+  const res: CloudSearchType.Root<SearchResultType.SearchResultLyricsType.Root> = await cloudsearch({
+    keywords: searchStore.searchKeyword,
+    type: types[searchStore.active],
+    limit: searchStore.currentLimit,
+    offset: searchStore.currentOffsetList[searchStore.active]
+  }, true)
+  if (searchStore.currentOffsetList[searchStore.active] === 0) {
+    searchStore.searchResultLyrics = res.result
+  } else {
+    searchStore.searchResultLyrics.songs = searchStore.searchResultLyrics.songs.concat(res.result.songs)
+  }
+  searchStore.loading = false
+  showSearchResult.value = true
+  if (searchStore.currentLimit * (
+    searchStore.currentOffsetList[searchStore.active] + 1) >= res.result.songCount) {
+    searchStore.finished = true
+  }
+}
 const searchVideo = async function () {
   searchStore.loading = true
-  const res = await cloudsearch({
+  const res: CloudSearchType.Root<SearchResultType.SearchResultVideoType.Root> = await cloudsearch({
     keywords: searchStore.searchKeyword,
     type: types[searchStore.active],
     limit: searchStore.currentLimit,
@@ -255,6 +283,8 @@ const search = async function (keyword?: string) {
     await searchVideo()
   } else if (searchStore.active === 4) {
     await searchSinger()
+  } else if (searchStore.active === 5) {
+    await searchLyrics()
   } else if (searchStore.active === 6) {
     await searchAlbum()
   }

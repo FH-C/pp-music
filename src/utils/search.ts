@@ -9,11 +9,11 @@ const components = [
   'SearchResultLyricsVue',
   'SearchResultAlbumVue',
   'SearchResultSoundVue',
-  'SearchResultUserVue',
+  'SearchResultUserVue'
 ]
 
 export {
   tabs,
   types,
-  components,
+  components
 }

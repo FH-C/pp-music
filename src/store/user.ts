@@ -1,11 +1,12 @@
+import { LoginStatusType } from '@/types/login'
 import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore('user', {
   state: () => {
     return {
       showUserPopup: false,
-      profile: {} as any,
-      account: {} as any
+      profile: {} as LoginStatusType.Profile,
+      account: {} as LoginStatusType.Account
     }
   },
   actions: {
