@@ -31,9 +31,9 @@
           <keep-alive>
             <component
               :is="components[index]"
-              :videos="searchStore.searchResultVideo.videos"
-              :loading="searchStore.loading"
-              :finished="searchStore.finished"
+              :videos="videoResult?.result?.videos"
+              :loading="loading"
+              :finished="finishedList[searchStore.active]"
               @load="search"
             ></component>
           </keep-alive>
@@ -82,22 +82,34 @@ import { types, tabs, components } from '@/utils/search'
 import { updateSearchHistoryLocalStorage } from '@/utils/localStorage'
 import router from '@/router'
 import { CloudSearchType, SearchHotDetailType, SearchResultType } from '@/types/search'
-import { CloudType } from '@/types/cloud'
+import useSearch from '@/composables/useSearch'
 
 const route = useRoute()
-const showKeyword = ref('')
+// const showKeyword = ref('')
 const searchHotList = ref([])
 const searchHotDetailList = ref([] as SearchHotDetailType.Daum[])
-const keywordList = ref([] as SearchHotDetailType.Daum[])
+// const keywordList = ref([] as SearchHotDetailType.Daum[])
 const searchSuggestList = ref([])
 const showSearchResult = ref(false)
 const searchStore = useSearchStore()
+const {
+  showKeyword,
+  keywordList,
+  albumResult,
+  songResult,
+  playlistResult,
+  liricsResult,
+  artistResult,
+  videoResult,
+  currentOffsetList,
+  loading,
+  finishedList,
+  search,
+  getDefaultKey,
+  getSearchHotDetail
+} = useSearch(searchStore)
 onMounted(async () => {
-  getDefaultKey()
-  // getSearchHot()
-  getsearchHotDetail()
   searchStore.searchKeyword = route.query.key as string
-  // await search()
 })
 onUnmounted(() => {
   searchStore.searchResultSong = [] as unknown as SearchResultType.SearchResultSongType.Root
@@ -116,19 +128,19 @@ const onClickField = async function () {
     path: '/search'
   })
 }
-const getDefaultKey = async function() {
-  const res = await searchDefault(true)
-  showKeyword.value = res.data.showKeyword
-}
+// const getDefaultKey = async function() {
+//   const res = await searchDefault(true)
+//   showKeyword.value = res.data.showKeyword
+// }
 const getSearchHot = async function() {
   const res = await searchHot(true)
   searchHotList.value = res.result.hots
 }
-const getsearchHotDetail = async function() {
-  const res = await searchHotDetail(true)
-  searchHotDetailList.value = res.data
-  keywordList.value = searchHotDetailList.value
-}
+// const getsearchHotDetail = async function() {
+//   const res = await searchHotDetail(true)
+//   searchHotDetailList.value = res.data
+//   keywordList.value = searchHotDetailList.value
+// }
 
 const onUpdate = async function (value: string) {
   if (!value) {
@@ -264,32 +276,32 @@ const searchVideo = async function () {
     searchStore.finished = true
   }
 }
-const search = async function (keyword?: string) {
-  if (keyword) {
-    searchStore.searchKeyword = keyword
-    searchStore.currentOffsetList[searchStore.active] = 0
-  } else {
-    if (!searchStore.searchKeyword) {
-      searchStore.searchKeyword = showKeyword.value
-      searchStore.currentOffsetList[searchStore.active] = 0
-    }
-  }
-  updateSearchHistoryLocalStorage(searchStore.searchKeyword)
-  if (searchStore.active === 1) {
-    await searchSong()
-  } else if (searchStore.active === 2) {
-    await searchPlaylist()
-  } else if (searchStore.active === 3) {
-    await searchVideo()
-  } else if (searchStore.active === 4) {
-    await searchSinger()
-  } else if (searchStore.active === 5) {
-    await searchLyrics()
-  } else if (searchStore.active === 6) {
-    await searchAlbum()
-  }
-  searchStore.currentOffsetList[searchStore.active]++
-}
+// const search = async function (keyword?: string) {
+//   if (keyword) {
+//     searchStore.searchKeyword = keyword
+//     searchStore.currentOffsetList[searchStore.active] = 0
+//   } else {
+//     if (!searchStore.searchKeyword) {
+//       searchStore.searchKeyword = showKeyword.value
+//       searchStore.currentOffsetList[searchStore.active] = 0
+//     }
+//   }
+//   updateSearchHistoryLocalStorage(searchStore.searchKeyword)
+//   if (searchStore.active === 1) {
+//     await searchSong()
+//   } else if (searchStore.active === 2) {
+//     await searchPlaylist()
+//   } else if (searchStore.active === 3) {
+//     await searchVideo()
+//   } else if (searchStore.active === 4) {
+//     await searchSinger()
+//   } else if (searchStore.active === 5) {
+//     await searchLyrics()
+//   } else if (searchStore.active === 6) {
+//     await searchAlbum()
+//   }
+//   searchStore.currentOffsetList[searchStore.active]++
+// }
 
 </script>
 <style scoped lang="scss">
