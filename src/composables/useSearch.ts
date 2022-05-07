@@ -35,7 +35,7 @@ export default function useSearch(searchInfo: any) {
     if (currentOffsetList[searchInfo.active] !== 0) {
       Object.keys(searchResult[searchInfo.active].value.result).map((key) => {
         if (key.indexOf('QcReminder') === -1 && key.indexOf('Count') === -1) {
-          searchResult[searchInfo.active].value.result[key] = (searchResult[searchInfo.active].value.result as any)[key].concat(res.result[key])
+          (searchResult[searchInfo.active].value.result as any)[key] = (searchResult[searchInfo.active].value.result as any)[key].concat(res.result[key])
         }
       })
     } else {
