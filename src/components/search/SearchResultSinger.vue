@@ -1,13 +1,13 @@
 <template>
   <div>
     <van-list
-      v-model:loading="searchStore.loading"
-      :finished="searchStore.finished"
+      v-model:loading="loading"
+      :finished="props.finished"
       finished-text="到底啦~"
       @load="onLoad"
     >
       <van-cell
-        v-for="item in searchStore.searchResultSinger.artists"
+        v-for="item in props.artists"
         :key="item.id"
         center
         @click="toArtistDetail(item.id)"
@@ -31,10 +31,10 @@
                 v-if="getIndex(item.name) !== -1"
                 class="font-blue"
               >
-                {{ item.name.slice(getIndex(item.name), getIndex(item.name) + searchStore.searchKeyword.length) }}
+                {{ item.name.slice(getIndex(item.name), getIndex(item.name) + props.searchKeyword.length) }}
               </span>
               <span v-if="getIndex(item.name) !== -1">
-                {{ item.name.slice(getIndex(item.name) + searchStore.searchKeyword.length) }}
+                {{ item.name.slice(getIndex(item.name) + props.searchKeyword.length) }}
               </span>
               <span
                 v-if="item.alias.length !== 0"
@@ -74,27 +74,41 @@
 </template>
 
 <script setup lang="ts">
-import { numberConvert } from '@/utils/convert'
-import { computed, ref } from 'vue'
-import { useSearchStore } from '@/store/search'
-import { useSongStore } from '@/store/song'
-import { useRouter, useRoute } from 'vue-router'
+import { computed, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import { subscribeArtist } from '@/api/artist'
+const props = defineProps({
+  artists: {
+    type: Array as any,
+    default: () => {
+      return []
+    }
+  },
+  loading: {
+    type: Boolean,
+    default: false
+  },
+  finished: {
+    type: Boolean,
+    default: false
+  },
+  searchKeyword: {
+    type: String,
+    default: ''
+  }
+})
 const emit = defineEmits(['load'])
-const searchStore = useSearchStore()
-const songStore = useSongStore()
 const router = useRouter()
+const loading = ref(props.loading)
+watch(() => props.loading, (val) => {
+  loading.value = val
+})
 const onLoad = function () {
   emit('load')
 }
-const playCount = computed(() => {
-  return function(count: number) {
-    return numberConvert(count)
-  }
-})
 const getIndex = computed(() => {
   return function(name: string) {
-    return name.indexOf(searchStore.searchKeyword)
+    return name.indexOf(props.searchKeyword)
   }
 })
 

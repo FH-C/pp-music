@@ -110,7 +110,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useSearchStore } from '@/store/search'
 import { useSongStore } from '@/store/song'
 import { useRouter } from 'vue-router'

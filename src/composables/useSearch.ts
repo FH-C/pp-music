@@ -32,8 +32,19 @@ export default function useSearch(searchInfo: any) {
       limit: currentLimit,
       offset: currentOffsetList[searchInfo.active]
     }, true)
-    searchResult[searchInfo.active].value = res
-    currentOffsetList[searchInfo.active]++
+    if (currentOffsetList[searchInfo.active] !== 0) {
+      Object.keys(searchResult[searchInfo.active].value.result).map((key) => {
+        if (key.indexOf('QcReminder') === -1 && key.indexOf('Count') === -1) {
+          searchResult[searchInfo.active].value.result[key] = (searchResult[searchInfo.active].value.result as any)[key].concat(res.result[key])
+        }
+      })
+    } else {
+      searchResult[searchInfo.active].value = res
+    }
+    if (Object.keys(searchResult[searchInfo.active].value.result).length === 0) {
+      finishedList[searchInfo.active] = true
+    }
+
     for (const key of Object.keys(searchResult[searchInfo.active].value.result)) {
       if (key.indexOf('Count') !== -1) {
         if (currentLimit * (currentOffsetList[searchInfo.active] + 1) >= (searchResult[searchInfo.active].value.result as any)[key]) {
@@ -41,32 +52,33 @@ export default function useSearch(searchInfo: any) {
         }
       }
     }
-    if (currentOffsetList[searchInfo.active] !== 0) {
-      Object.keys(searchResult[searchInfo.active].value.result).map((key) => {
-        if (key.indexOf('QcReminder') === -1 && key.indexOf('Count') === -1) {
-          searchResult[searchInfo.active] = (searchResult[searchInfo.active].value.result as any)[key]
-        }
-      })
-    }
+    currentOffsetList[searchInfo.active]++
     loading.value = false
   }
 
-  const getDefaultKey = async function() {
+  const getDefaultKey = async function () {
     const res = await searchDefault(true)
     showKeyword.value = res.data.showKeyword
   }
 
-  const getSearchHotDetail = async function() {
+  const getSearchHotDetail = async function () {
     const res = await searchHotDetail(true)
     keywordList.value = res.data
   }
 
-  watch(searchInfo.searchKeyword, search)
-  watch(searchInfo.active, search)
+  const onUpdate = async function (value: string) {
+    if (!value) {
+      return
+    }
+    const res = await searchSuggest({
+      keywords: value,
+      type: 'mobile'
+    }, true)
+    return res.result.allMatch
+  }
 
-  watch(loading, () => {
-    console.log('loading', loading.value)
-  })
+  watch(searchInfo.searchKeyword, search)
+  // watch(searchInfo.active, search)
 
   onMounted(getDefaultKey)
   onMounted(getSearchHotDetail)
@@ -85,6 +97,7 @@ export default function useSearch(searchInfo: any) {
     finishedList,
     search,
     getDefaultKey,
-    getSearchHotDetail
+    getSearchHotDetail,
+    onUpdate
   }
 }
