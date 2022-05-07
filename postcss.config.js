@@ -8,7 +8,7 @@ module.exports = {
       selectorBlackList: ['.ignore', '.hairlines'], // 不转换的类名
       minPixelValue: 1, // 小于1px不转换
       mediaQuery: false, // 允许媒体查询中转换
-      exclude: /(\/|\\)(node_modules)(\/|\\)/,
-    },
-  },
+      exclude: /(\/|\\)(node_modules)(\/|\\)/
+    }
+  }
 }

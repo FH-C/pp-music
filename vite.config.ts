@@ -2,6 +2,7 @@ import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import styleImport, { VantResolve } from 'vite-plugin-style-import'
 import { VitePWA } from 'vite-plugin-pwa'
+import Inspector from 'vite-plugin-vue-inspector'
 import { resolve } from 'path'
 import { svgBuilder } from './src/plugins/svgBuilder'
 
@@ -10,8 +11,9 @@ export default defineConfig({
   plugins: [
     vue(),
     styleImport({
-      resolves: [VantResolve()],
+      resolves: [VantResolve()]
     }),
+    Inspector(),
     VitePWA({
       includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
       manifest: {
@@ -25,43 +27,43 @@ export default defineConfig({
           {
             src: 'pwa-192x192.png',
             sizes: '192x192',
-            type: 'image/png',
+            type: 'image/png'
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png'
           },
           {
             src: 'pwa-512x512.png',
             sizes: '512x512',
             type: 'image/png',
-          },
-          {
-            src: 'pwa-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any maskable',
-          },
-        ],
+            purpose: 'any maskable'
+          }
+        ]
       },
-      strategies: 'generateSW',
+      strategies: 'generateSW'
     }),
-    svgBuilder('./src/icons/svg/'),
+    svgBuilder('./src/icons/svg/')
   ],
   base: './',
   resolve: {
     alias: [{
       find: '@',
-      replacement: resolve(__dirname, 'src'),
+      replacement: resolve(__dirname, 'src')
     }, {
       find: 'components',
-      replacement: resolve(__dirname, 'src/components'),
+      replacement: resolve(__dirname, 'src/components')
     }, {
       find: 'pages',
-      replacement: resolve(__dirname, 'src/pages'),
+      replacement: resolve(__dirname, 'src/pages')
     }, {
       find: 'store',
-      replacement: resolve(__dirname, 'src/store'),
-    }],
+      replacement: resolve(__dirname, 'src/store')
+    }]
   },
   server: {
     host: '0.0.0.0',
-    hmr: true,
-  },
+    hmr: true
+  }
 })

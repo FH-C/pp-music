@@ -32,6 +32,7 @@ module.exports = {
     'space-before-function-paren': 0,
     'vue/multi-word-component-names': 0,
     'no-unreachable-loop': 0,
-    'array-callback-return': 0
+    'array-callback-return': 0,
+    'comma-dangle': ['error', 'never']
   }
 }

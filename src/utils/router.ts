@@ -3,5 +3,5 @@ const onClickLeft = function () {
 }
 
 export {
-  onClickLeft,
+  onClickLeft
 }

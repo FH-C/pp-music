@@ -12,7 +12,7 @@ const updateSearchHistoryLocalStorage = function (searchText: string) {
     if (_.findIndex(searchHistoryArr, ['text', searchText]) === -1) {
       searchHistoryArr.unshift({
         text: searchText,
-        timestamp,
+        timestamp
       })
       if (searchHistoryArr.length > 10) {
         searchHistoryArr.pop()
@@ -23,14 +23,14 @@ const updateSearchHistoryLocalStorage = function (searchText: string) {
       _.pullAt(searchHistoryArr, index)
       searchHistoryArr.unshift({
         text: searchText,
-        timestamp,
+        timestamp
       })
       localStorage.setItem('searchHistory', JSON.stringify(searchHistoryArr))
     }
   } else {
     localStorage.setItem('searchHistory', JSON.stringify([{
       text: searchText,
-      timestamp,
+      timestamp
     }]))
   }
 }
@@ -47,5 +47,5 @@ export {
   getPlayingLocalStorage,
   updateSearchHistoryLocalStorage,
   getSearchHistoryLocalStorage,
-  clearSearchHistoryLocalStorage,
+  clearSearchHistoryLocalStorage
 }
