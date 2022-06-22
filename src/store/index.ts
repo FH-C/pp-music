@@ -1,5 +1,3 @@
-import { createPinia } from 'pinia'
+import { useCounterStore } from './count';
 
-const store = createPinia()
-
-export default store
+export { useCounterStore };

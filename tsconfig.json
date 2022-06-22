@@ -1,8 +1,5 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
-    "importHelpers": true,
     "target": "esnext",
     "useDefineForClassFields": true,
     "module": "esnext",
@@ -11,41 +8,29 @@
     "jsx": "preserve",
     "sourceMap": true,
     "resolveJsonModule": true,
+    "isolatedModules": true,
     "esModuleInterop": true,
     "lib": [
       "esnext",
       "dom"
     ],
+    "skipLibCheck": true,
+    "baseUrl": ".",
     "paths": {
       "@/*": [
         "src/*"
-      ],
-      "store/*": [
-        "src/store/*"
-      ],
-      "components/*": [
-        "src/components/*"
-      ],
-      "page/*": [
-        "src/page/*"
-      ],
-    }
+      ]
+    },
+    "types": [
+      "vite/client"
+    ],
+    "composite": true,
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
-    "src/**/*.vue",
-    "src/plugins/*.ts"
+    "*.config.ts",
+    "src/**/*.vue"
   ],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "build"
-  ]
 }
